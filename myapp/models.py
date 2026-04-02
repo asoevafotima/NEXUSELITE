@@ -62,5 +62,5 @@ class AIRequest(models.Model):
     ai_response = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def str(self):
-        return self.title
+    def __str__(self):
+        return self.title or f"AI request #{self.pk or 'new'}"

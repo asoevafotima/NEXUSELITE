@@ -16,8 +16,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from pathlib import Path
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -31,7 +29,15 @@ SECRET_KEY = 'django-insecure-*xg!+!o#&h=%f+&()r*lih@ix5@v+yt!m8l8z5sxw11*s-dka0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+raw_allowed_hosts = os.getenv('ALLOWED_HOSTS', '')
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in raw_allowed_hosts.split(',')
+    if host.strip()
+]
+
+if DEBUG and not ALLOWED_HOSTS:
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver']
 
 
 # Application definition
@@ -148,6 +154,7 @@ EMAIL_HOST = SMTP_HOST
 EMAIL_PORT = SMTP_PORT
 EMAIL_HOST_USER = SMTP_USER
 EMAIL_USE_TLS = True
+EMAIL_TIMEOUT = 10
 DEFAULT_FROM_EMAIL = SMTP_USER
  
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

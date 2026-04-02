@@ -314,7 +314,7 @@ class OrderCreateView(PermissionRequiredMixin, CreateView):
         messages.success(self.request, 'Заказ отправлен')
         return response
 
-    def get_success_url(self):  # ← ЭТО ОБЯЗАТЕЛЬНО ДОЛЖНО БЫТЬ!
+    def get_success_url(self): 
         return reverse('resume_detail', kwargs={'pk': self.kwargs['pk']})
     
 
@@ -337,7 +337,5 @@ class FeedbackCreateView(PermissionRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-def about_view(request):
+def about_view(request):  
     return render(request, 'aboutas.html', base_context(request))
-
-        

@@ -97,27 +97,45 @@
             {% endfor %}
         {% endif %}
 
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                <div class="error-msg">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+
         <form method="post" autocomplete="off">
             {% csrf_token %}
             
             <div class="form-group">
                 <label data-i18n="l_user">Имя пользователя</label>
                 {{ form.username }}
+                {% for error in form.username.errors %}
+                    <div class="error-msg">{{ error }}</div>
+                {% endfor %}
             </div>
             
             <div class="form-group">
                 <label data-i18n="l_email">Email</label>
                 {{ form.email }}
+                {% for error in form.email.errors %}
+                    <div class="error-msg">{{ error }}</div>
+                {% endfor %}
             </div>
 
             <div class="form-group">
                 <label data-i18n="l_pass">Пароль</label>
                 {{ form.password }}
+                {% for error in form.password.errors %}
+                    <div class="error-msg">{{ error }}</div>
+                {% endfor %}
             </div>
 
             <div class="form-group">
                 <label data-i18n="l_pass2">Подтверждение пароля</label>
                 {{ form.confirm_password }}
+                {% for error in form.confirm_password.errors %}
+                    <div class="error-msg">{{ error }}</div>
+                {% endfor %}
             </div>
 
             <!-- ✅ Выбор роли — добавлено сюда, ничего больше не тронуто -->

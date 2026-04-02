@@ -4,6 +4,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
+from django.core.mail import BadHeaderError
 from django.core.mail import send_mail
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -56,6 +57,24 @@ def send_confirmation_email(request, user):
         recipient_list=[user.email],
         fail_silently=False,
     )
+
+
+def try_send_confirmation_email(request, user):
+    try:
+        send_confirmation_email(request, user)
+        return True
+    except (OSError, TimeoutError, ConnectionError, BadHeaderError) as error:
+        messages.error(
+            request,
+            f'Не удалось отправить письмо подтверждения: {error}',
+        )
+        return False
+    except Exception as error:
+        messages.error(
+            request,
+            f'Ошибка при отправке письма подтверждения: {error}',
+        )
+        return False
 
 
 def send_reset_password_email(request, user):
@@ -111,7 +130,8 @@ def registrations(request):
                         existing_email_user.groups.clear()
                         user_role, _ = Group.objects.get_or_create(name=role)
                         existing_email_user.groups.add(user_role)
-                        send_confirmation_email(request, existing_email_user)
+                        if not try_send_confirmation_email(request, existing_email_user):
+                            return render(request, 'register.html', {'form': form})
                     else:
                         user = Users.objects.create_user(
                             username=username,
@@ -120,7 +140,8 @@ def registrations(request):
                         )
                         user_role, _ = Group.objects.get_or_create(name=role)
                         user.groups.add(user_role)
-                        send_confirmation_email(request, user)
+                        if not try_send_confirmation_email(request, user):
+                            return render(request, 'register.html', {'form': form})
 
                     messages.success(
                         request,
