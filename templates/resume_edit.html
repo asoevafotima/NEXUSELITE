@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Elite | Edit Record</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+        :root {
+            --bg: #cdc8bf; 
+            --surface: #d6d1c8; 
+            --surface2: #c4beb3;
+            --text: #1a1a1a;
+            --text2: #525252;
+            --accent: #2563eb;
+            --accent-light: rgba(37, 99, 235, 0.1);
+            --border: rgba(0, 0, 0, 0.1);
+            --nav-bg: rgba(205, 200, 191, 0.92);
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --radius: 24px;
+        }
+
+        [data-theme="dark"] {
+            --bg: #1e1e21; 
+            --surface: #252529;
+            --surface2: #2d2d33;
+            --text: #f0f0f0;
+            --text2: #9494a1;
+            --accent: #4f8aff;
+            --accent-light: rgba(79, 138, 255, 0.15);
+            --border: rgba(255, 255, 255, 0.08);
+            --nav-bg: rgba(30, 30, 33, 0.92);
+            --shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Manrope', sans-serif; 
+            transition: background 0.35s ease; 
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: sticky; top: 0; z-index: 100;
+            background: var(--nav-bg);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 32px; height: 64px;
+        }
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem; letter-spacing: 2px;
+            color: var(--text); text-decoration: none;
+        }
+        .logo span { color: var(--accent); }
+
+        .nav-right { display: flex; align-items: center; gap: 8px; }
+
+        .btn-ui {
+            font-size: 0.75rem; font-weight: 700;
+            padding: 8px 18px; border-radius: 100px;
+            border: 1.5px solid var(--border); background: var(--surface2);
+            cursor: pointer; text-decoration: none; color: var(--text);
+            transition: 0.2s; text-transform: uppercase;
+        }
+        .btn-ui:hover { border-color: var(--text); background: var(--surface); }
+
+        /* ── FORM CARD ── */
+        .main-content { flex: 1; display: flex; align-items: center; justify-content: center; padding: 60px 20px; }
+        .form-card { 
+            background: var(--surface); 
+            border: 1px solid var(--border); 
+            border-radius: var(--radius); 
+            padding: 40px; 
+            width: 100%;
+            max-width: 600px;
+            box-shadow: var(--shadow);
+        }
+        
+        h2 { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; line-height: 1; margin-bottom: 5px; text-align: center; color: var(--text); }
+        .system-id { display: block; text-align: center; font-family: 'Space Mono'; font-size: 0.65rem; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; font-weight: 700; }
+
+        form p { margin-bottom: 20px; display: flex; flex-direction: column; gap: 6px; }
+        label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: var(--text2); letter-spacing: 0.5px; }
+        
+        input, textarea, select {
+            background: var(--surface2) !important;
+            border: 1px solid var(--border) !important;
+            border-radius: 12px !important;
+            padding: 12px 16px !important;
+            color: var(--text) !important;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            transition: 0.2s;
+            width: 100%;
+        }
+        input:focus, textarea:focus { border-color: var(--accent) !important; background: var(--bg) !important; box-shadow: 0 0 15px var(--accent-light); }
+
+        .update-btn {
+            width: 100%; padding: 16px;
+            background: var(--accent); border: none;
+            border-radius: 100px; color: white;
+            font-size: 0.85rem; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 1px;
+            cursor: pointer; transition: 0.3s; margin-top: 10px;
+        }
+        .update-btn:hover { transform: translateY(-2px); filter: brightness(1.1); box-shadow: 0 8px 20px var(--accent-light); }
+
+        .back-link { display: block; text-align: center; margin-top: 20px; font-size: 0.75rem; font-weight: 700; color: var(--text2); text-decoration: none; text-transform: uppercase; }
+
+        /* ── FOOTER ── */
+        footer { 
+            background: var(--surface); 
+            border-top: 1px solid var(--border); 
+            padding: 60px 32px 20px; 
+            margin-top: 40px;
+        }
+        .footer-grid { 
+            display: grid; 
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1.5fr; 
+            gap: 32px; 
+            margin-bottom: 40px; 
+        }
+        .footer-brand .logo { font-size: 1.5rem; margin-bottom: 12px; display: block; }
+        .footer-desc { font-size: 0.8rem; color: var(--text2); line-height: 1.5; margin-bottom: 20px; max-width: 280px; }
+        
+        .footer-col h4 { font-size: 0.75rem; font-weight: 800; color: var(--text); text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px; }
+        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .footer-col ul a { font-size: 0.82rem; color: var(--text2); text-decoration: none; transition: 0.2s; }
+        .footer-col ul a:hover { color: var(--accent); padding-left: 4px; }
+        
+        .footer-socials { display: flex; gap: 10px; }
+        .social-btn { 
+            width: 34px; height: 34px; border-radius: 10px; 
+            background: var(--surface2); display: flex; align-items: center; justify-content: center; 
+            color: var(--text); text-decoration: none; font-size: 0.8rem; font-weight: 700;
+            transition: 0.3s; border: 1px solid var(--border); 
+        }
+        .social-btn:hover { background: var(--accent); color: white; transform: translateY(-3px); }
+
+        .newsletter-box { 
+            background: var(--surface2); padding: 5px; border-radius: 14px; 
+            display: flex; gap: 5px; border: 1px solid var(--border);
+        }
+        .newsletter-box input { flex: 1; background: transparent; border: none; outline: none; padding-left: 12px; color: var(--text); font-size: 0.8rem; min-width: 0; }
+        .newsletter-box button { background: var(--text); color: var(--bg); border: none; padding: 10px 18px; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 0.75rem; }
+
+        .footer-bottom { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding-top: 25px; border-top: 1px solid var(--border);
+            font-size: 0.78rem; color: var(--text2);
+        }
+        #footer-clock { font-family: 'Space Mono', monospace; color: var(--accent); font-weight: 700; }
+
+        .reveal { opacity: 0; transform: translateY(20px); }
+
+        @media (max-width: 1200px) { .footer-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 768px) {
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
+    <div class="nav-right">
+        <button class="btn-ui" onclick="toggleLang()" id="lang-btn">EN</button>
+        <button class="btn-ui" id="theme-toggle">
+            <span id="theme-icon">🌙</span> <span id="theme-text" data-i18n="t_night">НОЧЬ</span>
+        </button>
+        <a href="{% url 'resume_detail' resume.pk %}" class="btn-ui" data-i18n="btn_discard">ОТМЕНА</a>
+    </div>
+</nav>
+
+<div class="main-content">
+    <div class="form-card reveal">
+        <h2 data-i18n="h_update">ИЗМЕНИТЬ ЗАПИСЬ</h2>
+        <div class="system-id">ID_REF: {{ resume.full_name|upper }}</div>
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="update-btn" data-i18n="btn_commit">СОХРАНИТЬ ИЗМЕНЕНИЯ</button>
+        </form>
+        
+        <a href="{% url 'resume_detail' resume.pk %}" class="back-link" data-i18n="btn_back">← НАЗАД К ПРОФИЛЮ</a>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-grid reveal">
+        <div class="footer-brand">
+            <a href="#" class="logo">NEXUS<span>ELITE</span></a>
+            <p class="footer-desc">Система управления талантами Nexus Elite. Точность и эффективность.</p>
+            <div class="footer-socials">
+                <a href="#" class="social-btn">TG</a>
+                <a href="#" class="social-btn">IG</a>
+                <a href="#" class="social-btn">BE</a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4>Платформа</h4>
+            <ul>
+                <li><a href="{% url 'home' %}">Все мастера</a></li>
+                <li><a href="{% url 'resume_add' %}">Стать экспертом</a></li>
+                <li><a href="{% url 'homeview' %}">AI Ассистент</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Сервисы</h4>
+            <ul>
+                <li><a href="#">База данных</a></li>
+                <li><a href="#">Аналитика</a></li>
+                <li><a href="#">Поддержка</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Право</h4>
+            <ul>
+                <li><a href="#">Условия</a></li>
+                <li><a href="#">Приватность</a></li>
+                <li><a href="#">Cookies</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Связь</h4>
+            <ul>
+                <li><a href="mailto:info@nexus.tj">info@nexus.tj</a></li>
+                <li><a href="tel:+992939939641">+992 939 939 641</a></li>
+            </ul>
+        </div>
+        <div class="footer-newsletter">
+            <h4>Подписка</h4>
+            <form class="newsletter-box">
+                <input type="email" placeholder="Email" required>
+                <button type="submit">OK</button>
+            </form>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 NEXUS ELITE. Редактирование профиля.</p>
+        <div id="footer-clock">00:00:00</div>
+    </div>
+</footer>
+
+<script>
+    const T = {
+        en: { t_night: "NIGHT", t_day: "DAY", btn_discard: "DISCARD", h_update: "UPDATE RECORD", btn_commit: "COMMIT CHANGES", btn_back: "← BACK TO PROFILE" },
+        ru: { t_night: "НОЧЬ", t_day: "ДЕНЬ", btn_discard: "ОТМЕНА", h_update: "ИЗМЕНИТЬ ЗАПИСЬ", btn_commit: "СОХРАНИТЬ ИЗМЕНЕНИЯ", btn_back: "← НАЗАД К ПРОФИЛЮ" }
+    };
+    
+    let currentLang = 'ru';
+
+    function toggleLang() {
+        currentLang = currentLang === 'ru' ? 'en' : 'ru';
+        document.getElementById('lang-btn').textContent = currentLang === 'en' ? 'RU' : 'EN';
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const k = el.getAttribute('data-i18n');
+            if (T[currentLang][k]) el.innerHTML = T[currentLang][k];
+        });
+    }
+
+    const themeBtn = document.getElementById('theme-toggle');
+    themeBtn.addEventListener('click', () => {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        document.getElementById('theme-icon').textContent = isDark ? '🌙' : '☀️';
+        document.getElementById('theme-text').textContent = isDark ? T[currentLang].t_night : T[currentLang].t_day;
+    });
+
+    setInterval(() => { document.getElementById('footer-clock').textContent = new Date().toLocaleTimeString(); }, 1000);
+    window.onload = () => { gsap.to('.reveal', { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 }); };
+</script>
+
+</body>
+</html>

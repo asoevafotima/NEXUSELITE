@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Elite | Create Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Bebas+Neue&family=Space+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0D0A06; --surface: #16120C; --accent: #E8913A; 
+            --text: #F4EFE4; --text-dim: #B8A888; --border: rgba(244, 239, 228, 0.1);
+        }
+        [data-theme="light"] {
+            --bg: #F4F0E8; --surface: #EDE8DC; --accent: #C8622A; 
+            --text: #1A1208; --text-dim: #5A4E38; --border: rgba(26, 18, 8, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: var(--bg); color: var(--text); font-family: 'Manrope', sans-serif; 
+            min-height: 100vh; display: flex; flex-direction: column;
+        }
+
+        nav { 
+            padding: 20px 4%; display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--border); background: var(--bg); position: sticky; top: 0; z-index: 100;
+        }
+        .logo { font-family: 'Bebas Neue'; font-size: 1.8rem; text-decoration: none; color: var(--text); letter-spacing: 1px; }
+        .logo span { color: var(--accent); }
+
+        .form-container { 
+            max-width: 800px; margin: 60px auto; width: 90%; 
+            background: var(--surface); border: 1px solid var(--border); border-radius: 32px; padding: 50px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .form-header { margin-bottom: 40px; }
+        .form-header h1 { font-family: 'Bebas Neue'; font-size: 3.5rem; line-height: 1; margin-bottom: 10px; }
+        .form-header p { color: var(--text-dim); font-size: 0.9rem; font-family: 'Space Mono'; }
+
+        .form-group { margin-bottom: 25px; }
+        label { display: block; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; color: var(--accent); }
+        
+        input, select, textarea {
+            width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 12px;
+            padding: 15px 20px; color: var(--text); font-family: 'Manrope'; font-size: 1rem;
+            transition: 0.3s;
+        }
+        input:focus, textarea:focus { border-color: var(--accent); outline: none; background: var(--surface); }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+        .btn-submit {
+            background: var(--accent); color: var(--bg); border: none; width: 100%;
+            padding: 18px; border-radius: 100px; font-weight: 800; font-size: 1rem;
+            cursor: pointer; transition: 0.3s; margin-top: 20px; text-transform: uppercase;
+        }
+        .btn-submit:hover { transform: translateY(-3px); filter: brightness(1.1); box-shadow: 0 10px 20px rgba(232, 145, 58, 0.2); }
+
+        footer { margin-top: auto; padding: 40px; text-align: center; font-family: 'Space Mono'; font-size: 0.7rem; opacity: 0.5; }
+
+        @media (max-width: 600px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .form-container { padding: 30px; }
+            .form-header h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="/" class="logo">NEXUS<span>ELITE</span></a>
+    <a href="/logs" style="font-family: 'Space Mono'; color: var(--text-dim); text-decoration: none; font-size: 0.8rem;">[ VIEW LOGS ]</a>
+</nav>
+
+<main class="form-container">
+    <div class="form-header">
+        <h1>СТАТЬ ЭКСПЕРТОМ</h1>
+        <p>// INITIALIZING REGISTRATION PROTOCOL</p>
+    </div>
+
+    <form method="POST">
+        <div class="grid-2">
+            <div class="form-group">
+                <label>Имя Фамилия</label>
+                <input type="text" placeholder="Алишер Содиков" required>
+            </div>
+            <div class="form-group">
+                <label>Специализация</label>
+                <select>
+                    <option>UI/UX Designer</option>
+                    <option>Python Developer</option>
+                    <option>C++ Engineer</option>
+                    <option>Marketing Expert</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>О себе (Краткий стек технологий)</label>
+            <textarea rows="4" placeholder="Например: PostgreSQL, Django, React. 5 лет опыта в финтехе."></textarea>
+        </div>
+
+        <div class="grid-2">
+            <div class="form-group">
+                <label>Telegram / Телефон</label>
+                <input type="text" placeholder="@username">
+            </div>
+            <div class="form-group">
+                <label>Ожидаемая ставка (час)</label>
+                <input type="text" placeholder="от 150 смн">
+            </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Опубликовать в системе</button>
+    </form>
+</main>
+
+<footer>
+    © 2026 NEXUS ELITE // ENCRYPTED SUBMISSION SYSTEM
+</footer>
+
+</body>
+</html>

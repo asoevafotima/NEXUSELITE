@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас | Nexus Elite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #cdc8bf; 
+            --surface: #d6d1c8; 
+            --surface2: #c4beb3; 
+            --text: #1a1a1a;
+            --text2: #525252;
+            --accent: #2563eb;
+            --accent-light: rgba(37, 99, 235, 0.1);
+            --border: rgba(0, 0, 0, 0.1);
+            --nav-bg: rgba(205, 200, 191, 0.92);
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --radius: 20px;
+            --radius-sm: 12px;
+        }
+
+        [data-theme="dark"] {
+            --bg: #1e1e21; 
+            --surface: #252529;
+            --surface2: #2d2d33;
+            --text: #f0f0f0;
+            --text2: #9494a1;
+            --accent: #4f8aff;
+            --accent-light: rgba(79, 138, 255, 0.15);
+            --border: rgba(255, 255, 255, 0.08);
+            --nav-bg: rgba(30, 30, 33, 0.92);
+            --shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            transition: background 0.35s, color 0.35s;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: sticky; top: 0; z-index: 100;
+            background: var(--nav-bg);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 32px; height: 64px;
+        }
+        .logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 2px; color: var(--text); text-decoration: none; }
+        .logo span { color: var(--accent); }
+
+        .nav-links { display: flex; gap: 4px; list-style: none; }
+        .nav-links a {
+            font-size: 0.82rem; font-weight: 600; color: var(--text2); text-decoration: none;
+            padding: 7px 14px; border-radius: 8px; transition: 0.2s;
+        }
+        .nav-links a:hover { background: var(--surface2); color: var(--text); }
+
+        .btn-pill {
+            font-family: 'Manrope', sans-serif; font-size: 0.78rem; font-weight: 700;
+            padding: 8px 18px; border-radius: 100px; border: none; cursor: pointer; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;
+        }
+        .btn-pill-ghost { background: transparent; border: 1.5px solid var(--border); color: var(--text2); }
+        .btn-icon {
+            background: var(--surface2); border: none; width: 36px; height: 36px; border-radius: 50%;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text2);
+        }
+
+        /* ── ABOUT CONTENT ── */
+        .hero-about { padding: 80px 32px 40px; max-width: 1200px; margin: 0 auto; }
+        .hero-about h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; line-height: 1.1; letter-spacing: -1px; margin-bottom: 24px; }
+        .hero-about p { font-size: 1.1rem; color: var(--text2); max-width: 700px; line-height: 1.7; }
+
+        .grid-section { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; padding: 40px 32px; max-width: 1200px; margin: 0 auto; }
+        .grid-text h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; letter-spacing: 1px; margin-bottom: 20px; color: var(--accent); }
+        .grid-text p { margin-bottom: 20px; color: var(--text2); }
+
+        .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 40px 32px; max-width: 1200px; margin: 0 auto; }
+        .value-card {
+            background: var(--surface); padding: 32px; border-radius: var(--radius); border: 1px solid var(--border); transition: 0.3s;
+        }
+        .value-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: var(--shadow); }
+        .value-card h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 12px; }
+        .value-card p { font-size: 0.9rem; color: var(--text2); }
+
+        /* ── WORKFLOW ── */
+        .workflow { background: var(--surface2); padding: 60px 32px; border-radius: var(--radius); margin: 40px 32px; }
+        .workflow-inner { max-width: 1136px; margin: 0 auto; }
+        .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; margin-top: 40px; }
+        .step-num { font-family: 'Space Mono', monospace; color: var(--accent); font-weight: 700; font-size: 1.2rem; display: block; margin-bottom: 10px; }
+        .step h4 { font-size: 1.1rem; font-weight: 800; margin-bottom: 10px; }
+        .step p { font-size: 0.85rem; color: var(--text2); }
+
+        /* ── FOOTER (Sync with Main) ── */
+        footer { background: var(--surface); border-top: 1px solid var(--border); padding: 60px 32px 20px; margin-top: auto; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1.5fr; gap: 32px; margin-bottom: 40px; }
+        .footer-col h4 { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 20px; }
+        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .footer-col ul a { font-size: 0.82rem; color: var(--text2); text-decoration: none; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 25px; border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--text2); }
+        #footer-clock { font-family: 'Space Mono', monospace; color: var(--accent); font-weight: 700; }
+
+        .reveal { opacity: 0; transform: translateY(18px); transition: 0.55s ease; }
+        .reveal.visible { opacity: 1; transform: none; }
+
+        @media (max-width: 1024px) {
+            .footer-grid { grid-template-columns: repeat(3, 1fr); }
+            .values-grid, .steps { grid-template-columns: repeat(2, 1fr); }
+            .grid-section { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) {
+            .values-grid, .steps { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="/" class="logo">NEXUS<span>ELITE</span></a>
+    <ul class="nav-links">
+        <li><a href="/">Главная</a></li>
+        <li><a href="/about" style="color: var(--text); background: var(--surface2);">О нас</a></li>
+        <li><a href="/ai">AI Ассистент</a></li>
+    </ul>
+    <div class="nav-right" style="display: flex; gap: 8px; align-items: center;">
+        <button class="btn-pill btn-pill-ghost" id="lang-btn">RU</button>
+        <button class="btn-icon" id="theme-toggle"><span id="theme-icon">🌙</span></button>
+        <a href="/" class="btn-pill btn-pill-ghost">На главную</a>
+    </div>
+</nav>
+
+<header class="hero-about reveal">
+    <div class="banner-tag" style="background: var(--accent); color: white; display: inline-block; padding: 4px 12px; border-radius: 100px; font-size: 0.7rem; font-weight: 700; margin-bottom: 16px;">✦ О ПРОЕКТЕ</div>
+    <h1>Больше чем платформа. <br>Это Ваш цифровой цех.</h1>
+    <p>Nexus Elite — это интеллектуальная экосистема Таджикистана, созданная для того, чтобы стереть границы между талантом и возможностями. Мы объединяем лучших мастеров своего дела в единую сеть.</p>
+</header>
+
+<section class="grid-section reveal">
+    <div class="grid-text">
+        <h2>Наша философия</h2>
+        <p>В эпоху перенасыщения информацией, найти настоящего эксперта становится всё сложнее. Мы верим, что качество важнее количества. Каждый специалист в нашей базе проходит проверку, чтобы вы получали только лучший результат.</p>
+        <p>Наша цель на 2026 год — создать самый прозрачный и эффективный рынок услуг, где репутация подтверждается делом, а поиск занимает секунды благодаря AI технологиям.</p>
+    </div>
+    <div style="background: var(--surface2); border-radius: var(--radius); min-height: 300px; background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center;"></div>
+</section>
+
+<div class="reveal" style="text-align: center; padding-top: 40px;">
+    <h2 style="font-family: 'Bebas Neue'; font-size: 3rem; letter-spacing: 1px;">Наши ценности</h2>
+</div>
+
+<section class="values-grid reveal">
+    <div class="value-card">
+        <h3>Качество</h3>
+        <p>Мы не просто список контактов. Мы фильтруем шум, оставляя только тех, кто действительно горит своим делом.</p>
+    </div>
+    <div class="value-card">
+        <h3>Инновации</h3>
+        <p>Использование нейросетей для подбора кадров позволяет нам находить идеальные совпадения для сложных задач.</p>
+    </div>
+    <div class="value-card">
+        <h3>Локальность</h3>
+        <p>Мы ориентированы на рынок Таджикистана, понимая его специфику и поддерживая местных профессионалов.</p>
+    </div>
+</section>
+
+<section class="workflow reveal">
+    <div class="workflow-inner">
+        <h2 style="font-family: 'Bebas Neue'; font-size: 2.5rem; margin-bottom: 10px;">Как это работает</h2>
+        <div class="steps">
+            <div class="step">
+                <span class="step-num">01</span>
+                <h4>Регистрация</h4>
+                <p>Мастер создает детальное портфолио, указывая свои навыки и достижения.</p>
+            </div>
+            <div class="step">
+                <span class="step-num">02</span>
+                <h4>Модерация</h4>
+                <p>Наша система и администраторы проверяют данные на актуальность и честность.</p>
+            </div>
+            <div class="step">
+                <span class="step-num">03</span>
+                <h4>Поиск</h4>
+                <p>Заказчик находит эксперта через умные фильтры или с помощью AI Ассистента.</p>
+            </div>
+            <div class="step">
+                <span class="step-num">04</span>
+                <h4>Результат</h4>
+                <p>Успешное сотрудничество и рост цифровой экономики региона.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-grid reveal">
+        <div class="footer-brand">
+            <a href="#" class="logo">NEXUS<span>ELITE</span></a>
+            <p class="footer-desc">Интеллектуальная экосистема для объединения талантов и заказчиков в Таджикистане.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Платформа</h4>
+            <ul>
+                <li><a href="/">Все мастера</a></li>
+                <li><a href="/ai">AI Ассистент</a></li>
+                <li><a href="#">Топ категорий</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Контакты</h4>
+            <ul>
+                <li><a href="mailto:info@nexus.tj">info@nexus.tj</a></li>
+                <li><a href="tel:+992939939641">+992 939 939 641</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 NEXUS ELITE. Designed for the future.</p>
+        <div id="footer-clock">00:00:00</div>
+    </div>
+</footer>
+
+<script>
+    // Theme Toggle
+    const themeBtn = document.getElementById('theme-toggle');
+    themeBtn.addEventListener('click', () => {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        document.getElementById('theme-icon').textContent = isDark ? '🌙' : '☀️';
+    });
+
+    // Clock
+    setInterval(() => { document.getElementById('footer-clock').textContent = new Date().toLocaleTimeString(); }, 1000);
+
+    // Scroll Animations
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach((el, i) => { 
+        el.style.transitionDelay = (i * 0.1) + 's'; 
+        observer.observe(el); 
+    });
+</script>
+</body>
+</html>

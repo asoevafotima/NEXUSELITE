@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление записью | Nexus Elite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+        :root {
+            --bg: #cdc8bf; 
+            --surface: #d6d1c8; 
+            --surface2: #c4beb3;
+            --text: #1a1a1a;
+            --text2: #525252;
+            --accent: #2563eb;
+            --border: rgba(0, 0, 0, 0.1);
+            --shadow: 0 10px 40px rgba(0,0,0,0.05);
+            --radius: 24px;
+        }
+
+        [data-theme="dark"] {
+            --bg: #1a1a1c; 
+            --surface: #222226;
+            --surface2: #2d2d33;
+            --text: #f0f0f0;
+            --text2: #9494a1;
+            --accent: #4f8aff;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Manrope', sans-serif; 
+            display: flex; flex-direction: column; min-height: 100vh;
+            transition: 0.4s ease;
+        }
+
+        /* --- NAV --- */
+        nav {
+            position: sticky; top: 0; z-index: 1000;
+            background: var(--bg); border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 5%; height: 75px; backdrop-filter: blur(10px);
+        }
+        .logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--text); text-decoration: none; letter-spacing: 1px; }
+        .logo span { color: var(--accent); }
+
+        .btn-ui {
+            font-size: 0.75rem; font-weight: 800; padding: 10px 22px; border-radius: 50px;
+            border: 1px solid var(--border); background: var(--surface2);
+            cursor: pointer; text-decoration: none; color: var(--text); transition: 0.3s;
+        }
+        .btn-ui:hover { background: var(--text); color: var(--bg); }
+
+        /* --- FORM LAYOUT --- */
+        .main-wrapper { flex: 1; display: flex; align-items: center; justify-content: center; padding: 60px 20px; }
+        
+        .form-card {
+            background: var(--surface);
+            padding: 50px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            max-width: 700px;
+            width: 100%;
+            box-shadow: var(--shadow);
+        }
+
+        .form-card h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        /* Django Form Styling */
+        form p { margin-bottom: 20px; display: flex; flex-direction: column; }
+        
+        label { 
+            font-size: 0.75rem; font-weight: 800; text-transform: uppercase; 
+            margin-bottom: 8px; color: var(--text2); letter-spacing: 1px;
+        }
+
+        input, textarea, select {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 18px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 1rem;
+            color: var(--text);
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus, textarea:focus { border-color: var(--accent); background: var(--bg); }
+
+        .submit-btn {
+            width: 100%; padding: 20px; background: #1a1a1a;
+            color: white; border: none; border-radius: 50px;
+            font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem;
+            letter-spacing: 1px; cursor: pointer; transition: 0.3s;
+            margin-top: 20px;
+        }
+        .submit-btn:hover { background: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2); }
+
+        .back-link {
+            display: block; text-align: center; margin-top: 25px;
+            color: var(--text2); text-decoration: none; font-size: 0.8rem;
+            font-weight: 700; text-transform: uppercase; transition: 0.2s;
+        }
+        .back-link:hover { color: var(--accent); }
+
+        /* --- FOOTER --- */
+        footer { background: var(--surface); border-top: 1px solid var(--border); padding: 80px 5% 40px; margin-top: auto; }
+        .f-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1.5fr; gap: 30px; margin-bottom: 60px; }
+        
+        .f-brand .logo { font-size: 1.8rem; display: block; margin-bottom: 20px; }
+        .f-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; max-width: 260px; margin-bottom: 25px; }
+        
+        .f-socials { display: flex; gap: 10px; }
+        .social-btn { 
+            width: 36px; height: 36px; border-radius: 50%; background: var(--surface2); 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 0.7rem; font-weight: 800; color: var(--text); 
+            text-decoration: none; border: 1px solid var(--border); transition: 0.3s;
+        }
+        .social-btn:hover { background: var(--text); color: var(--bg); }
+
+        .f-col h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 25px; color: var(--text); }
+        .f-col ul { list-style: none; }
+        .f-col li { margin-bottom: 12px; }
+        .f-col a { color: var(--text2); text-decoration: none; font-size: 0.9rem; transition: 0.2s; }
+        .f-col a:hover { color: var(--accent); }
+
+        .f-sub-form { display: flex; background: var(--surface2); border-radius: 50px; padding: 5px; border: 1px solid var(--border); }
+        .f-sub-form input { background: none; border: none; padding: 10px 20px; flex: 1; font-size: 0.85rem; color: var(--text); outline: none; }
+        .f-sub-btn { background: #1a1a1a; color: white; border: none; padding: 0 20px; border-radius: 50px; font-weight: 800; font-size: 0.7rem; cursor: pointer; }
+
+        .f-bottom { border-top: 1px solid var(--border); padding-top: 30px; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text2); }
+        
+        .reveal { opacity: 0; transform: translateY(20px); }
+
+        @media (max-width: 1100px) {
+            .f-grid { grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
+    <div style="display: flex; gap: 12px;">
+        <button class="btn-ui" onclick="toggleLang()" id="lang-btn">RU</button>
+        <button class="btn-ui" id="theme-toggle">🌙</button>
+    </div>
+</nav>
+
+<div class="main-wrapper">
+    <div class="form-card reveal">
+        <h2 data-i18n="h_init">УПРАВЛЕНИЕ ЗАПИСЬЮ</h2>
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="submit-btn" data-i18n="btn_save">СОХРАНИТЬ В СИСТЕМУ</button>
+        </form>
+        
+        <a href="{% url 'home' %}" class="back-link" data-i18n="btn_back">← ВЕРНУТЬСЯ НА ГЛАВНУЮ</a>
+    </div>
+</div>
+
+<footer>
+    <div class="f-grid reveal">
+        <div class="f-brand">
+            <a href="#" class="logo">NEXUS<span>ELITE</span></a>
+            <p class="f-desc">Система управления талантами Nexus Elite. Точность и эффективность.</p>
+            <div class="f-socials">
+                <a href="#" class="social-btn">TG</a>
+                <a href="#" class="social-btn">IG</a>
+                <a href="#" class="social-btn">BE</a>
+            </div>
+        </div>
+
+        <div class="f-col">
+            <h4>Платформа</h4>
+            <ul>
+                <li><a href="{% url 'home' %}">Все мастера</a></li>
+                <li><a href="{% url 'resume_add' %}">Стать экспертом</a></li>
+                <li><a href="#">AI Ассистент</a></li>
+            </ul>
+        </div>
+
+        <div class="f-col">
+            <h4>Сервисы</h4>
+            <ul>
+                <li><a href="#">База данных</a></li>
+                <li><a href="#">Аналитика</a></li>
+                <li><a href="#">Поддержка</a></li>
+            </ul>
+        </div>
+
+        <div class="f-col">
+            <h4>Право</h4>
+            <ul>
+                <li><a href="#">Условия</a></li>
+                <li><a href="#">Приватность</a></li>
+                <li><a href="#">Cookies</a></li>
+            </ul>
+        </div>
+
+        <div class="f-col">
+            <h4>Связь</h4>
+            <ul>
+                <li><a href="#">info@nexus.tj</a></li>
+                <li><a href="#">+992 939 939 641</a></li>
+            </ul>
+        </div>
+
+        <div class="f-sub">
+            <h4 data-i18n="f_sub">Подписка</h4>
+            <div class="f-sub-form">
+                <input type="email" placeholder="Email">
+                <button class="f-sub-btn">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="f-bottom">
+        <p>© 2026 NEXUS ELITE. Система управления записями.</p>
+        <div style="font-family: 'Space Mono', monospace; font-weight: 700; color: var(--accent);" id="footer-clock">00:00:00</div>
+    </div>
+</footer>
+
+<script>
+    const T = {
+        en: { 
+            h_init: "MANAGE RECORD", btn_save: "SYNC TO SYSTEM", 
+            btn_back: "← BACK TO HOME", f_sub: "NEWSLETTER"
+        },
+        ru: { 
+            h_init: "УПРАВЛЕНИЕ ЗАПИСЬЮ", btn_save: "СОХРАНИТЬ В СИСТЕМУ", 
+            btn_back: "← ВЕРНУТЬСЯ НА ГЛАВНУЮ", f_sub: "ПОДПИСКА"
+        }
+    };
+    
+    let currentLang = 'ru';
+    function toggleLang() {
+        currentLang = currentLang === 'ru' ? 'en' : 'ru';
+        document.getElementById('lang-btn').textContent = currentLang === 'en' ? 'RU' : 'EN';
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const k = el.getAttribute('data-i18n');
+            if (T[currentLang][k]) el.textContent = T[currentLang][k];
+        });
+    }
+
+    document.getElementById('theme-toggle').addEventListener('click', function() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        this.textContent = isDark ? '☀️' : '🌙';
+    });
+
+    setInterval(() => { document.getElementById('footer-clock').textContent = new Date().toLocaleTimeString(); }, 1000);
+    window.onload = () => { gsap.to('.reveal', { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power2.out" }); };
+</script>
+
+</body>
+</html>

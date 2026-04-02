@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Elite | Talent Ecosystem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #cdc8bf; 
+            --surface: #d6d1c8; 
+            --surface2: #c4beb3; 
+            --text: #1a1a1a;
+            --text2: #525252;
+            --accent: #2563eb;
+            --accent-light: rgba(37, 99, 235, 0.1);
+            --border: rgba(0, 0, 0, 0.1);
+            --nav-bg: rgba(205, 200, 191, 0.92);
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --radius: 20px;
+        }
+
+        [data-theme="dark"] {
+            --bg: #1e1e21; 
+            --surface: #252529;
+            --surface2: #2d2d33;
+            --text: #f0f0f0;
+            --text2: #9494a1;
+            --accent: #4f8aff;
+            --accent-light: rgba(79, 138, 255, 0.15);
+            --border: rgba(255, 255, 255, 0.08);
+            --nav-bg: rgba(30, 30, 33, 0.92);
+            --shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            transition: background 0.35s, color 0.35s;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: sticky; top: 0; z-index: 100;
+            background: var(--nav-bg);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 32px; height: 64px;
+        }
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem; letter-spacing: 2px;
+            color: var(--text); text-decoration: none;
+        }
+        .logo span { color: var(--accent); }
+
+        .nav-links { display: flex; gap: 4px; list-style: none; }
+        .nav-links a {
+            font-size: 0.82rem; font-weight: 600;
+            color: var(--text2); text-decoration: none;
+            padding: 7px 14px; border-radius: 8px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .nav-links a:hover { background: var(--surface2); color: var(--text); }
+
+        .nav-right { display: flex; align-items: center; gap: 8px; }
+
+        .btn-pill {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.78rem; font-weight: 700;
+            padding: 8px 18px; border-radius: 100px;
+            border: none; cursor: pointer; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 6px;
+            transition: all 0.2s;
+        }
+        .btn-pill-ghost { background: transparent; border: 1.5px solid var(--border); color: var(--text2); }
+        .btn-pill-ghost:hover { border-color: var(--text); color: var(--text); }
+        .btn-pill-solid { background: var(--accent); color: white; }
+        .btn-pill-solid:hover { opacity: 0.88; transform: translateY(-1px); }
+        
+        .btn-icon {
+            background: var(--surface2); border: none;
+            width: 36px; height: 36px; border-radius: 50%;
+            cursor: pointer; font-size: 1rem;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text2); transition: background 0.2s;
+        }
+        .btn-icon:hover { background: var(--border); }
+
+        /* ── HERO SLIDER ── */
+        .hero-section { padding: 24px 32px 0; }
+        .banner-slider {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            height: 420px;
+            background: #111;
+        }
+        .banner-slide {
+            position: absolute; inset: 0;
+            display: flex; align-items: flex-end;
+            padding: 48px;
+            opacity: 0; transition: opacity 0.8s ease;
+            background-size: cover;
+            background-position: center;
+        }
+        .banner-slide.active { opacity: 1; }
+        .banner-slide::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+            z-index: 1;
+        }
+        .banner-slide:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop'); }
+        .banner-slide:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop'); }
+        .banner-slide:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070&auto=format&fit=crop'); }
+
+        .banner-content { position: relative; z-index: 2; }
+        .banner-tag {
+            display: inline-block; background: var(--accent); color: white;
+            font-size: 0.7rem; font-weight: 700; padding: 4px 12px; border-radius: 100px;
+            letter-spacing: 1px; margin-bottom: 12px; text-transform: uppercase;
+        }
+        .banner-content h2 {
+            font-size: 2.8rem; font-weight: 800; color: white; line-height: 1.1;
+            max-width: 550px; margin-bottom: 24px;
+        }
+        .banner-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: white; color: #111; font-size: 0.85rem; font-weight: 700;
+            padding: 12px 26px; border-radius: 100px; text-decoration: none; transition: 0.3s;
+        }
+        .banner-btn:hover { background: var(--accent); color: white; transform: scale(1.05); }
+
+        .banner-dots {
+            position: absolute; bottom: 24px; right: 32px;
+            display: flex; gap: 8px; z-index: 3;
+        }
+        .banner-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: rgba(255,255,255,0.3); cursor: pointer; transition: all 0.3s;
+        }
+        .banner-dot.active { width: 30px; background: white; border-radius: 4px; }
+
+        /* ── SEARCH ── */
+        .search-section { padding: 28px 32px 0; }
+        .search-wrap {
+            display: flex; align-items: center;
+            background: var(--surface); border: 1.5px solid var(--border);
+            border-radius: 100px; padding: 6px 6px 6px 22px; gap: 12px;
+            box-shadow: var(--shadow); transition: border-color 0.2s;
+        }
+        .search-wrap:focus-within { border-color: var(--accent); }
+        .search-wrap input {
+            flex: 1; border: none; outline: none; background: transparent;
+            font-family: 'Manrope', sans-serif; font-size: 0.9rem; color: var(--text);
+        }
+        .search-wrap button {
+            background: var(--accent); color: white; border: none;
+            padding: 10px 22px; border-radius: 100px; font-weight: 700; cursor: pointer;
+        }
+
+        /* ── CATEGORIES ── */
+        .cat-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+        .cat-chip {
+            white-space: nowrap; padding: 8px 18px; border-radius: 100px;
+            font-size: 0.8rem; font-weight: 600; text-decoration: none;
+            border: 1.5px solid var(--border); color: var(--text2); background: var(--surface);
+            transition: 0.2s;
+        }
+        .cat-chip:hover, .cat-chip.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+        /* ── TICKER ── */
+        .insights-ticker {
+            width: 100%; overflow: hidden; padding: 20px 0; position: relative;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        .insights-track { display: flex; width: max-content; gap: 24px; animation: scrollTicker 80s linear infinite; }
+        .insights-track:hover { animation-play-state: paused; }
+        @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 12px)); } }
+
+        .insight-card { width: 320px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; transition: 0.3s; }
+        .insight-badge { display: inline-block; padding: 4px 12px; background: var(--accent-light); color: var(--accent); border-radius: 8px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 12px; }
+        .insight-title { font-size: 1.15rem; font-weight: 800; margin-bottom: 8px; line-height: 1.3; }
+        .insight-text { font-size: 0.88rem; color: var(--text2); line-height: 1.5; }
+
+        /* ── MAIN ── */
+        .section { padding: 40px 32px; }
+        .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+        .section-title { font-size: 1.35rem; font-weight: 800; color: var(--text); }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: var(--surface); border-radius: var(--radius); overflow: hidden; text-decoration: none; border: 1px solid var(--border); transition: 0.25s; display: block; }
+        .card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+        .card-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+        .card-body { padding: 20px; }
+        .card-cat { font-size: 0.7rem; font-weight: 700; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; display: block; }
+        .card-name { font-size: 1.1rem; font-weight: 800; color: var(--text); margin-bottom: 16px; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 15px; border-top: 1px solid var(--border); }
+        .card-price { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; }
+
+        .stats-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+        .stat-cell { background: var(--surface); padding: 32px 24px; text-align: center; }
+        .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; color: var(--accent); line-height: 1; }
+        .stat-label { font-size: 0.8rem; font-weight: 700; color: var(--text2); text-transform: uppercase; }
+
+        footer { background: var(--surface); border-top: 1px solid var(--border); padding: 80px 32px 30px; margin-top: auto; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 2fr; gap: 40px; margin-bottom: 60px; }
+        .footer-socials { display: flex; gap: 12px; margin-top: 20px; }
+        .social-btn { width: 38px; height: 38px; border-radius: 12px; background: var(--surface2); display: flex; align-items: center; justify-content: center; color: var(--text); text-decoration: none; border: 1px solid var(--border); transition: 0.3s; }
+        .social-btn:hover { background: var(--accent); color: white; }
+
+        .ai-fab { position: fixed; bottom: 32px; right: 32px; width: 60px; height: 60px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 30px rgba(37,99,235,0.4); z-index: 200; }
+        .reveal { opacity: 0; transform: translateY(24px); transition: 0.65s ease-out; }
+        .reveal.visible { opacity: 1; transform: none; }
+
+        @media (max-width: 768px) {
+            nav { padding: 0 20px; }
+            .nav-links { display: none; }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
+    <ul class="nav-links">
+        <li><a href="{% url 'home' %}">Главная</a></li>
+        <li><a href="{% url 'aboutas' %}">О нас</a></li>
+        <li><a href="{% url 'homeview' %}">AI Ассистент</a></li>
+    </ul>
+    <div class="nav-right">
+        <button class="btn-pill btn-pill-ghost" onclick="toggleLang()" id="lang-btn">RU</button>
+        <button class="btn-icon" id="theme-toggle"><span id="theme-icon">🌙</span></button>
+
+        {% if current_user %}
+            <a href="{% url 'profile' %}" class="btn-pill btn-pill-ghost">
+                Профиль: {{ current_user.username }}
+            </a>
+            <a href="{% url 'logout' %}" class="btn-pill btn-pill-ghost">Выход</a>
+        {% else %}
+            <a href="{% url 'login' %}" class="btn-pill btn-pill-ghost">Войти</a>
+        {% endif %}
+    </div>
+</nav>
+
+<div class="hero-section reveal">
+    <div class="banner-slider" id="banner">
+        <div class="banner-slide active">
+            <div class="banner-content">
+                <div class="banner-tag">✦ Мастера</div>
+                <h2>Создавая будущее <br>своими руками.</h2>
+                <a href="{% url 'home' %}" class="banner-btn">Выбрать специалиста →</a>
+            </div>
+        </div>
+        <div class="banner-slide">
+            <div class="banner-content">
+                <div class="banner-tag">🌿 Новые таланты</div>
+                <h2>Технологии, которые <br>меняют мир.</h2>
+                <a href="{% url 'resume_add' %}" class="banner-btn">Опубликовать резюме →</a>
+            </div>
+        </div>
+        <div class="banner-slide">
+            <div class="banner-content">
+                <div class="banner-tag">✨ Интеллект</div>
+                <h2>Найди эксперта <br>через AI ассистента.</h2>
+                <a href="{% url 'homeview' %}" class="banner-btn">Спросить AI →</a>
+            </div>
+        </div>
+        <div class="banner-dots">
+            <div class="banner-dot active" onclick="goSlide(0)"></div>
+            <div class="banner-dot" onclick="goSlide(1)"></div>
+            <div class="banner-dot" onclick="goSlide(2)"></div>
+        </div>
+    </div>
+</div>
+
+<div class="search-section reveal">
+    <form method="GET" action="{% url 'home' %}">
+        <div class="search-wrap">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <input type="text" name="full_name" placeholder="Поиск мастеров..." value="{{ request.GET.full_name }}">
+            <button type="submit">Найти</button>
+        </div>
+    </form>
+</div>
+
+<div class="section reveal">
+    <div class="cat-scroll">
+        <a href="{% url 'home' %}" class="cat-chip active">Все сферы</a>
+        {% for cat in filter.form.category.field.queryset %}
+            <a href="{% url 'home' %}?category={{ cat.pk }}" class="cat-chip">{{ cat.name }}</a>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="insights-ticker reveal">
+    <div class="insights-track">
+        <div class="insight-card">
+            <span class="insight-badge">Тренд</span>
+            <div class="insight-title">Рост ИИ-вакансий</div>
+            <p class="insight-text">Спрос на AI-интеграторов вырос на 40% за текущий квартал.</p>
+        </div>
+        <div class="insight-card">
+            <span class="insight-badge">Совет</span>
+            <div class="insight-title">Визуал решает</div>
+            <p class="insight-text">Мастера с качественным портфолио получают на 70% больше заказов.</p>
+        </div>
+        <div class="insight-card">
+            <span class="insight-badge">Статистика</span>
+            <div class="insight-title">Золотой стандарт</div>
+            <p class="insight-text">98% сделок начинаются с ответа в первые 15 минут.</p>
+        </div>
+        <div class="insight-card">
+            <span class="insight-badge">Тренд</span>
+            <div class="insight-title">Рост ИИ-вакансий</div>
+            <p class="insight-text">Спрос на AI-интеграторов вырос на 40% за текущий квартал.</p>
+        </div>
+        <div class="insight-card">
+            <span class="insight-badge">Совет</span>
+            <div class="insight-title">Визуал решает</div>
+            <p class="insight-text">Мастера с качественным портфолио получают на 70% больше заказов.</p>
+        </div>
+    </div>
+</div>
+
+<div class="section reveal">
+    <div class="stats-bar">
+        <div class="stat-cell"><span class="stat-num">1,250+</span><br><span class="stat-label">Мастеров</span></div>
+        <div class="stat-cell"><span class="stat-num">4,821</span><br><span class="stat-label">Проектов</span></div>
+        <div class="stat-cell"><span class="stat-num">99.2%</span><br><span class="stat-label">Успеха</span></div>
+    </div>
+</div>
+
+<div class="section reveal">
+    <div class="section-header">
+        <span class="section-title">Верифицированные мастера</span>
+        <a href="{% url 'home' %}" style="color:var(--accent); text-decoration:none; font-weight: 700;">Смотреть всех →</a>
+    </div>
+    <div class="cards-grid">
+        {% for resume in resumes %}
+        <a href="{% url 'resume_detail' resume.pk %}" class="card">
+            <img src="{{ resume.photo.url|default:'https://placehold.co/400x300/c4beb3/999?text=Photo' }}" class="card-img" alt="{{ resume.full_name }}">
+            <div class="card-body">
+                <span class="card-cat">{{ resume.category }}</span>
+                <div class="card-name">{{ resume.full_name }}</div>
+                <div class="card-footer">
+                    <span class="card-price">{{ resume.price }} <small>TJS</small></span>
+                    <div style="color: var(--accent);">↗</div>
+                </div>
+            </div>
+        </a>
+        {% empty %}
+        <div style="grid-column: 1/-1; text-align: center; padding: 60px; color: var(--text2);">Список мастеров временно пуст.</div>
+        {% endfor %}
+    </div>
+</div>
+
+<footer>
+    <div class="footer-grid reveal">
+        <div class="footer-brand">
+            <a href="#" class="logo">NEXUS<span>ELITE</span></a>
+            <p style="font-size: 0.85rem; color: var(--text2); margin-top: 15px; line-height: 1.6;">Интеллектуальная экосистема для объединения лучших талантов и заказчиков по всему миру.</p>
+            <div class="footer-socials">
+                <a href="#" class="social-btn">TG</a>
+                <a href="#" class="social-btn">IG</a>
+                <a href="#" class="social-btn">GH</a>
+                <a href="#" class="social-btn">IN</a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4 style="font-size: 0.75rem; margin-bottom: 20px; color: var(--text); text-transform: uppercase; letter-spacing: 1px;">Навигация</h4>
+            <ul style="list-style: none; display: grid; gap: 12px; font-size: 0.85rem; color: var(--text2);">
+                <li><a href="{% url 'home' %}" style="text-decoration:none; color:inherit; transition: 0.2s;">Мастера</a></li>
+                <li><a href="{% url 'homeview' %}" style="text-decoration:none; color:inherit; transition: 0.2s;">AI Ассистент</a></li>
+                <li><a href="{% url 'aboutas' %}" style="text-decoration:none; color:inherit; transition: 0.2s;">О проекте</a></li>
+                <li><a href="#" style="text-decoration:none; color:inherit; transition: 0.2s;">Блог</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4 style="font-size: 0.75rem; margin-bottom: 20px; color: var(--text); text-transform: uppercase; letter-spacing: 1px;">Помощь</h4>
+            <ul style="list-style: none; display: grid; gap: 12px; font-size: 0.85rem; color: var(--text2);">
+                <li><a href="#" style="text-decoration:none; color:inherit;">FAQ</a></li>
+                <li><a href="#" style="text-decoration:none; color:inherit;">Поддержка</a></li>
+                <li><a href="#" style="text-decoration:none; color:inherit;">Правила</a></li>
+                <li><a href="#" style="text-decoration:none; color:inherit;">Безопасность</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4 style="font-size: 0.75rem; margin-bottom: 20px; color: var(--text); text-transform: uppercase; letter-spacing: 1px;">Контакты</h4>
+            <ul style="list-style: none; display: grid; gap: 12px; font-size: 0.85rem; color: var(--text2);">
+                <li>info@nexuselite.ai</li>
+                <li>+992 939 939 641</li>
+                <li>Душанбе, Таджикистан</li>
+            </ul>
+        </div>
+        <div class="footer-col" style="background: var(--surface2); padding: 20px; border-radius: 15px;">
+            <h4 style="font-size: 0.75rem; margin-bottom: 12px; color: var(--text);">Nexus Newsletter</h4>
+            <p style="font-size: 0.75rem; color: var(--text2); margin-bottom: 15px;">Получайте дайджест лучших кейсов и трендов ИИ.</p>
+            <div style="display: flex; gap: 5px;">
+                <input type="text" placeholder="Email" style="width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); font-size: 0.8rem;">
+                <button style="background: var(--accent); color: white; border: none; padding: 0 12px; border-radius: 8px; cursor: pointer;">→</button>
+            </div>
+        </div>
+    </div>
+    <div style="border-top: 1px solid var(--border); padding-top: 25px; font-size: 0.8rem; color: var(--text2); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+        <div style="display: flex; gap: 20px;">
+            <p>© 2026 NEXUS ELITE. Все права защищены.</p>
+            <a href="#" style="text-decoration: none; color: inherit;">Конфиденциальность</a>
+            <a href="#" style="text-decoration: none; color: inherit;">Оферта</a>
+        </div>
+        <div id="footer-clock" style="font-family: 'Space Mono', monospace; background: var(--surface2); padding: 4px 12px; border-radius: 6px;">00:00:00</div>
+    </div>
+</footer>
+
+<a href="{% url 'homeview' %}" class="ai-fab">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+    </svg>
+</a>
+
+<script>
+    const themeBtn = document.getElementById('theme-toggle');
+    themeBtn.addEventListener('click', () => {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        document.getElementById('theme-icon').textContent = isDark ? '🌙' : '☀️';
+    });
+
+    let slide = 0;
+    const slides = document.querySelectorAll('.banner-slide');
+    const dots = document.querySelectorAll('.banner-dot');
+    function goSlide(n) {
+        slides[slide].classList.remove('active');
+        dots[slide].classList.remove('active');
+        slide = n;
+        slides[slide].classList.add('active');
+        dots[slide].classList.add('active');
+    }
+    setInterval(() => goSlide((slide + 1) % slides.length), 5000);
+
+    setInterval(() => { document.getElementById('footer-clock').textContent = new Date().toLocaleTimeString(); }, 1000);
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) { 
+                e.target.classList.add('visible'); 
+                observer.unobserve(e.target); 
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    function toggleLang() {
+        const btn = document.getElementById('lang-btn');
+        btn.textContent = btn.textContent === 'RU' ? 'EN' : 'RU';
+    }
+</script>
+</body>
+</html>

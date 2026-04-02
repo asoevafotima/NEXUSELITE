@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация | Nexus Elite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+        :root {
+            --bg: #cdc8bf; --surface: #d6d1c8; --surface2: #c4beb3;
+            --text: #1a1a1a; --text2: #525252; --accent: #2563eb;
+            --border: rgba(0, 0, 0, 0.08); --radius: 16px;
+        }
+        [data-theme="dark"] {
+            --bg: #161618; --surface: #1e1e21; --surface2: #28282c;
+            --text: #f0f0f0; --text2: #9494a1; --accent: #4f8aff;
+            --border: rgba(255, 255, 255, 0.05);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: var(--text); font-family: 'Manrope', sans-serif; display: flex; flex-direction: column; min-height: 100vh; transition: 0.4s; }
+
+        nav { padding: 0 5%; height: 70px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); background: var(--bg); }
+        .logo { font-weight: 800; font-size: 1.2rem; color: var(--text); text-decoration: none; }
+        .logo span { color: var(--accent); }
+
+        .btn-ui { font-size: 0.7rem; font-weight: 700; padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface2); cursor: pointer; color: var(--text); }
+
+        .main-wrapper { flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .auth-card { background: var(--surface); padding: 40px; border-radius: var(--radius); border: 1px solid var(--border); max-width: 400px; width: 100%; box-shadow: 0 10px 40px rgba(0,0,0,0.03); }
+
+        .auth-card h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 8px; text-align: center; }
+        .status-msg { display: block; text-align: center; font-family: 'Space Mono', monospace; font-size: 0.55rem; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 30px; font-weight: 700; }
+
+        .error-msg { background: rgba(255, 77, 77, 0.1); color: #ff4d4d; padding: 12px; border-radius: 10px; font-size: 0.75rem; margin-bottom: 15px; border-left: 4px solid #ff4d4d; list-style: none; }
+
+        .form-group { margin-bottom: 16px; display: flex; flex-direction: column; width: 100%; }
+        .form-group label { font-size: 0.75rem; font-weight: 700; margin-bottom: 6px; color: var(--text2); display: block; }
+        
+        .form-group input { 
+            display: block !important;
+            visibility: visible !important;
+            width: 100% !important;
+            background: var(--surface2) !important; 
+            border: 1px solid var(--border) !important; 
+            border-radius: 10px !important; 
+            padding: 12px 14px !important; 
+            font-family: inherit !important; 
+            font-size: 0.9rem !important; 
+            color: var(--text) !important; 
+            outline: none !important; 
+            transition: 0.2s; 
+        }
+        .form-group input:focus { border-color: var(--accent) !important; background: var(--bg) !important; }
+
+        /* ✅ Только это добавлено — стили для выбора роли */
+        .role-group { margin-bottom: 20px; }
+        .role-group label { font-size: 0.75rem; font-weight: 700; margin-bottom: 10px; color: var(--text2); display: block; }
+        .role-options { display: flex; gap: 10px; }
+        .role-option { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 10px; background: var(--surface2); border: 2px solid var(--border); border-radius: 10px; cursor: pointer; transition: 0.2s; text-align: center; }
+        .role-option:has(input:checked) { border-color: var(--accent); background: var(--bg); }
+        .role-option input[type="radio"] { display: none; }
+        .role-icon { font-size: 1.4rem; }
+        .role-label { font-size: 0.7rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+
+        .register-btn { width: 100%; padding: 14px; background: var(--text); color: var(--bg); border: none; border-radius: 10px; font-weight: 800; cursor: pointer; transition: 0.2s; margin-top: 10px; }
+        .register-btn:hover { background: var(--accent); color: white; }
+
+        .footer-links { margin-top: 24px; text-align: center; font-size: 0.8rem; color: var(--text2); }
+        .footer-links a { color: var(--accent); text-decoration: none; font-weight: 700; }
+        
+        footer { padding: 30px 5%; border-top: 1px solid var(--border); margin-top: auto; }
+        .f-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--text2); }
+        
+        .reveal { opacity: 0; transform: translateY(10px); }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="/" class="logo">NEXUS<span>ELITE</span></a>
+    <div style="display: flex; gap: 8px;">
+        <button class="btn-ui" onclick="toggleLang()" id="lang-btn">RU</button>
+        <button class="btn-ui" id="theme-toggle">🌙</button>
+    </div>
+</nav>
+
+<div class="main-wrapper">
+    <div class="auth-card reveal">
+        <h2 data-i18n="h_init">Регистрация</h2>
+        <span class="status-msg" data-i18n="status">identity protocol</span>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="error-msg">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post" autocomplete="off">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label data-i18n="l_user">Имя пользователя</label>
+                {{ form.username }}
+            </div>
+            
+            <div class="form-group">
+                <label data-i18n="l_email">Email</label>
+                {{ form.email }}
+            </div>
+
+            <div class="form-group">
+                <label data-i18n="l_pass">Пароль</label>
+                {{ form.password }}
+            </div>
+
+            <div class="form-group">
+                <label data-i18n="l_pass2">Подтверждение пароля</label>
+                {{ form.confirm_password }}
+            </div>
+
+            <!-- ✅ Выбор роли — добавлено сюда, ничего больше не тронуто -->
+            <div class="role-group">
+                <label data-i18n="l_role">С какой целью вы регистрируетесь?</label>
+                <div class="role-options">
+                    <label class="role-option">
+                        <input type="radio" name="role" value="Specialist" required>
+                        <span class="role-icon">📄</span>
+                        <span class="role-label" data-i18n="role_specialist">Хочу добавлять резюме</span>
+                    </label>
+                    <label class="role-option">
+                        <input type="radio" name="role" value="Customer" required checked>
+                        <span class="role-icon">🛒</span>
+                        <span class="role-label" data-i18n="role_customer">Хочу заказывать услуги</span>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="register-btn" data-i18n="btn_create">Создать аккаунт</button>
+        </form>
+
+        <div class="footer-links">
+            <span data-i18n="f_member">Уже есть аккаунт?</span> 
+            <a href="{% url 'login' %}" data-i18n="f_signin">Войти</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="f-bottom">
+        <p>© 2026 NEXUS ELITE</p>
+        <div style="font-family: 'Space Mono', monospace; font-weight: 700; color: var(--accent);" id="footer-clock">00:00:00</div>
+    </div>
+</footer>
+
+<script>
+    const T = {
+        en: { 
+            h_init: "Registration", status: "identity protocol", btn_create: "Create Account", 
+            f_member: "Already a member?", f_signin: "Sign In",
+            l_user: "Username", l_email: "Email", l_pass: "Password", l_pass2: "Confirm Password",
+            l_role: "Why are you registering?",
+            role_specialist: "I want to post resumes",
+            role_customer: "I want to order services"
+        },
+        ru: { 
+            h_init: "Регистрация", status: "протокол личности", btn_create: "Создать аккаунт", 
+            f_member: "Уже есть аккаунт?", f_signin: "Войти",
+            l_user: "Имя пользователя", l_email: "Email", l_pass: "Пароль", l_pass2: "Подтверждение пароля",
+            l_role: "С какой целью вы регистрируетесь?",
+            role_specialist: "Хочу добавлять резюме",
+            role_customer: "Хочу заказывать услуги"
+        }
+    };
+    
+    let currentLang = 'ru';
+    function toggleLang() {
+        currentLang = currentLang === 'ru' ? 'en' : 'ru';
+        document.getElementById('lang-btn').textContent = currentLang === 'en' ? 'RU' : 'EN';
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const k = el.getAttribute('data-i18n');
+            if (T[currentLang][k]) el.textContent = T[currentLang][k];
+        });
+    }
+
+    document.getElementById('theme-toggle').addEventListener('click', function() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        this.textContent = isDark ? '☀️' : '🌙';
+    });
+
+    setInterval(() => { 
+        document.getElementById('footer-clock').textContent = new Date().toLocaleTimeString(); 
+    }, 1000);
+
+    window.onload = () => { 
+        gsap.to('.reveal', { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }); 
+    };
+</script>
+
+</body>
+</html>

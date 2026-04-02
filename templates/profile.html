@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль | Nexus Elite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        :root {
+            --bg: #cdc8bf; --surface: #d6d1c8; --surface2: #c4beb3;
+            --text: #1a1a1a; --text2: #525252; --accent: #2563eb;
+            --accent-light: rgba(37, 99, 235, 0.1);
+            --border: rgba(0,0,0,0.1); --radius: 20px;
+            --nav-bg: rgba(205, 200, 191, 0.92);
+        }
+        [data-theme="dark"] {
+            --bg: #1e1e21; --surface: #252529; --surface2: #2d2d33;
+            --text: #f0f0f0; --text2: #9494a1; --accent: #4f8aff;
+            --accent-light: rgba(79, 138, 255, 0.15);
+            --border: rgba(255, 255, 255, 0.08);
+            --nav-bg: rgba(30, 30, 33, 0.92);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: var(--bg); color: var(--text); 
+            font-family: 'Manrope', sans-serif; min-height: 100vh; 
+            transition: background 0.35s, color 0.35s; 
+        }
+
+        nav {
+            position: sticky; top: 0; z-index: 100;
+            background: var(--nav-bg); backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 32px; height: 64px;
+        }
+        .logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 2px; color: var(--text); text-decoration: none; }
+        .logo span { color: var(--accent); }
+
+        .nav-right { display: flex; align-items: center; gap: 8px; }
+
+        .btn-pill {
+            font-size: 0.78rem; font-weight: 700; padding: 8px 18px; border-radius: 100px;
+            border: 1.5px solid var(--border); background: transparent; cursor: pointer; 
+            color: var(--text2); text-decoration: none; transition: 0.2s;
+        }
+        .btn-pill:hover { border-color: var(--text); color: var(--text); background: var(--surface2); }
+        
+        .btn-icon {
+            background: var(--surface2); border: none; width: 36px; height: 36px; border-radius: 50%;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text2);
+        }
+
+        .page { max-width: 1000px; margin: 40px auto; padding: 0 24px; display: grid; grid-template-columns: 320px 1fr; gap: 32px; }
+        .card { 
+            background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); 
+            padding: 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); 
+        }
+
+        .avatar-wrap { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-bottom: 32px; }
+        .avatar-img, .avatar-placeholder { 
+            width: 120px; height: 120px; border-radius: 40px; object-fit: cover; 
+            background: var(--surface2); border: 2px solid var(--border); 
+            display: flex; align-items: center; justify-content: center;
+            font-size: 3rem; font-weight: 800; color: var(--accent);
+        }
+        .username { font-size: 1.4rem; font-weight: 800; text-align: center; }
+        .role-badge { 
+            font-family: 'Space Mono', monospace; font-size: 0.65rem; font-weight: 700; 
+            color: var(--accent); background: var(--accent-light); padding: 6px 14px; border-radius: 12px; 
+        }
+
+        .info-list { margin-top: 20px; }
+        .info-row { 
+            display: flex; justify-content: space-between; padding: 14px 0; 
+            border-bottom: 1px solid var(--border); font-size: 0.85rem; 
+        }
+        .info-row span:first-child { color: var(--text2); font-weight: 500; }
+        .info-row span:last-child { font-weight: 700; }
+
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .section-title { font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+        .section-title::before { content: ''; width: 4px; height: 20px; background: var(--accent); border-radius: 4px; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { font-size: 0.8rem; font-weight: 700; color: var(--text2); margin-bottom: 8px; display: block; }
+        
+        .form-group input, .form-group textarea { 
+            width: 100%; background: var(--surface2); border: 1.5px solid var(--border); 
+            border-radius: 12px; padding: 14px; font-family: inherit; font-size: 0.9rem; 
+            color: var(--text); transition: 0.2s; 
+        }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); outline: none; background: var(--bg); }
+
+        .save-btn { 
+            width: 100%; padding: 16px; background: var(--text); color: var(--bg); 
+            border: none; border-radius: 14px; font-weight: 800; cursor: pointer; 
+            transition: 0.3s; font-size: 0.9rem; margin-top: 10px;
+        }
+        .save-btn:hover { background: var(--accent); color: white; transform: translateY(-2px); }
+
+        .resume-item { 
+            background: var(--surface2); border: 1px solid var(--border); border-radius: 16px; 
+            padding: 20px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;
+            transition: 0.2s;
+        }
+        .resume-item:hover { border-color: var(--accent); transform: scale(1.01); }
+        .resume-info h4 { font-size: 1rem; font-weight: 800; }
+        .resume-info p { font-size: 0.8rem; color: var(--text2); margin-top: 4px; }
+        
+        .resume-actions { display: flex; gap: 8px; }
+        .btn-sm { padding: 6px 12px; font-size: 0.7rem; border-radius: 8px; font-weight: 700; }
+
+        .reveal { opacity: 0; transform: translateY(20px); }
+
+        @media (max-width: 850px) {
+            .page { grid-template-columns: 1fr; }
+            nav { padding: 0 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="/" class="logo">NEXUS<span>ELITE</span></a>
+    <div class="nav-right">
+        <button class="btn-pill" onclick="toggleLang()" id="lang-btn">RU</button>
+        <button class="btn-icon" id="theme-toggle"><span id="theme-icon">🌙</span></button>
+        <a href="{% url 'home' %}" class="btn-pill">← <span id="nav-text">Главная</span></a>
+    </div>
+</nav>
+
+<div class="page">
+    <div class="reveal">
+        <div class="card">
+            <div class="avatar-wrap">
+                {% if current_user.avatar %}
+                    <img src="{{ current_user.avatar.url }}" alt="avatar" class="avatar-img">
+                {% else %}
+                    <div class="avatar-placeholder">{{ current_user.username|first|upper }}</div>
+                {% endif %}
+                <div class="username">{{ current_user.username }}</div>
+                {% for r in role %}
+                    <span class="role-badge">{{ r }}</span>
+                {% endfor %}
+            </div>
+
+            <div class="info-list">
+                <div class="info-row"><span class="tr-email">Email</span><span>{{ current_user.email }}</span></div>
+                <div class="info-row"><span class="tr-fname">Имя</span><span>{{ current_user.first_name|default:"—" }}</span></div>
+                <div class="info-row"><span class="tr-lname">Фамилия</span><span>{{ current_user.last_name|default:"—" }}</span></div>
+                <div class="info-row"><span class="tr-reg">Регистрация</span><span>{{ current_user.date_joined|date:"d.m.Y" }}</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="reveal">
+        <div class="card">
+            <div class="section-title tr-title">Настройки аккаунта</div>
+            
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="tr-fname">Имя</label>
+                    {{ form.first_name }}
+                </div>
+                <div class="form-group">
+                    <label class="tr-lname">Фамилия</label>
+                    {{ form.last_name }}
+                </div>
+                <div class="form-group">
+                    <label class="tr-bio">О себе</label>
+                    {{ form.bio }}
+                </div>
+                <div class="form-group">
+                    <label class="tr-avatar">Аватар профиля</label>
+                    {{ form.avatar }}
+                </div>
+                <button type="submit" class="save-btn tr-save">Обновить данные</button>
+            </form>
+        </div>
+
+        {% if is_specialist %}
+        <div class="card" style="margin-top: 32px;">
+            <div class="section-header">
+                <div class="section-title tr-my-res">Ваши публикации</div>
+                <a href="{% url 'resume_add' %}" class="btn-pill tr-add" style="background: var(--accent); color: white; border: none;">+ Добавить</a>
+            </div>
+
+            {% if user_resumes %}
+                {% for resume in user_resumes %}
+                <div class="resume-item">
+                    <div class="resume-info">
+                        <h4>{{ resume.full_name }}</h4>
+                        <p>{{ resume.professian }} · <span style="color:var(--accent); font-weight:800;">{{ resume.price }} TJS</span></p>
+                    </div>
+                    <div class="resume-actions">
+                        <a href="{% url 'resume_edit' resume.pk %}" class="btn-pill btn-sm tr-edit">Правка</a>
+                        <a href="{% url 'resume_delete' resume.pk %}" class="btn-pill btn-sm tr-del" style="color:#ef4444;">Удалить</a>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div style="text-align: center; padding: 20px; color: var(--text2); font-size: 0.85rem;" class="tr-empty">У вас пока нет резюме.</div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    const translations = {
+        RU: {
+            nav: "Главная", title: "Настройки аккаунта", email: "Email", fname: "Имя", lname: "Фамилия",
+            reg: "Регистрация", bio: "О себе", avatar: "Аватар профиля", save: "Обновить данные",
+            myRes: "Ваши публикации", add: "+ Добавить", edit: "Правка", del: "Удалить", empty: "У вас пока нет резюме."
+        },
+        EN: {
+            nav: "Home", title: "Account Settings", email: "Email", fname: "First Name", lname: "Last Name",
+            reg: "Joined", bio: "About Me", avatar: "Profile Avatar", save: "Update Info",
+            myRes: "Your Publications", add: "+ Create New", edit: "Edit", del: "Delete", empty: "No resumes found."
+        }
+    };
+
+    function toggleLang() {
+        const btn = document.getElementById('lang-btn');
+        const lang = btn.textContent === 'RU' ? 'EN' : 'RU';
+        btn.textContent = lang;
+        const d = translations[lang];
+
+        document.getElementById('nav-text').textContent = d.nav;
+        document.querySelectorAll('.tr-title').forEach(el => el.textContent = d.title);
+        document.querySelectorAll('.tr-email').forEach(el => el.textContent = d.email);
+        document.querySelectorAll('.tr-fname').forEach(el => el.textContent = d.fname);
+        document.querySelectorAll('.tr-lname').forEach(el => el.textContent = d.lname);
+        document.querySelectorAll('.tr-reg').forEach(el => el.textContent = d.reg);
+        document.querySelectorAll('.tr-bio').forEach(el => el.textContent = d.bio);
+        document.querySelectorAll('.tr-avatar').forEach(el => el.textContent = d.avatar);
+        document.querySelectorAll('.tr-save').forEach(el => el.textContent = d.save);
+        document.querySelectorAll('.tr-my-res').forEach(el => el.textContent = d.myRes);
+        document.querySelectorAll('.tr-add').forEach(el => el.textContent = d.add);
+        document.querySelectorAll('.tr-edit').forEach(el => el.textContent = d.edit);
+        document.querySelectorAll('.tr-del').forEach(el => el.textContent = d.del);
+        document.querySelectorAll('.tr-empty').forEach(el => el.textContent = d.empty);
+    }
+
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        document.getElementById('theme-icon').textContent = isDark ? '🌙' : '☀️';
+    });
+
+    window.onload = () => {
+        gsap.to('.reveal', { opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: "power4.out" });
+    };
+</script>
+</body>
+</html>
