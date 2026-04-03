@@ -111,7 +111,7 @@ def ask_ai(text: str, mode: str = "ask"):
         "- На вопросы НЕ по теме (игры, рецепты, политика) отвечай: 'Я консультирую только по вопросам поиска специалистов и карьеры'.\n"
         "- Отвечай на русском языке, вежливо и по делу.\n\n"
         
-        # ← Вот добавленная часть (только это изменилось)
+    
         "Всегда давай как можно больше полезной и подробной информации: объясняй рекомендации развернуто, указывай почему именно этот специалист подходит (сравнивая навыки и цену), приводи несколько вариантов если возможно, добавляй советы по выбору, что спросить у мастера при обращении, и любые полезные детали из его резюме. Будь максимально информативным и подробным в рамках своих правил."
     )
 
@@ -207,7 +207,7 @@ def history(request):
 
 
 class ResumeDetailView(DetailView):
-    """Просмотр — для всех."""
+ 
     model = Resume
     template_name = 'resume_detail.html'
     context_object_name = 'resume'
@@ -220,10 +220,7 @@ class ResumeDetailView(DetailView):
 
 
 class ResumeCreateView(PermissionRequiredMixin, CreateView):
-    """
-    Добавить резюме — только Specialist и Admin.
-    (у них есть право 'add_resume')
-    """
+
     required_permission = 'add_resume'
     model = Resume
     fields = ['full_name', 'professian', 'category', 'price', 'photo', 'description', 'skills']
@@ -236,10 +233,7 @@ class ResumeCreateView(PermissionRequiredMixin, CreateView):
 
 
 class ResumeUpdateView(OwnerOrAdminMixin, PermissionRequiredMixin, UpdateView):
-    """
-    Редактировать — только владелец или Admin,
-    и только если у роли есть право 'change_resume'.
-    """
+  
     required_permission = 'change_resume'
     model = Resume
     form_class = ResumeForm
@@ -248,10 +242,6 @@ class ResumeUpdateView(OwnerOrAdminMixin, PermissionRequiredMixin, UpdateView):
 
 
 class ResumeDeleteView(OwnerOrAdminMixin, PermissionRequiredMixin, DeleteView):
-    """
-    Удалить — только владелец или Admin,
-    и только если у роли есть право 'delete_resume'.
-    """
     required_permission = 'delete_resume'
     model = Resume
     template_name = 'resume_delete.html'
@@ -259,7 +249,7 @@ class ResumeDeleteView(OwnerOrAdminMixin, PermissionRequiredMixin, DeleteView):
 
 
 class ReviewCreateView(LoginRequiredMixin, CreateView):
-    """Отзыв — любой авторизованный."""
+
     model = Review
     form_class = ReviewForm
     template_name = 'review_add.html'
@@ -319,10 +309,7 @@ class OrderCreateView(PermissionRequiredMixin, CreateView):
     
 
 class FeedbackCreateView(PermissionRequiredMixin, CreateView):
-    """
-    Обратная связь — только Customer (и Admin).
-    (у них есть право 'add_feedback')
-    """
+  
     required_permission = 'add_feedback'
     model = Feedback
     form_class = FeedbackForm

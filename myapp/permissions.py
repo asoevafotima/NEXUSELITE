@@ -44,11 +44,14 @@ def get_logged_in_user(request):
 
 
 def get_user_role(user):
-    """Возвращает строку роли пользователя или None"""
-    if not user:
-        return None
-    role = user.groups.filter(name__in=ROLE_PERMISSIONS.keys()).first()
-    return role.name if role else None
+    def get_user_role(user):
+        if not user:
+            return None
+
+        for role_name in ['Admin', 'Specialist', 'Customer']:
+            if user.groups.filter(name=role_name).exists():
+             return role_name
+    return None
 
 
 def user_has_perm(user, permission):
