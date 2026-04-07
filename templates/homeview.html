@@ -181,6 +181,96 @@
         .footer-links a { color: var(--text2); text-decoration: none; }
         .footer-links a:hover { color: var(--text); }
         #footer-clock { font-family: 'Space Mono'; color: var(--accent); font-weight: bold; }
+
+        @media (max-width: 900px) {
+            body {
+                height: auto;
+                min-height: 100vh;
+                overflow: auto;
+            }
+            nav {
+                padding: 14px 16px;
+                height: auto;
+                gap: 10px;
+                flex-wrap: wrap;
+                align-items: flex-start;
+            }
+            .nav-right {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+            .nav-right .btn-pill,
+            .nav-right .btn-icon {
+                flex: 1 1 auto;
+                justify-content: center;
+            }
+            .chat-container {
+                padding: 16px 16px 0;
+            }
+            .chat-header h1 {
+                font-size: 2.5rem;
+            }
+            .chat-toolbar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .toolbar-left,
+            .toolbar-right {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            #chat-messages {
+                padding: 16px;
+            }
+            .message {
+                max-width: 100%;
+                font-size: 0.9rem;
+            }
+            .input-row {
+                flex-direction: column;
+            }
+            .input-row > * {
+                width: 100%;
+            }
+            footer {
+                padding: 14px 16px 22px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px 16px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .quick-suggestions {
+                justify-content: flex-start;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                padding-bottom: 6px;
+            }
+            .suggestion-btn {
+                flex: 0 0 auto;
+            }
+            .history-sidebar {
+                width: min(88vw, 320px);
+                left: calc(-1 * min(88vw, 320px));
+            }
+            .chat-window {
+                border-radius: 18px 18px 0 0;
+            }
+            .input-meta {
+                flex-direction: column;
+                gap: 4px;
+                align-items: flex-start;
+            }
+        }
     </style>
 </head>
 <body>

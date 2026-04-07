@@ -112,12 +112,61 @@
         
         .resume-actions { display: flex; gap: 8px; }
         .btn-sm { padding: 6px 12px; font-size: 0.7rem; border-radius: 8px; font-weight: 700; }
+        .alert-list { display: grid; gap: 10px; margin-bottom: 18px; }
+        .alert-item {
+            background: rgba(37, 99, 235, 0.08);
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            color: var(--text);
+            border-radius: 14px;
+            padding: 12px 14px;
+            font-size: 0.82rem;
+        }
 
         .reveal { opacity: 0; transform: translateY(20px); }
 
         @media (max-width: 850px) {
-            .page { grid-template-columns: 1fr; }
-            nav { padding: 0 16px; }
+            .page { 
+                grid-template-columns: 1fr;
+                margin: 20px auto;
+                padding: 0 16px;
+            }
+            nav {
+                padding: 14px 16px;
+                height: auto;
+                gap: 10px;
+                flex-wrap: wrap;
+                align-items: flex-start;
+            }
+            .nav-right {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+            .nav-right .btn-pill,
+            .nav-right .btn-icon {
+                flex: 1 1 auto;
+                text-align: center;
+                justify-content: center;
+            }
+            .card {
+                padding: 24px 18px;
+            }
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .resume-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 14px;
+            }
+            .resume-actions {
+                width: 100%;
+            }
+            .resume-actions .btn-pill {
+                flex: 1 1 auto;
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -159,6 +208,14 @@
     <div class="reveal">
         <div class="card">
             <div class="section-title tr-title">Настройки аккаунта</div>
+            
+            {% if messages %}
+            <div class="alert-list">
+                {% for message in messages %}
+                    <div class="alert-item">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
             
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}

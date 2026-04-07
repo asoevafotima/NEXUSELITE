@@ -73,10 +73,55 @@
             cursor: pointer; transition: 0.4s; margin-top: 10px; 
         }
         .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(232, 145, 58, 0.25); }
+        .alert-list { display: grid; gap: 10px; margin-bottom: 18px; }
+        .alert-item {
+            background: rgba(232, 145, 58, 0.12);
+            border: 1px solid rgba(232, 145, 58, 0.2);
+            color: var(--text);
+            border-radius: 14px;
+            padding: 12px 14px;
+            font-size: 0.82rem;
+            line-height: 1.45;
+        }
 
         .footer-note { margin-top: 30px; text-align: center; font-family: 'Space Mono', monospace; font-size: 0.55rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; opacity: 0.4; }
         
         .reveal { opacity: 0; transform: translateY(20px); }
+
+        @media (max-width: 768px) {
+            body {
+                cursor: auto;
+                padding: 16px 0;
+            }
+            #cursor,
+            #cursor-ring {
+                display: none;
+            }
+            .top-nav {
+                position: static;
+                padding: 0 16px;
+                margin-bottom: 16px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .nav-right {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+            .nav-right .btn-ui {
+                flex: 1 1 auto;
+                justify-content: center;
+            }
+            .support-card {
+                width: calc(100% - 32px);
+                margin: 0 auto;
+                padding: 28px 20px;
+                border-radius: 20px;
+            }
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -98,6 +143,22 @@
 <div class="support-card reveal">
     <h1 data-i18n="h_support">CONTACT SUPPORT</h1>
     <span class="status-msg" data-i18n="status">Secure System Communication</span>
+
+    {% if messages or form.errors %}
+    <div class="alert-list">
+        {% for message in messages %}
+            <div class="alert-item">{{ message }}</div>
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <div class="alert-item">{{ error }}</div>
+        {% endfor %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="alert-item">{{ error }}</div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+    {% endif %}
 
     <form method="post">
         {% csrf_token %}

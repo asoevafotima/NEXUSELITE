@@ -65,6 +65,20 @@
         .sidebar { position: sticky; top: 110px; height: fit-content; }
         .photo { width: 100%; aspect-ratio: 1; border-radius: var(--radius); object-fit: cover; border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 20px; }
         .action-card { background: var(--surface); padding: 35px; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow); }
+        .availability-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 18px;
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 0.82rem;
+            font-weight: 800;
+            background: rgba(37, 99, 235, 0.10);
+            color: var(--accent);
+            text-align: center;
+        }
         .price { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; text-align: center; display: block; margin-bottom: 25px; }
         .price small { font-family: 'Manrope'; font-size: 0.9rem; color: var(--text2); }
 
@@ -134,6 +148,65 @@
             .sidebar { position: static; order: 2; }
             .title { font-size: 3.5rem; }
         }
+
+        @media (max-width: 720px) {
+            nav {
+                padding: 14px 16px;
+                height: auto;
+                gap: 10px;
+                flex-wrap: wrap;
+                align-items: flex-start;
+            }
+            nav > div {
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+            }
+            nav > div .btn-ui {
+                flex: 1 1 auto;
+                text-align: center;
+            }
+            .wrapper {
+                margin: 20px auto 32px;
+                padding: 0 16px;
+            }
+            .content-card,
+            .action-card {
+                padding: 24px 18px;
+                border-radius: 18px;
+            }
+            .title {
+                font-size: 2.6rem;
+            }
+            .subtitle {
+                padding-left: 14px;
+                margin-bottom: 28px;
+            }
+            .price {
+                font-size: 2.6rem;
+            }
+            .btn-main {
+                padding: 16px;
+            }
+            .f-grid {
+                grid-template-columns: 1fr;
+            }
+            .f-bottom {
+                flex-direction: column;
+                gap: 18px;
+                text-align: center;
+            }
+            .f-sub-form {
+                flex-direction: column;
+                border-radius: 20px;
+                gap: 8px;
+                padding: 10px;
+            }
+            .f-sub-btn {
+                padding: 12px 20px;
+                border-radius: 14px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -152,11 +225,12 @@
         <aside class="sidebar reveal">
             <img src="{{ resume.photo.url|default:'https://placehold.co/600x600/333/fff?text=N' }}" class="photo" alt="Profile">
             <div class="action-card">
+                <div class="availability-pill">{{ availability_text }}</div>
                 <span class="price">{{ resume.price }} <small>TJS</small></span>
                 <a href="{% url 'order_add' resume.pk %}" class="btn-main btn-solid" data-i18n="btn_order">Заказать услугу</a>
                 <a href="{% url 'review_add' resume.pk %}" class="btn-main btn-outline" data-i18n="btn_review">Оставить отзыв</a>
                 
-                {% if user.is_authenticated and resume.user == user or user.is_staff %}
+                {% if current_user and resume.user == current_user or is_admin %}
                     <div style="display: flex; gap: 10px; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 20px;">
                         <a href="{% url 'resume_edit' resume.pk %}" class="btn-ui" style="flex:1; text-align:center;" data-i18n="btn_edit">Изм.</a>
                         <a href="{% url 'resume_delete' resume.pk %}" class="btn-ui" style="flex:1; text-align:center; color:#ef4444;" data-i18n="btn_del">Удал.</a>

@@ -89,6 +89,22 @@
             text-transform: uppercase; margin-bottom: 30px; font-weight: 700;
         }
 
+        .alert-list {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .alert-item {
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #b91c1c;
+            border-radius: 14px;
+            padding: 12px 14px;
+            font-size: 0.82rem;
+            line-height: 1.45;
+        }
+
         /* Django Form Elements */
         form p { margin-bottom: 18px; display: flex; flex-direction: column; }
         
@@ -134,6 +150,33 @@
         .f-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.7rem; color: var(--text2); }
         
         .reveal { opacity: 0; transform: translateY(15px); }
+
+        @media (max-width: 640px) {
+            nav {
+                padding: 14px 16px;
+                height: auto;
+            }
+
+            .main-wrapper {
+                padding: 16px;
+                align-items: flex-start;
+            }
+
+            .auth-card {
+                padding: 28px 20px;
+                border-radius: 18px;
+            }
+
+            .auth-card h2 {
+                font-size: 1.25rem;
+            }
+
+            .f-bottom {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -150,6 +193,22 @@
     <div class="auth-card reveal">
         <h2 data-i18n="h_login">Вход в систему</h2>
         <span class="status-msg" data-i18n="status">Secure Authentication</span>
+
+        {% if messages or form.errors or form.non_field_errors %}
+        <div class="alert-list">
+            {% for message in messages %}
+                <div class="alert-item">{{ message }}</div>
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <div class="alert-item">{{ error }}</div>
+            {% endfor %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="alert-item">{{ error }}</div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        {% endif %}
 
         <form method="post">
             {% csrf_token %}

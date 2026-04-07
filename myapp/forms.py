@@ -1,5 +1,5 @@
 from django import forms
-from .models import Resume, Review, Feedback, AIRequest
+from .models import Resume, Review, Feedback, AIRequest, ServiceOrder
 
 
 class ResumeForm(forms.ModelForm):
@@ -70,5 +70,31 @@ class AIRequestForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'user_text': forms.Textarea(attrs={'class': 'form-control', 'rows': 6}),
             'mode': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+
+class ServiceOrderForm(forms.ModelForm):
+    class Meta:
+        model = ServiceOrder
+        fields = ['text', 'details', 'duration_value', 'duration_unit']
+        widgets = {
+            'text': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': 'Опишите, какая услуга вам нужна...'
+            }),
+            'details': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 5,
+                'placeholder': 'Добавьте детали, дедлайн, пожелания и формат работы...'
+            }),
+            'duration_value': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'min': 1,
+                'placeholder': 'Например: 3'
+            }),
+            'duration_unit': forms.Select(attrs={
+                'class': 'form-control'
+            }),
         }
 

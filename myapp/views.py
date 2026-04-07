@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.core.mail import send_mail 
 from .models import Resume, Review, ServiceOrder, Feedback, AIRequest
-from .forms import ResumeForm, ReviewForm, FeedbackForm, AIRequestForm
+from .forms import ResumeForm, ReviewForm, FeedbackForm, AIRequestForm, ServiceOrderForm
 from .filters import ResumeFilter
 
 from .permissions import (
@@ -215,6 +215,8 @@ class ResumeDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['reviews'] = Review.objects.filter(resume=self.object)
+        context['availability_text'] = self.object.get_availability_text()
+        context['is_available_now'] = self.object.is_available_now()
         context.update(base_context(self.request))
         return context
 
@@ -266,8 +268,14 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
 class OrderCreateView(PermissionRequiredMixin, CreateView):
     required_permission = 'add_serviceorder'
     model = ServiceOrder
-    fields = ['text', 'details']
+    form_class = ServiceOrderForm
     template_name = 'order_add.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['resume'] = Resume.objects.get(pk=self.kwargs['pk'])
+        context.update(base_context(self.request))
+        return context
 
     def form_valid(self, form):
         form.instance.resume_id = self.kwargs['pk']
@@ -290,6 +298,7 @@ class OrderCreateView(PermissionRequiredMixin, CreateView):
                         f'Вам поступил новый заказ!\n\n'
                         f'Клиент: {customer.username}\n'
                         f'Email клиента: {customer.email}\n\n'
+                        f'Срок услуги: {form.instance.get_duration_label()}\n\n'
                         f'Текст заказа:\n{form.cleaned_data.get("text", "")}\n\n'
                         f'Детали:\n{form.cleaned_data.get("details", "")}'
                     ),

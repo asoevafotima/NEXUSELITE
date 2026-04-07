@@ -115,6 +115,15 @@
             font-weight: 700; text-transform: uppercase; transition: 0.2s;
         }
         .back-link:hover { color: var(--accent); }
+        .alert-list { display: grid; gap: 10px; margin-bottom: 18px; }
+        .alert-item {
+            background: rgba(37, 99, 235, 0.08);
+            border: 1px solid rgba(37, 99, 235, 0.15);
+            color: var(--text);
+            border-radius: 14px;
+            padding: 12px 14px;
+            font-size: 0.82rem;
+        }
 
         /* --- FOOTER --- */
         footer { background: var(--surface); border-top: 1px solid var(--border); padding: 80px 5% 40px; margin-top: auto; }
@@ -149,6 +158,44 @@
         @media (max-width: 1100px) {
             .f-grid { grid-template-columns: repeat(3, 1fr); gap: 40px; }
         }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 14px 16px;
+                height: auto;
+                gap: 10px;
+                flex-wrap: wrap;
+                align-items: flex-start;
+            }
+            nav > div {
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+            }
+            nav > div .btn-ui {
+                flex: 1 1 auto;
+                text-align: center;
+            }
+            .main-wrapper {
+                padding: 24px 16px;
+                align-items: flex-start;
+            }
+            .form-card {
+                padding: 28px 20px;
+                border-radius: 18px;
+            }
+            .form-card h2 {
+                font-size: 2.4rem;
+            }
+            .f-grid {
+                grid-template-columns: 1fr;
+            }
+            .f-bottom {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -164,6 +211,22 @@
 <div class="main-wrapper">
     <div class="form-card reveal">
         <h2 data-i18n="h_init">УПРАВЛЕНИЕ ЗАПИСЬЮ</h2>
+
+        {% if messages or form.errors %}
+        <div class="alert-list">
+            {% for message in messages %}
+                <div class="alert-item">{{ message }}</div>
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <div class="alert-item">{{ error }}</div>
+            {% endfor %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="alert-item">{{ error }}</div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        {% endif %}
         
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}

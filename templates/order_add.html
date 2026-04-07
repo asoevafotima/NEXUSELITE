@@ -70,6 +70,42 @@
             box-shadow: var(--shadow);
         }
 
+        .order-meta {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 24px;
+            padding: 18px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(37, 99, 235, 0.03));
+            border: 1px solid rgba(37, 99, 235, 0.12);
+        }
+
+        .order-meta strong {
+            font-size: 1rem;
+        }
+
+        .order-hint {
+            color: var(--text2);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .alert-list {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .alert-item {
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.18);
+            color: #b91c1c;
+            border-radius: 14px;
+            padding: 12px 14px;
+            font-size: 0.82rem;
+            line-height: 1.45;
+        }
+
         .order-card h2 {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 3rem;
@@ -87,7 +123,7 @@
             margin-bottom: 8px; color: var(--text2); letter-spacing: 1px;
         }
 
-        input, textarea {
+        input, textarea, select {
             background: var(--surface2);
             border: 1px solid var(--border);
             border-radius: 12px;
@@ -100,7 +136,7 @@
         }
 
         textarea { min-height: 120px; resize: none; }
-        input:focus, textarea:focus { border-color: var(--accent); background: var(--bg); }
+        input:focus, textarea:focus, select:focus { border-color: var(--accent); background: var(--bg); }
 
         .submit-btn {
             width: 100%; padding: 20px; background: #1a1a1a;
@@ -124,6 +160,41 @@
         .f-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text2); }
         
         .reveal { opacity: 0; transform: translateY(20px); }
+
+        @media (max-width: 640px) {
+            nav {
+                padding: 14px 16px;
+                height: auto;
+                gap: 10px;
+                flex-wrap: wrap;
+                align-items: flex-start;
+            }
+            nav > div {
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+            }
+            nav > div .btn-ui {
+                flex: 1 1 auto;
+                text-align: center;
+            }
+            .main-wrapper {
+                padding: 18px 16px;
+                align-items: flex-start;
+            }
+            .order-card {
+                padding: 28px 20px;
+                border-radius: 18px;
+            }
+            .order-card h2 {
+                font-size: 2.1rem;
+            }
+            .f-bottom {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -139,6 +210,27 @@
 <div class="main-wrapper">
     <div class="order-card reveal">
         <h2 data-i18n="h_order">ОФОРМИТЬ ЗАКАЗ</h2>
+
+        <div class="order-meta">
+            <strong>{{ resume.full_name }}</strong>
+            <div class="order-hint">Укажите задачу, детали и на какой срок вам нужна услуга: на часы или на дни.</div>
+        </div>
+
+        {% if messages or form.errors %}
+        <div class="alert-list">
+            {% for message in messages %}
+                <div class="alert-item">{{ message }}</div>
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <div class="alert-item">{{ error }}</div>
+            {% endfor %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="alert-item">{{ error }}</div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        {% endif %}
 
         <form method="post">
             {% csrf_token %}

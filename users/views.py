@@ -196,11 +196,11 @@ def login_view(request):
             elif not check_password(password, user.password):
                 messages.error(request, 'Неверный пароль.')
             elif not user.is_email_verified and not user.is_superuser:
-                send_confirmation_email(request, user)
-                messages.error(
-                    request,
-                    'Подтвердите email. Мы отправили новое письмо.',
-                )
+                if try_send_confirmation_email(request, user):
+                    messages.error(
+                        request,
+                        'Подтвердите email. Мы отправили новое письмо.',
+                    )
             else:
                 request.session.flush()
                 request.session['user_id'] = user.id

@@ -203,6 +203,18 @@
         .card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
         .card-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
         .card-body { padding: 20px; }
+        .card-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            background: var(--accent-light);
+            color: var(--accent);
+        }
         .card-cat { font-size: 0.7rem; font-weight: 700; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; display: block; }
         .card-name { font-size: 1.1rem; font-weight: 800; color: var(--text); margin-bottom: 16px; }
         .card-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 15px; border-top: 1px solid var(--border); }
@@ -224,9 +236,103 @@
         .reveal.visible { opacity: 1; transform: none; }
 
         @media (max-width: 768px) {
-            nav { padding: 0 20px; }
+            nav {
+                padding: 14px 16px;
+                height: auto;
+                gap: 10px;
+                align-items: flex-start;
+                flex-wrap: wrap;
+            }
+            .logo { font-size: 1.35rem; }
             .nav-links { display: none; }
+            .nav-right {
+                width: 100%;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .nav-right a,
+            .nav-right button {
+                flex: 1 1 auto;
+                justify-content: center;
+            }
+            .hero-section,
+            .search-section,
+            .section,
+            footer {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+            .banner-slider {
+                height: 380px;
+                border-radius: 18px;
+            }
+            .banner-slide {
+                padding: 24px;
+            }
+            .banner-content h2 {
+                font-size: 2rem;
+                max-width: 100%;
+            }
+            .banner-dots {
+                left: 24px;
+                right: auto;
+            }
+            .search-wrap {
+                border-radius: 24px;
+                padding: 14px;
+                flex-wrap: wrap;
+            }
+            .search-wrap svg {
+                display: none;
+            }
+            .search-wrap input {
+                width: 100%;
+                min-width: 0;
+            }
+            .search-wrap button {
+                width: 100%;
+                padding: 14px 18px;
+            }
+            .insight-card {
+                width: 280px;
+            }
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .stats-bar {
+                grid-template-columns: 1fr;
+            }
             .footer-grid { grid-template-columns: 1fr; }
+            .ai-fab {
+                width: 52px;
+                height: 52px;
+                bottom: 18px;
+                right: 18px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .btn-pill {
+                width: 100%;
+            }
+            .banner-slider {
+                height: 330px;
+            }
+            .banner-content h2 {
+                font-size: 1.65rem;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            .insight-card {
+                width: 250px;
+            }
+            .footer-socials {
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
@@ -352,6 +458,7 @@
         <a href="{% url 'resume_detail' resume.pk %}" class="card">
             <img src="{{ resume.photo.url|default:'https://placehold.co/400x300/c4beb3/999?text=Photo' }}" class="card-img" alt="{{ resume.full_name }}">
             <div class="card-body">
+                <span class="card-status">{{ resume.get_availability_text }}</span>
                 <span class="card-cat">{{ resume.category }}</span>
                 <div class="card-name">{{ resume.full_name }}</div>
                 <div class="card-footer">

@@ -54,7 +54,7 @@ class ResumeAdmin(admin.ModelAdmin):
 
 @admin.register(ServiceOrder)
 class ServiceOrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'resume', 'customer', 'short_text', 'created_at')
+    list_display = ('id', 'resume', 'customer', 'duration_value', 'duration_unit', 'short_text', 'created_at')
     list_filter = ('created_at', 'resume__category')
     search_fields = (
         'resume__full_name',
