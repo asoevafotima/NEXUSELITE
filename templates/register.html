@@ -1,221 +1,216 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Регистрация | Nexus Elite</title>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
+    <title>Nexus Elite | Регистрация</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #cdc8bf; --surface: #d6d1c8; --surface2: #c4beb3;
-            --text: #1a1a1a; --text2: #525252; --accent: #2563eb;
-            --border: rgba(0, 0, 0, 0.08); --radius: 16px;
+            --bg: #f5efe6; --surface: rgba(255,255,255,0.84); --surface-strong: #fffaf2;
+            --text: #1f2937; --muted: #667085; --accent: #2563eb; --accent-2: #ea580c;
+            --border: rgba(15,23,42,0.10); --shadow: 0 24px 60px rgba(15,23,42,0.10); --radius: 28px;
         }
         [data-theme="dark"] {
-            --bg: #161618; --surface: #1e1e21; --surface2: #28282c;
-            --text: #f0f0f0; --text2: #9494a1; --accent: #4f8aff;
-            --border: rgba(255, 255, 255, 0.05);
+            --bg: #0f172a; --surface: rgba(15,23,42,0.84); --surface-strong: #182233;
+            --text: #f8fafc; --muted: #94a3b8; --accent: #60a5fa; --accent-2: #fb923c;
+            --border: rgba(255,255,255,0.10); --shadow: 0 24px 60px rgba(0,0,0,0.35);
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg); color: var(--text); font-family: 'Manrope', sans-serif; display: flex; flex-direction: column; min-height: 100vh; transition: 0.4s; }
-
-        nav { padding: 0 5%; height: 70px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); background: var(--bg); }
-        .logo { font-weight: 800; font-size: 1.2rem; color: var(--text); text-decoration: none; }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Manrope', sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(37,99,235,0.12), transparent 24%),
+                radial-gradient(circle at bottom right, rgba(234,88,12,0.12), transparent 20%),
+                var(--bg);
+        }
+        .page { width: min(1100px, calc(100% - 28px)); margin: 0 auto; padding: 18px 0 36px; }
+        .topbar, .hero, .panel {
+            border: 1px solid var(--border);
+            background: var(--surface);
+            backdrop-filter: blur(16px);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        .topbar {
+            display: flex; justify-content: space-between; align-items: center; gap: 14px;
+            padding: 14px 18px; margin-bottom: 18px;
+        }
+        .logo { text-decoration: none; color: var(--text); font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.06em; }
         .logo span { color: var(--accent); }
-
-        .btn-ui { font-size: 0.7rem; font-weight: 700; padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface2); cursor: pointer; color: var(--text); }
-
-        .main-wrapper { flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .auth-card { background: var(--surface); padding: 40px; border-radius: var(--radius); border: 1px solid var(--border); max-width: 400px; width: 100%; box-shadow: 0 10px 40px rgba(0,0,0,0.03); }
-
-        .auth-card h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 8px; text-align: center; }
-        .status-msg { display: block; text-align: center; font-family: 'Space Mono', monospace; font-size: 0.55rem; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 30px; font-weight: 700; }
-
-        .error-msg { background: rgba(255, 77, 77, 0.1); color: #ff4d4d; padding: 12px; border-radius: 10px; font-size: 0.75rem; margin-bottom: 15px; border-left: 4px solid #ff4d4d; list-style: none; }
-
-        .form-group { margin-bottom: 16px; display: flex; flex-direction: column; width: 100%; }
-        .form-group label { font-size: 0.75rem; font-weight: 700; margin-bottom: 6px; color: var(--text2); display: block; }
-        
-        .form-group input { 
-            display: block !important;
-            visibility: visible !important;
-            width: 100% !important;
-            background: var(--surface2) !important; 
-            border: 1px solid var(--border) !important; 
-            border-radius: 10px !important; 
-            padding: 12px 14px !important; 
-            font-family: inherit !important; 
-            font-size: 0.9rem !important; 
-            color: var(--text) !important; 
-            outline: none !important; 
-            transition: 0.2s; 
+        .toolbar { display: flex; gap: 10px; flex-wrap: wrap; }
+        .btn, .btn-primary {
+            border-radius: 999px; text-decoration: none; font-size: .84rem; font-weight: 800; padding: 11px 16px; transition: .2s ease;
         }
-        .form-group input:focus { border-color: var(--accent) !important; background: var(--bg) !important; }
-
-        /* ✅ Только это добавлено — стили для выбора роли */
-        .role-group { margin-bottom: 20px; }
-        .role-group label { font-size: 0.75rem; font-weight: 700; margin-bottom: 10px; color: var(--text2); display: block; }
-        .role-options { display: flex; gap: 10px; }
-        .role-option { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 10px; background: var(--surface2); border: 2px solid var(--border); border-radius: 10px; cursor: pointer; transition: 0.2s; text-align: center; }
-        .role-option:has(input:checked) { border-color: var(--accent); background: var(--bg); }
-        .role-option input[type="radio"] { display: none; }
-        .role-icon { font-size: 1.4rem; }
-        .role-label { font-size: 0.7rem; font-weight: 700; color: var(--text); line-height: 1.3; }
-
-        .register-btn { width: 100%; padding: 14px; background: var(--text); color: var(--bg); border: none; border-radius: 10px; font-weight: 800; cursor: pointer; transition: 0.2s; margin-top: 10px; }
-        .register-btn:hover { background: var(--accent); color: white; }
-
-        .footer-links { margin-top: 24px; text-align: center; font-size: 0.8rem; color: var(--text2); }
-        .footer-links a { color: var(--accent); text-decoration: none; font-weight: 700; }
-        
-        footer { padding: 30px 5%; border-top: 1px solid var(--border); margin-top: auto; }
-        .f-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--text2); }
-        
-        .reveal { opacity: 0; transform: translateY(10px); }
+        .btn { border: 1px solid var(--border); background: rgba(255,255,255,.16); color: var(--text); cursor: pointer; }
+        .btn-primary { border: none; color: white; background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+        .layout { display: grid; grid-template-columns: .95fr 1.05fr; gap: 22px; }
+        .hero, .panel { padding: 28px; }
+        .badge {
+            display: inline-flex; gap: 8px; align-items: center; padding: 8px 12px; border-radius: 999px;
+            background: rgba(37,99,235,.10); color: var(--accent); font-size: .76rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
+        }
+        h1 {
+            margin: 18px 0 12px; font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 6vw, 5rem); line-height: .92; letter-spacing: .03em;
+        }
+        .hero p, .hint, .role-copy, .signin { color: var(--muted); line-height: 1.8; }
+        .tips { display: grid; gap: 12px; margin-top: 18px; }
+        .tip {
+            border: 1px solid var(--border); background: rgba(255,255,255,.16); border-radius: 22px; padding: 16px;
+        }
+        .tip strong { display: block; margin-bottom: 6px; }
+        .alert-list { display: grid; gap: 10px; margin-bottom: 16px; }
+        .alert-item {
+            border-radius: 16px; padding: 12px 14px; background: rgba(239,68,68,.08); border: 1px solid rgba(239,68,68,.18); color: #b91c1c; font-size: .84rem; line-height: 1.5;
+        }
+        form { display: grid; gap: 16px; }
+        .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .field { display: grid; gap: 8px; }
+        label { font-size: .76rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+        input {
+            width: 100%; padding: 15px 16px; border-radius: 18px; border: 1px solid var(--border);
+            background: var(--surface-strong); color: var(--text); font: inherit; outline: none; transition: .2s ease;
+        }
+        input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(37,99,235,.08); }
+        .role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .role-option {
+            position: relative;
+            display: block;
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 16px;
+            background: rgba(255,255,255,.16);
+            cursor: pointer;
+            transition: .2s ease;
+        }
+        .role-option input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .role-option:has(input:checked) {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(37,99,235,.08);
+            background: rgba(37,99,235,.08);
+        }
+        .role-title { display: block; font-size: 1rem; font-weight: 800; margin-bottom: 6px; }
+        .submit-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
+        .submit-row > * { flex: 1 1 180px; text-align: center; }
+        .signin { margin-top: 10px; font-size: .92rem; }
+        .signin a { color: var(--accent); text-decoration: none; font-weight: 800; }
+        @media (max-width: 960px) { .layout { grid-template-columns: 1fr; } }
+        @media (max-width: 720px) {
+            .page { width: min(100% - 18px, 1100px); }
+            .topbar { flex-direction: column; align-items: stretch; padding: 14px; border-radius: 24px; }
+            .toolbar > * { flex: 1 1 auto; text-align: center; }
+            .hero, .panel { padding: 22px 18px; border-radius: 24px; }
+            .field-grid, .role-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 3.2rem; }
+        }
     </style>
 </head>
 <body>
-
-<nav>
-    <a href="/" class="logo">NEXUS<span>ELITE</span></a>
-    <div style="display: flex; gap: 8px;">
-        <button class="btn-ui" onclick="toggleLang()" id="lang-btn">RU</button>
-        <button class="btn-ui" id="theme-toggle">🌙</button>
-    </div>
-</nav>
-
-<div class="main-wrapper">
-    <div class="auth-card reveal">
-        <h2 data-i18n="h_init">Регистрация</h2>
-        <span class="status-msg" data-i18n="status">identity protocol</span>
-
-        {% if messages %}
-            {% for message in messages %}
-                <div class="error-msg">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-
-        {% if form.non_field_errors %}
-            {% for error in form.non_field_errors %}
-                <div class="error-msg">{{ error }}</div>
-            {% endfor %}
-        {% endif %}
-
-        <form method="post" autocomplete="off">
-            {% csrf_token %}
-            
-            <div class="form-group">
-                <label data-i18n="l_user">Имя пользователя</label>
-                {{ form.username }}
-                {% for error in form.username.errors %}
-                    <div class="error-msg">{{ error }}</div>
-                {% endfor %}
+    <div class="page">
+        <header class="topbar">
+            <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
+            <div class="toolbar">
+                <a href="{% url 'home' %}" class="btn">Главная</a>
+                <a href="{% url 'aboutas' %}" class="btn">О нас</a>
+                <a href="{% url 'login' %}" class="btn">Войти</a>
+                <button class="btn" id="theme-toggle" type="button">Тема</button>
             </div>
-            
-            <div class="form-group">
-                <label data-i18n="l_email">Email</label>
-                {{ form.email }}
-                {% for error in form.email.errors %}
-                    <div class="error-msg">{{ error }}</div>
-                {% endfor %}
-            </div>
+        </header>
 
-            <div class="form-group">
-                <label data-i18n="l_pass">Пароль</label>
-                {{ form.password }}
-                {% for error in form.password.errors %}
-                    <div class="error-msg">{{ error }}</div>
-                {% endfor %}
-            </div>
-
-            <div class="form-group">
-                <label data-i18n="l_pass2">Подтверждение пароля</label>
-                {{ form.confirm_password }}
-                {% for error in form.confirm_password.errors %}
-                    <div class="error-msg">{{ error }}</div>
-                {% endfor %}
-            </div>
-
-            <!-- ✅ Выбор роли — добавлено сюда, ничего больше не тронуто -->
-            <div class="role-group">
-                <label data-i18n="l_role">С какой целью вы регистрируетесь?</label>
-                <div class="role-options">
-                    <label class="role-option">
-                        <input type="radio" name="role" value="Specialist" required>
-                        <span class="role-icon">📄</span>
-                        <span class="role-label" data-i18n="role_specialist">Хочу добавлять резюме</span>
-                    </label>
-                    <label class="role-option">
-                        <input type="radio" name="role" value="Customer" required checked>
-                        <span class="role-icon">🛒</span>
-                        <span class="role-label" data-i18n="role_customer">Хочу заказывать услуги</span>
-                    </label>
+        <main class="layout">
+            <section class="hero">
+                <div class="badge">Регистрация</div>
+                <h1>Создайте аккаунт и выберите свою роль сразу правильно.</h1>
+                <p>Форму я привёл в аккуратный вид и оставил понятный сценарий: специалист публикует резюме, клиент заказывает услуги. Роль выбирается здесь же и больше не должна дублироваться.</p>
+                <div class="tips">
+                    <div class="tip"><strong>Специалист</strong><span class="role-copy">Публикует резюме, показывает навыки и принимает заказы.</span></div>
+                    <div class="tip"><strong>Клиент</strong><span class="role-copy">Выбирает мастеров, оформляет заказ и связывается с исполнителем.</span></div>
+                    <div class="tip"><strong>Почта важна</strong><span class="role-copy">Подтверждение email нужно для нормального входа и восстановления аккаунта.</span></div>
                 </div>
-            </div>
+            </section>
 
-            <button type="submit" class="register-btn" data-i18n="btn_create">Создать аккаунт</button>
-        </form>
+            <section class="panel">
+                {% if messages or form.non_field_errors %}
+                <div class="alert-list">
+                    {% for message in messages %}
+                        <div class="alert-item">{{ message }}</div>
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <div class="alert-item">{{ error }}</div>
+                    {% endfor %}
+                </div>
+                {% endif %}
 
-        <div class="footer-links">
-            <span data-i18n="f_member">Уже есть аккаунт?</span> 
-            <a href="{% url 'login' %}" data-i18n="f_signin">Войти</a>
-        </div>
+                <form method="post" autocomplete="off">
+                    {% csrf_token %}
+
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="{{ form.username.id_for_label }}">Имя пользователя</label>
+                            {{ form.username }}
+                            {% for error in form.username.errors %}<div class="alert-item">{{ error }}</div>{% endfor %}
+                        </div>
+                        <div class="field">
+                            <label for="{{ form.email.id_for_label }}">Email</label>
+                            {{ form.email }}
+                            {% for error in form.email.errors %}<div class="alert-item">{{ error }}</div>{% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="{{ form.password.id_for_label }}">Пароль</label>
+                            {{ form.password }}
+                            {% for error in form.password.errors %}<div class="alert-item">{{ error }}</div>{% endfor %}
+                        </div>
+                        <div class="field">
+                            <label for="{{ form.confirm_password.id_for_label }}">Повтор пароля</label>
+                            {{ form.confirm_password }}
+                            {% for error in form.confirm_password.errors %}<div class="alert-item">{{ error }}</div>{% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Выберите роль</label>
+                        <div class="role-grid">
+                            <label class="role-option">
+                                <input type="radio" name="role" value="Specialist" {% if form.role.value == 'Specialist' %}checked{% endif %}>
+                                <span class="role-title">Специалист</span>
+                                <span class="role-copy">Хочу размещать резюме и предлагать услуги.</span>
+                            </label>
+                            <label class="role-option">
+                                <input type="radio" name="role" value="Customer" {% if form.role.value != 'Specialist' %}checked{% endif %}>
+                                <span class="role-title">Клиент</span>
+                                <span class="role-copy">Хочу искать мастеров и заказывать услуги.</span>
+                            </label>
+                        </div>
+                        {% for error in form.role.errors %}<div class="alert-item">{{ error }}</div>{% endfor %}
+                    </div>
+
+                    <div class="submit-row">
+                        <button type="submit" class="btn-primary">Создать аккаунт</button>
+                        <a href="{% url 'login' %}" class="btn">У меня уже есть аккаунт</a>
+                    </div>
+                </form>
+
+                <p class="signin">Уже регистрировались? <a href="{% url 'login' %}">Перейти ко входу</a>.</p>
+            </section>
+        </main>
     </div>
-</div>
 
-<footer>
-    <div class="f-bottom">
-        <p>© 2026 NEXUS ELITE</p>
-        <div style="font-family: 'Space Mono', monospace; font-weight: 700; color: var(--accent);" id="footer-clock">00:00:00</div>
-    </div>
-</footer>
-
-<script>
-    const T = {
-        en: { 
-            h_init: "Registration", status: "identity protocol", btn_create: "Create Account", 
-            f_member: "Already a member?", f_signin: "Sign In",
-            l_user: "Username", l_email: "Email", l_pass: "Password", l_pass2: "Confirm Password",
-            l_role: "Why are you registering?",
-            role_specialist: "I want to post resumes",
-            role_customer: "I want to order services"
-        },
-        ru: { 
-            h_init: "Регистрация", status: "протокол личности", btn_create: "Создать аккаунт", 
-            f_member: "Уже есть аккаунт?", f_signin: "Войти",
-            l_user: "Имя пользователя", l_email: "Email", l_pass: "Пароль", l_pass2: "Подтверждение пароля",
-            l_role: "С какой целью вы регистрируетесь?",
-            role_specialist: "Хочу добавлять резюме",
-            role_customer: "Хочу заказывать услуги"
-        }
-    };
-    
-    let currentLang = 'ru';
-    function toggleLang() {
-        currentLang = currentLang === 'ru' ? 'en' : 'ru';
-        document.getElementById('lang-btn').textContent = currentLang === 'en' ? 'RU' : 'EN';
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const k = el.getAttribute('data-i18n');
-            if (T[currentLang][k]) el.textContent = T[currentLang][k];
+    <script>
+        document.getElementById('theme-toggle').addEventListener('click', function () {
+            const root = document.documentElement;
+            root.setAttribute('data-theme', root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
         });
-    }
-
-    document.getElementById('theme-toggle').addEventListener('click', function() {
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-        this.textContent = isDark ? '☀️' : '🌙';
-    });
-
-    setInterval(() => { 
-        document.getElementById('footer-clock').textContent = new Date().toLocaleTimeString(); 
-    }, 1000);
-
-    window.onload = () => { 
-        gsap.to('.reveal', { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }); 
-    };
-</script>
-
+    </script>
 </body>
 </html>

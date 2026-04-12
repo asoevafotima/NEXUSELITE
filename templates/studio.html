@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus Elite | Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#cdc8bf;--surface:#d6d1c8;--surface2:#c4beb3;--text:#1a1a1a;--text2:#525252;--accent:#2563eb;--soft:rgba(37,99,235,.1);--border:rgba(0,0,0,.1);--nav:rgba(205,200,191,.92);--shadow:0 12px 30px rgba(0,0,0,.08);--radius:24px}
+[data-theme="dark"]{--bg:#1e1e21;--surface:#252529;--surface2:#2d2d33;--text:#f0f0f0;--text2:#9494a1;--accent:#4f8aff;--soft:rgba(79,138,255,.14);--border:rgba(255,255,255,.08);--nav:rgba(30,30,33,.92);--shadow:0 12px 30px rgba(0,0,0,.35)}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Manrope,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}nav{position:sticky;top:0;z-index:10;background:var(--nav);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;padding:0 32px;height:64px}.logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:2px;color:var(--text);text-decoration:none}.logo span{color:var(--accent)}.nav-links{display:flex;gap:8px;list-style:none}.nav-links a,.btn{padding:10px 14px;border-radius:999px;text-decoration:none;font-size:.82rem;font-weight:700;color:var(--text2);transition:.2s}.nav-links a:hover,.btn:hover{background:var(--surface2);color:var(--text)}.btn{border:1px solid var(--border)}.wrap,.section{width:min(1220px,calc(100% - 28px));margin:0 auto}.hero{padding:34px 0 20px}.hero-card{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;background:linear-gradient(135deg,rgba(37,99,235,.14),rgba(37,99,235,.04));border:1px solid var(--border);border-radius:32px;padding:30px;box-shadow:var(--shadow)}.badge{display:inline-block;background:var(--accent);color:#fff;padding:6px 12px;border-radius:999px;font-size:.72rem;font-weight:800;margin-bottom:16px}.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.7rem,6vw,5rem);line-height:.92;margin-bottom:14px}.hero p{color:var(--text2);line-height:1.75;max-width:60ch}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}.pill{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border-radius:999px;text-decoration:none;font-size:.84rem;font-weight:800;border:1px solid var(--border);background:var(--surface);color:var(--text)}.primary{background:var(--accent);border-color:var(--accent);color:#fff}.stats{display:grid;gap:14px}.stat{background:var(--surface);border:1px solid var(--border);border-radius:22px;box-shadow:var(--shadow);padding:18px}.stat strong{display:block;font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--accent);line-height:1}.stat span{color:var(--text2);font-size:.9rem}.section{padding:16px 0 32px}.section h2{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;letter-spacing:1px;margin-bottom:10px}.section p.lead{color:var(--text2);line-height:1.7;margin-bottom:18px}.grid3,.links{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card,.tool,.faq{background:var(--surface);border:1px solid var(--border);border-radius:22px;box-shadow:var(--shadow)}.card{padding:22px}.card h3,.tool h3,.faq h4{margin-bottom:10px}.card p,.tool p,.faq p{color:var(--text2);line-height:1.65}.tools{display:grid;grid-template-columns:1fr 1fr;gap:18px}.tool{padding:22px}.field,.tool textarea,.tool select{width:100%;border:1px solid var(--border);background:var(--surface2);color:var(--text);border-radius:16px;padding:13px 14px;font:inherit;outline:none}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}.result{margin-top:14px;padding:16px;border-radius:18px;background:var(--soft);border:1px solid rgba(37,99,235,.18);font-size:.92rem;line-height:1.65}.tool-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.faq-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.faq{padding:20px}.links a{display:block;padding:18px;border-radius:20px;text-decoration:none;color:var(--text);background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow)}.links strong{display:block;margin-bottom:8px}.links span{color:var(--text2);font-size:.88rem;line-height:1.6}footer{background:var(--surface);border-top:1px solid var(--border);padding:50px 16px 26px;margin-top:auto;text-align:center;color:var(--text2)}@media(max-width:1024px){.hero-card,.tools,.grid3,.links{grid-template-columns:1fr 1fr}.faq-grid{grid-template-columns:1fr}}@media(max-width:720px){nav{padding:14px 16px;height:auto;gap:10px;flex-wrap:wrap;align-items:flex-start}.nav-links{width:100%;flex-wrap:wrap}.hero-card,.grid3,.tools,.links,.faq-grid,.row{grid-template-columns:1fr}.wrap,.section{width:min(100% - 20px,1220px)}.hero-card{padding:22px;border-radius:22px}}
+</style>
+</head>
+<body>
+<nav>
+<a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
+<ul class="nav-links">
+<li><a href="{% url 'home' %}">Главная</a></li>
+<li><a href="{% url 'aboutas' %}">О нас</a></li>
+<li><a href="{% url 'homeview' %}">AI Ассистент</a></li>
+<li><a href="{% url 'studio' %}" style="background:var(--surface2);color:var(--text)">Studio</a></li>
+</ul>
+<a href="{% url 'feedback' %}" class="btn">Поддержка</a>
+</nav>
+
+<div class="wrap hero">
+<div class="hero-card">
+<div>
+<span class="badge">Новый раздел</span>
+<h1>Studio для заказчиков и специалистов</h1>
+<p>Это новая страница внутри сайта. Здесь можно быстро оценить бюджет, собрать понятный бриф для заказа, выбрать сценарий работы и сразу перейти в нужные разделы платформы.</p>
+<div class="hero-actions">
+<a href="{% url 'home' %}" class="pill primary">Открыть каталог</a>
+<a href="{% url 'homeview' %}" class="pill">Спросить AI</a>
+<a href="{% url 'resume_add' %}" class="pill">Создать резюме</a>
+</div>
+</div>
+<div class="stats">
+<div class="stat"><strong>24/7</strong><span>помощь в планировании, поиске мастера и подготовке заказа</span></div>
+<div class="stat"><strong>3</strong><span>инструмента на одной странице: бюджет, бриф, сценарии</span></div>
+<div class="stat"><strong>1 мин</strong><span>чтобы превратить идею в понятный запрос для специалиста</span></div>
+</div>
+</div>
+</div>
+
+<section class="section">
+<h2>Что здесь полезного</h2>
+<p class="lead">Страница не декоративная. Она помогает пользователю быстрее дойти до результата.</p>
+<div class="grid3">
+<div class="card"><h3>Быстрый выбор формата</h3><p>Если не понимаешь, кого искать первым, Studio помогает определить: нужен один мастер, специалист на несколько дней или команда.</p></div>
+<div class="card"><h3>Понятный заказ</h3><p>Чем яснее заказ, тем выше шанс, что откликнется правильный человек. Здесь можно собрать структуру запроса без путаницы.</p></div>
+<div class="card"><h3>Подготовка к переговорам</h3><p>Подсказываем, что спросить у мастера заранее: сроки, этапы, материалы, гарантию и итоговую стоимость.</p></div>
+</div>
+</section>
+
+<section class="section">
+<h2>Инструменты Studio</h2>
+<p class="lead">Все блоки работают прямо на странице без перезагрузки.</p>
+<div class="tools">
+<div class="tool">
+<h3>Калькулятор бюджета</h3>
+<p>Выбери формат, сложность и срок. Studio покажет примерный диапазон бюджета для старта разговора.</p>
+<div class="row">
+<select id="serviceType"><option value="120">Одна услуга</option><option value="260">Проект на несколько этапов</option><option value="420">Комплексная работа</option></select>
+<select id="complexity"><option value="1">Базовая</option><option value="1.45">Средняя</option><option value="2">Сложная</option></select>
+</div>
+<div class="row">
+<input id="daysCount" class="field" type="number" min="1" value="2" placeholder="Дней">
+<select id="speedMode"><option value="1">Обычный срок</option><option value="1.25">Срочно</option></select>
+</div>
+<div class="tool-actions"><button class="pill primary" type="button" id="calcBudget">Посчитать</button></div>
+<div class="result" id="budgetResult">Диапазон бюджета появится здесь.</div>
+</div>
+<div class="tool">
+<h3>Генератор брифа</h3>
+<p>Заполни короткие поля и получи понятный текст заказа, который можно вставить в чат, AI или отправить специалисту.</p>
+<div class="row"><input id="briefTask" class="field" type="text" placeholder="Что нужно сделать"><input id="briefBudget" class="field" type="text" placeholder="Бюджет"></div>
+<div class="row"><input id="briefDeadline" class="field" type="text" placeholder="Срок"><input id="briefLocation" class="field" type="text" placeholder="Локация"></div>
+<textarea id="briefDetails" placeholder="Детали, пожелания, ограничения"></textarea>
+<div class="tool-actions"><button class="pill primary" type="button" id="generateBrief">Собрать бриф</button><button class="pill" type="button" id="copyBrief">Копировать текст</button></div>
+<div class="result" id="briefResult">Готовый бриф появится здесь.</div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<h2>Сценарии работы</h2>
+<p class="lead">Частые сценарии, чтобы пользователь быстрее понимал, куда идти дальше.</p>
+<div class="grid3">
+<div class="card"><h3>Мне нужен мастер сегодня</h3><p>Открой каталог, посмотри доступность специалиста и сразу оформи заказ с указанием часов или дней.</p></div>
+<div class="card"><h3>Я специалист и хочу клиентов</h3><p>Добавь сильное резюме, опиши услуги и цену понятно, собирай отзывы и регулярно обновляй карточку.</p></div>
+<div class="card"><h3>Я не знаю, кого выбрать</h3><p>Спроси AI-помощника, используй бриф с этой страницы и сравни нескольких специалистов по навыкам и стоимости.</p></div>
+</div>
+</section>
+
+<section class="section">
+<h2>Частые вопросы</h2>
+<p class="lead">Добавил и полезные ответы, чтобы страница была живой, а не пустой.</p>
+<div class="faq-grid">
+<div class="faq"><h4>Нужно ли сразу знать точный бюджет?</h4><p>Нет. Достаточно диапазона. Главное это задача, срок и важные условия.</p></div>
+<div class="faq"><h4>Лучше выбрать одного мастера или команду?</h4><p>Для локальной задачи часто хватает одного специалиста. Для комплексной работы лучше искать исполнителя с несколькими навыками или командой.</p></div>
+<div class="faq"><h4>Как не получить пустой отклик?</h4><p>Опиши цель, ограничения, дедлайн, бюджет и локацию. Чем понятнее данные, тем меньше случайных ответов.</p></div>
+<div class="faq"><h4>Что спросить у специалиста первым делом?</h4><p>Уточни опыт по похожим задачам, сроки, итоговую стоимость, материалы и что входит в услугу.</p></div>
+</div>
+</section>
+
+<section class="section">
+<h2>Быстрые переходы</h2>
+<p class="lead">Все кнопки здесь ведут на рабочие разделы сайта.</p>
+<div class="links">
+<a href="{% url 'home' %}"><strong>Каталог</strong><span>Посмотреть специалистов и карточки</span></a>
+<a href="{% url 'homeview' %}"><strong>AI Assistant</strong><span>Попросить помощь в подборе</span></a>
+<a href="{% url 'aboutas' %}"><strong>О проекте</strong><span>Узнать философию и подход Nexus Elite</span></a>
+<a href="{% url 'feedback' %}"><strong>Поддержка</strong><span>Оставить сообщение или вопрос</span></a>
+<a href="{% url 'resource_page' 'faq' %}"><strong>FAQ</strong><span>Быстрые ответы по платформе</span></a>
+<a href="{% url 'resource_page' 'security' %}"><strong>Безопасность</strong><span>Памятка по аккаунту и заказам</span></a>
+</div>
+</section>
+
+<footer>
+<p>© 2026 NEXUS ELITE. Studio внутри экосистемы сайта.</p>
+</footer>
+
+<script>
+document.getElementById('calcBudget').addEventListener('click',()=>{const base=Number(document.getElementById('serviceType').value);const complexity=Number(document.getElementById('complexity').value);const days=Math.max(1,Number(document.getElementById('daysCount').value)||1);const speed=Number(document.getElementById('speedMode').value);const min=Math.round(base*complexity*days*speed);const max=Math.round(min*1.45);document.getElementById('budgetResult').textContent=`Рекомендуемый стартовый диапазон: ${min} - ${max} сомони. Лучше сразу уточнить, входит ли сюда выезд, материалы и работа.`;});
+document.getElementById('generateBrief').addEventListener('click',()=>{const task=document.getElementById('briefTask').value.trim()||'не указана';const budget=document.getElementById('briefBudget').value.trim()||'по договоренности';const deadline=document.getElementById('briefDeadline').value.trim()||'обсуждается';const location=document.getElementById('briefLocation').value.trim()||'не указана';const details=document.getElementById('briefDetails').value.trim()||'без дополнительных деталей';document.getElementById('briefResult').textContent=`Здравствуйте. Нужна помощь по задаче: ${task}. Бюджет: ${budget}. Срок: ${deadline}. Локация или формат: ${location}. Дополнительно: ${details}. Напишите, пожалуйста, ваш опыт, сроки и итоговую стоимость.`;});
+document.getElementById('copyBrief').addEventListener('click',()=>{navigator.clipboard.writeText(document.getElementById('briefResult').textContent).then(()=>{document.getElementById('copyBrief').textContent='Скопировано';setTimeout(()=>document.getElementById('copyBrief').textContent='Копировать текст',1500);});});
+</script>
+</body>
+</html>

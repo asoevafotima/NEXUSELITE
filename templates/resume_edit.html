@@ -202,12 +202,12 @@
 <footer>
     <div class="footer-grid reveal">
         <div class="footer-brand">
-            <a href="#" class="logo">NEXUS<span>ELITE</span></a>
+            <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
             <p class="footer-desc">Система управления талантами Nexus Elite. Точность и эффективность.</p>
             <div class="footer-socials">
-                <a href="#" class="social-btn">TG</a>
-                <a href="#" class="social-btn">IG</a>
-                <a href="#" class="social-btn">BE</a>
+                <a href="{% url 'resource_page' 'support' %}" class="social-btn">TG</a>
+                <a href="{% url 'resource_page' 'blog' %}" class="social-btn">IG</a>
+                <a href="{% url 'resource_page' 'design' %}" class="social-btn">BE</a>
             </div>
         </div>
         <div class="footer-col">
@@ -221,17 +221,17 @@
         <div class="footer-col">
             <h4>Сервисы</h4>
             <ul>
-                <li><a href="#">База данных</a></li>
-                <li><a href="#">Аналитика</a></li>
-                <li><a href="#">Поддержка</a></li>
+                <li><a href="{% url 'resource_page' 'database' %}">���� ������</a></li>
+                <li><a href="{% url 'resource_page' 'analytics' %}">���������</a></li>
+                <li><a href="{% url 'resource_page' 'support' %}">���������</a></li>
             </ul>
         </div>
         <div class="footer-col">
             <h4>Право</h4>
             <ul>
-                <li><a href="#">Условия</a></li>
-                <li><a href="#">Приватность</a></li>
-                <li><a href="#">Cookies</a></li>
+                <li><a href="{% url 'resource_page' 'rules' %}">�������</a></li>
+                <li><a href="{% url 'resource_page' 'privacy' %}">�����������</a></li>
+                <li><a href="{% url 'resource_page' 'privacy' %}">Cookies</a></li>
             </ul>
         </div>
         <div class="footer-col">
@@ -243,7 +243,7 @@
         </div>
         <div class="footer-newsletter">
             <h4>Подписка</h4>
-            <form class="newsletter-box">
+            <form class="newsletter-box" action="{% url 'resource_page' 'newsletter' %}" method="get">
                 <input type="email" placeholder="Email" required>
                 <button type="submit">OK</button>
             </form>
@@ -286,3 +286,4 @@
 
 </body>
 </html>
+

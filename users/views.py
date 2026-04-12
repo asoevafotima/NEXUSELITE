@@ -138,6 +138,7 @@ def registrations(request):
                             email=email,
                             password=password,
                         )
+                        user.groups.clear()
                         user_role, _ = Group.objects.get_or_create(name=role)
                         user.groups.add(user_role)
                         if not try_send_confirmation_email(request, user):

@@ -163,59 +163,53 @@
 <footer>
     <div class="f-grid reveal">
         <div class="f-brand">
-            <a href="#" class="logo">NEXUS<span>ELITE</span></a>
+            <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
             <p class="f-desc">Система управления талантами Nexus Elite. Точность и эффективность.</p>
             <div class="f-socials">
-                <a href="#" class="social-btn">TG</a>
-                <a href="#" class="social-btn">IG</a>
-                <a href="#" class="social-btn">BE</a>
+                <a href="{% url 'resource_page' 'support' %}" class="social-btn">TG</a>
+                <a href="{% url 'resource_page' 'blog' %}" class="social-btn">IG</a>
+                <a href="{% url 'resource_page' 'design' %}" class="social-btn">BE</a>
             </div>
         </div>
-
         <div class="f-col">
             <h4>Платформа</h4>
             <ul>
                 <li><a href="{% url 'home' %}">Все мастера</a></li>
                 <li><a href="{% url 'resume_add' %}">Стать экспертом</a></li>
-                <li><a href="#">AI Ассистент</a></li>
+                <li><a href="{% url 'homeview' %}">AI Ассистент</a></li>
             </ul>
         </div>
-
         <div class="f-col">
             <h4>Сервисы</h4>
             <ul>
-                <li><a href="#">База данных</a></li>
-                <li><a href="#">Аналитика</a></li>
-                <li><a href="#">Поддержка</a></li>
+                <li><a href="{% url 'resource_page' 'database' %}">База данных</a></li>
+                <li><a href="{% url 'resource_page' 'analytics' %}">Аналитика</a></li>
+                <li><a href="{% url 'resource_page' 'support' %}">Поддержка</a></li>
             </ul>
         </div>
-
         <div class="f-col">
             <h4>Право</h4>
             <ul>
-                <li><a href="#">Условия</a></li>
-                <li><a href="#">Приватность</a></li>
-                <li><a href="#">Cookies</a></li>
+                <li><a href="{% url 'resource_page' 'rules' %}">Условия</a></li>
+                <li><a href="{% url 'resource_page' 'privacy' %}">Приватность</a></li>
+                <li><a href="{% url 'resource_page' 'privacy' %}">Cookies</a></li>
             </ul>
         </div>
-
         <div class="f-col">
             <h4>Связь</h4>
             <ul>
-                <li><a href="#">info@nexus.tj</a></li>
-                <li><a href="#">+992 939 939 641</a></li>
+                <li><a href="mailto:info@nexus.tj">info@nexus.tj</a></li>
+                <li><a href="tel:+992939939641">+992 939 939 641</a></li>
             </ul>
         </div>
-
         <div class="f-sub">
             <h4 data-i18n="f_sub">Подписка</h4>
-            <div class="f-sub-form">
+            <form class="f-sub-form" action="{% url 'resource_page' 'newsletter' %}" method="get">
                 <input type="email" placeholder="Email">
                 <button class="f-sub-btn">OK</button>
-            </div>
+            </form>
         </div>
     </div>
-
     <div class="f-bottom">
         <p>© 2026 NEXUS ELITE. Система терминации записей.</p>
         <div style="font-family: 'Space Mono', monospace; font-weight: 700; color: var(--accent);" id="footer-clock">00:00:00</div>
@@ -256,3 +250,4 @@
 
 </body>
 </html>
+

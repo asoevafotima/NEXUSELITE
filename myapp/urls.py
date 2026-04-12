@@ -7,6 +7,8 @@ urlpatterns = [
     path('ai/', HomeView.as_view(), name='homeview'), 
     path('history/', views.history, name='history'),
     path('about/', about_view, name='aboutas'),
+    path('studio/', views.studio_view, name='studio'),
+    path('pages/<slug:slug>/', views.resource_page, name='resource_page'),
     path('api/ai/', views.ai_api, name='ai-api'),     
 
     path('resume/add/', ResumeCreateView.as_view(), name='resume_add'),

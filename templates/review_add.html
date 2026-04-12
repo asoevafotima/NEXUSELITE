@@ -3,294 +3,314 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Elite | Feedback Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
+    <title>Nexus Elite | Новый отзыв</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #cdc8bf; 
-            --surface: #d6d1c8; 
-            --surface2: #c4beb3;
-            --text: #1a1a1a;
-            --text2: #525252;
+            --bg: #eef2ff;
+            --surface: rgba(255,255,255,0.82);
+            --surface-strong: #ffffff;
+            --text: #172033;
+            --muted: #667085;
             --accent: #2563eb;
-            --accent-light: rgba(37, 99, 235, 0.1);
-            --border: rgba(0, 0, 0, 0.1);
-            --nav-bg: rgba(205, 200, 191, 0.92);
-            --shadow: 0 4px 20px rgba(0,0,0,0.08);
-            --radius: 24px;
+            --accent-soft: rgba(37,99,235,0.10);
+            --accent-2: #0ea5e9;
+            --border: rgba(15, 23, 42, 0.10);
+            --shadow: 0 24px 60px rgba(15, 23, 42, 0.10);
         }
-
         [data-theme="dark"] {
-            --bg: #1e1e21; 
-            --surface: #252529;
-            --surface2: #2d2d33;
-            --text: #f0f0f0;
-            --text2: #9494a1;
-            --accent: #4f8aff;
-            --accent-light: rgba(79, 138, 255, 0.15);
-            --border: rgba(255, 255, 255, 0.08);
-            --nav-bg: rgba(30, 30, 33, 0.92);
-            --shadow: 0 8px 30px rgba(0,0,0,0.4);
+            --bg: #0f172a;
+            --surface: rgba(15,23,42,0.82);
+            --surface-strong: #172133;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --accent: #60a5fa;
+            --accent-soft: rgba(96,165,250,0.12);
+            --accent-2: #22d3ee;
+            --border: rgba(255,255,255,0.10);
+            --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body { 
-            background: var(--bg); 
-            color: var(--text); 
-            font-family: 'Manrope', sans-serif; 
-            overflow-x: hidden; 
-            transition: background 0.35s ease; 
-            display: flex;
-            flex-direction: column;
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
             min-height: 100vh;
+            font-family: 'Manrope', sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(34, 211, 238, 0.18), transparent 28%),
+                radial-gradient(circle at bottom right, rgba(37, 99, 235, 0.18), transparent 26%),
+                var(--bg);
         }
-
-        /* в”Ђв”Ђ NAV в”Ђв”Ђ */
-        nav {
-            position: sticky; top: 0; z-index: 100;
-            background: var(--nav-bg);
-            backdrop-filter: blur(18px);
-            border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 32px; height: 64px;
+        .shell {
+            width: min(980px, calc(100% - 28px));
+            margin: 0 auto;
+            padding: 18px 0 34px;
+        }
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
         }
         .logo {
+            text-decoration: none;
+            color: var(--text);
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.6rem; letter-spacing: 2px;
-            color: var(--text); text-decoration: none;
+            font-size: 2rem;
+            letter-spacing: 0.06em;
         }
         .logo span { color: var(--accent); }
-
-        .nav-right { display: flex; align-items: center; gap: 8px; }
-
-        .btn-ui {
-            font-size: 0.75rem; font-weight: 700;
-            padding: 8px 18px; border-radius: 100px;
-            border: 1.5px solid var(--border); background: var(--surface2);
-            cursor: pointer; text-decoration: none; color: var(--text);
-            transition: 0.2s; text-transform: uppercase;
+        .nav-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
         }
-        .btn-ui:hover { border-color: var(--text); background: var(--surface); }
-
-        /* в”Ђв”Ђ FORM CARD в”Ђв”Ђ */
-        .main-content { flex: 1; display: flex; align-items: center; justify-content: center; padding: 60px 20px; }
-        .review-card { 
-            background: var(--surface); 
-            border: 1px solid var(--border); 
-            border-radius: var(--radius); 
-            padding: 40px; 
-            width: 100%;
-            max-width: 500px;
+        .chip,
+        .submit-btn {
+            border-radius: 999px;
+            padding: 11px 18px;
+            font-size: 0.84rem;
+            font-weight: 800;
+            text-decoration: none;
+            transition: 0.2s ease;
+        }
+        .chip {
+            color: var(--text);
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.08);
+        }
+        .wrap {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 22px;
+        }
+        .info,
+        .panel {
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            background: var(--surface);
+            backdrop-filter: blur(18px);
             box-shadow: var(--shadow);
         }
-        
-        h2 { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; line-height: 1; margin-bottom: 5px; text-align: center; color: var(--text); }
-        .subtitle { display: block; text-align: center; font-size: 0.7rem; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 30px; }
-
-        form p { margin-bottom: 20px; display: flex; flex-direction: column; gap: 6px; }
-        label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: var(--text2); letter-spacing: 0.5px; }
-        
-        input, textarea, select {
-            background: var(--surface2) !important;
-            border: 1px solid var(--border) !important;
-            border-radius: 12px !important;
-            padding: 12px 16px !important;
-            color: var(--text) !important;
-            font-family: 'Manrope', sans-serif;
+        .info {
+            padding: 30px;
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            padding: 8px 12px;
+            font-size: 0.76rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        h1 {
+            margin: 18px 0 10px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.8rem, 5vw, 4.5rem);
+            line-height: 0.95;
+            letter-spacing: 0.03em;
+        }
+        .info p {
+            margin: 0;
+            line-height: 1.7;
+            color: var(--muted);
+        }
+        .resume-box {
+            margin-top: 22px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.18);
+            border-radius: 22px;
+            padding: 16px;
+        }
+        .resume-box strong {
+            display: block;
+            margin-bottom: 8px;
+        }
+        .resume-box span {
+            color: var(--muted);
             font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .panel {
+            padding: 26px;
+        }
+        .panel h2 {
+            margin: 0 0 8px;
+            font-size: 1.45rem;
+        }
+        .panel > p {
+            margin: 0 0 18px;
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.92rem;
+        }
+        .alert-list {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .alert-item {
+            padding: 12px 14px;
+            border-radius: 16px;
+            background: rgba(37,99,235,0.08);
+            border: 1px solid rgba(37,99,235,0.18);
+            color: var(--accent);
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+        form {
+            display: grid;
+            gap: 16px;
+        }
+        form p {
+            margin: 0;
+            display: grid;
+            gap: 8px;
+        }
+        label {
+            font-size: 0.76rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+        }
+        input,
+        textarea,
+        select {
+            width: 100%;
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            background: var(--surface-strong);
+            color: var(--text);
+            padding: 15px 16px;
+            font: inherit;
             outline: none;
-            transition: 0.2s;
         }
-        input:focus, textarea:focus { border-color: var(--accent) !important; background: var(--bg) !important; }
-
+        textarea { min-height: 140px; resize: vertical; }
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-soft);
+        }
+        .rating-note {
+            padding: 14px;
+            border-radius: 18px;
+            background: rgba(255,255,255,0.18);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.86rem;
+            line-height: 1.55;
+        }
         .submit-btn {
-            width: 100%; padding: 16px;
-            background: var(--accent); border: none;
-            border-radius: 100px; color: white;
-            font-size: 0.85rem; font-weight: 800;
-            text-transform: uppercase; letter-spacing: 1px;
-            cursor: pointer; transition: 0.3s; margin-top: 10px;
+            border: none;
+            cursor: pointer;
+            color: white;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            box-shadow: 0 18px 30px rgba(37,99,235,0.24);
         }
-        .submit-btn:hover { transform: translateY(-2px); filter: brightness(1.1); box-shadow: 0 8px 20px var(--accent-light); }
-
-        .back-link { display: block; text-align: center; margin-top: 20px; font-size: 0.75rem; font-weight: 700; color: var(--text2); text-decoration: none; text-transform: uppercase; }
-
-        /* в”Ђв”Ђ FOOTER (Same as Home) в”Ђв”Ђ */
-        footer { 
-            background: var(--surface); 
-            border-top: 1px solid var(--border); 
-            padding: 60px 32px 20px; 
-            margin-top: 40px;
+        .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
         }
-        .footer-grid { 
-            display: grid; 
-            grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1.5fr; 
-            gap: 32px; 
-            margin-bottom: 40px; 
+        .footer-note {
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.82rem;
+            margin-top: 18px;
         }
-        .footer-brand .logo { font-size: 1.5rem; margin-bottom: 12px; display: block; }
-        .footer-desc { font-size: 0.8rem; color: var(--text2); line-height: 1.5; margin-bottom: 20px; max-width: 280px; }
-        
-        .footer-col h4 { 
-            font-size: 0.75rem; font-weight: 800; color: var(--text); 
-            text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px;
+        @media (max-width: 860px) {
+            .wrap {
+                grid-template-columns: 1fr;
+            }
         }
-        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-        .footer-col ul a { font-size: 0.82rem; color: var(--text2); text-decoration: none; transition: 0.2s; }
-        .footer-col ul a:hover { color: var(--accent); padding-left: 4px; }
-        
-        .footer-socials { display: flex; gap: 10px; }
-        .social-btn { 
-            width: 34px; height: 34px; border-radius: 10px; 
-            background: var(--surface2); display: flex; align-items: center; justify-content: center; 
-            color: var(--text); text-decoration: none; font-size: 0.8rem; font-weight: 700;
-            transition: 0.3s; border: 1px solid var(--border); 
-        }
-        .social-btn:hover { background: var(--accent); color: white; transform: translateY(-3px); }
-
-        .newsletter-box { 
-            background: var(--surface2); padding: 5px; border-radius: 14px; 
-            display: flex; gap: 5px; border: 1px solid var(--border);
-        }
-        .newsletter-box input { flex: 1; background: transparent; border: none; outline: none; padding-left: 12px; color: var(--text); font-size: 0.8rem; min-width: 0; }
-        .newsletter-box button { background: var(--text); color: var(--bg); border: none; padding: 10px 18px; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 0.75rem; }
-
-        .footer-bottom { 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding-top: 25px; border-top: 1px solid var(--border);
-            font-size: 0.78rem; color: var(--text2);
-        }
-        #footer-clock { font-family: 'Space Mono', monospace; color: var(--accent); font-weight: 700; }
-
-        .reveal { opacity: 0; transform: translateY(20px); }
-
-        @media (max-width: 1200px) {
-            .footer-grid { grid-template-columns: repeat(3, 1fr); }
-        }
-        @media (max-width: 768px) {
-            .footer-grid { grid-template-columns: 1fr; }
-            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+        @media (max-width: 640px) {
+            .shell { width: min(100% - 20px, 980px); }
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .nav-actions {
+                width: 100%;
+            }
+            .nav-actions > * {
+                flex: 1 1 auto;
+                text-align: center;
+            }
+            .info,
+            .panel {
+                padding: 22px 18px;
+                border-radius: 24px;
+            }
         }
     </style>
 </head>
 <body>
-
-    
-<nav>
-    <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
-    <div class="nav-right">
-        <button class="btn-ui" onclick="toggleLang()" id="lang-btn">EN</button>
-        <button class="btn-ui" id="theme-toggle">
-            <span id="theme-icon">рџЊ™</span> <span id="theme-text" data-i18n="t_night">РќРћР§Р¬</span>
-        </button>
-        <a href="javascript:history.back()" class="btn-ui" data-i18n="btn_back">РќРђР—РђР”</a>
-    </div>
-</nav>
-
-<div class="main-content">
-    <div class="review-card reveal">
-        <h2 data-i18n="h_feedback">РћРўР—Р«Р’</h2>
-        <span class="subtitle" data-i18n="sub_rate">РћС†РµРЅРёС‚Рµ РѕРїС‹С‚</span>
-        
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="submit-btn" data-i18n="btn_publish">РћРџРЈР‘Р›РРљРћР’РђРўР¬</button>
-        </form>
-        
-        <a href="{% url 'home' %}" class="back-link" data-i18n="btn_cancel">РћРўРњР•РќРђ Р Р’Р«РҐРћР”</a>
-    </div>
-</div>
-
-<footer>
-    <div class="footer-grid reveal">
-        <div class="footer-brand">
-            <a href="#" class="logo">NEXUS<span>ELITE</span></a>
-            <p class="footer-desc">РРЅС‚РµР»Р»РµРєС‚СѓР°Р»СЊРЅР°СЏ СЌРєРѕСЃРёСЃС‚РµРјР° РґР»СЏ РѕР±СЉРµРґРёРЅРµРЅРёСЏ С‚Р°Р»Р°РЅС‚РѕРІ РІ РўР°РґР¶РёРєРёСЃС‚Р°РЅРµ.</p>
-            <div class="footer-socials">
-                <a href="#" class="social-btn">TG</a>
-                <a href="#" class="social-btn">IG</a>
-                <a href="#" class="social-btn">BE</a>
+    <div class="shell">
+        <header class="topbar">
+            <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
+            <div class="nav-actions">
+                <a href="{% url 'resume_detail' resume.pk %}" class="chip">К профилю</a>
+                <a href="{% url 'home' %}" class="chip">На главную</a>
             </div>
-        </div>
-        <div class="footer-col">
-            <h4>РџР»Р°С‚С„РѕСЂРјР°</h4>
-            <ul>
-                <li><a href="{% url 'home' %}">Р’СЃРµ РјР°СЃС‚РµСЂР°</a></li>
-                <li><a href="{% url 'resume_add' %}">РЎС‚Р°С‚СЊ СЌРєСЃРїРµСЂС‚РѕРј</a></li>
-                <li><a href="{% url 'homeview' %}">AI РђСЃСЃРёСЃС‚РµРЅС‚</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h4>РЈСЃР»СѓРіРё</h4>
-            <ul>
-                <li><a href="#">Р Р°Р·СЂР°Р±РѕС‚РєР°</a></li>
-                <li><a href="#">Р”РёР·Р°Р№РЅ</a></li>
-                <li><a href="#">РњР°СЂРєРµС‚РёРЅРі</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h4>Р РµСЃСѓСЂСЃС‹</h4>
-            <ul>
-                <li><a href="#">Р‘Р»РѕРі</a></li>
-                <li><a href="#">РџРѕРјРѕС‰СЊ</a></li>
-                <li><a href="#">FAQ</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h4>РљРѕРЅС‚Р°РєС‚С‹</h4>
-            <ul>
-                <li><a href="mailto:info@nexus.tj">info@nexus.tj</a></li>
-                <li><a href="tel:+992939939641">+992 939 939 641</a></li>
-                <li><a href="aboutas.html">Рћ РїСЂРѕРµРєС‚Рµ</a></li>
-            </ul>
-        </div>
-        <div class="footer-newsletter">
-            <h4>Р”Р°Р№РґР¶РµСЃС‚</h4>
-            <form class="newsletter-box">
-                <input type="email" placeholder="Email" required>
-                <button type="submit">OK</button>
-            </form>
-        </div>
+        </header>
+
+        <main class="wrap">
+            <section class="info">
+                <div class="badge">Отзыв клиента</div>
+                <h1>Оставьте понятный и честный отзыв</h1>
+                <p>Я сделал эту страницу аккуратнее и полезнее. Теперь отзыв можно добавить в нормальном виде, а пользователь сразу понимает, про кого именно он пишет.</p>
+
+                <div class="resume-box">
+                    <strong>{{ resume.full_name }}</strong>
+                    <span>
+                        {% if resume.professian %}{{ resume.professian }}{% else %}Специалист{% endif %}
+                        {% if resume.category %} • {{ resume.category }}{% endif %}
+                        {% if resume.price %} • от {{ resume.price }} сомони{% endif %}
+                    </span>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Новый отзыв</h2>
+                <p>Опишите свой опыт работы со специалистом. Хороший отзыв помогает другим клиентам выбрать человека осознанно.</p>
+
+                {% if messages or form.errors %}
+                <div class="alert-list">
+                    {% for message in messages %}
+                        <div class="alert-item">{{ message }}</div>
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <div class="alert-item">{{ error }}</div>
+                    {% endfor %}
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <div class="alert-item">{{ field.label }}: {{ error }}</div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="rating-note">Подсказка: лучше написать, что именно делал специалист, насколько быстро отвечал, уложился ли в срок и было ли удобно общаться.</div>
+                    <div class="actions">
+                        <button type="submit" class="submit-btn">Опубликовать отзыв</button>
+                        <a href="{% url 'resume_detail' resume.pk %}" class="chip">Отмена</a>
+                    </div>
+                </form>
+            </section>
+        </main>
+
+        <div class="footer-note">Nexus Elite • Отзывы помогают находить сильных специалистов</div>
     </div>
-    <div class="footer-bottom">
-        <p>В© 2026 NEXUS ELITE. Р’СЃРµ РїСЂР°РІР° Р·Р°С‰РёС‰РµРЅС‹.</p>
-        <div id="footer-clock">00:00:00</div>
-    </div>
-</footer>
-
-<script>
-    const T = {
-        en: { t_night: "NIGHT", t_day: "DAY", btn_back: "BACK", h_feedback: "FEEDBACK", sub_rate: "Rate the experience", btn_publish: "PUBLISH REVIEW", btn_cancel: "CANCEL" },
-        ru: { t_night: "РќРћР§Р¬", t_day: "Р”Р•РќР¬", btn_back: "РќРђР—РђР”", h_feedback: "РћРўР—Р«Р’", sub_rate: "РћС†РµРЅРёС‚Рµ РѕРїС‹С‚", btn_publish: "РћРџРЈР‘Р›РРљРћР’РђРўР¬", btn_cancel: "РћРўРњР•РќРђ" }
-    };
-    
-    let currentLang = 'ru';
-
-    function toggleLang() {
-        currentLang = currentLang === 'ru' ? 'en' : 'ru';
-        document.getElementById('lang-btn').textContent = currentLang === 'en' ? 'RU' : 'EN';
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const k = el.getAttribute('data-i18n');
-            if (T[currentLang][k]) el.innerHTML = T[currentLang][k];
-        });
-    }
-
-    const themeBtn = document.getElementById('theme-toggle');
-    themeBtn.addEventListener('click', () => {
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-        document.getElementById('theme-icon').textContent = isDark ? 'рџЊ™' : 'вЂпёЏ';
-        document.getElementById('theme-text').textContent = isDark ? T[currentLang].t_night : T[currentLang].t_day;
-    });
-
-    setInterval(() => { document.getElementById('footer-clock').textContent = new Date().toLocaleTimeString(); }, 1000);
-    window.onload = () => { gsap.to('.reveal', { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 }); };
-</script>
-
 </body>
 </html>

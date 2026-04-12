@@ -238,7 +238,7 @@
             <button type="submit" class="submit-btn" data-i18n="btn_submit">ОТПРАВИТЬ ЗАПРОС</button>
         </form>
 
-        <a href="javascript:history.back()" class="abort-link" data-i18n="btn_abort">ОТМЕНИТЬ И ВЕРНУТЬСЯ</a>
+        <a href="{% url 'resume_detail' resume.pk %}" class="abort-link" data-i18n="btn_abort">ОТМЕНИТЬ И ВЕРНУТЬСЯ</a>
     </div>
 </div>
 
@@ -283,3 +283,4 @@
 
 </body>
 </html>
+

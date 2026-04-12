@@ -5,23 +5,39 @@ from .models import Resume, Review, Feedback, AIRequest, ServiceOrder
 class ResumeForm(forms.ModelForm):
     class Meta:
         model = Resume
-        fields = ['full_name', 'category', 'photo', 'skills', 'price']
+        fields = [
+            'full_name',
+            'professian',
+            'category',
+            'price',
+            'photo',
+            'description',
+            'skills',
+        ]
         widgets = {
             'full_name': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Enter your full name'
+                'placeholder': 'Как вас зовут'
+            }),
+            'professian': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Например: Сантехник, Дизайнер, Разработчик'
             }),
             'category': forms.Select(attrs={
                 'class': 'form-select'
             }),
+            'description': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Коротко опишите, чем вы полезны клиенту'
+            }),
             'skills': forms.Textarea(attrs={
                 'class': 'form-control',
                 'rows': 4,
-                'placeholder': 'Describe your skills...'
+                'placeholder': 'Опишите навыки, опыт, инструменты и сильные стороны'
             }),
             'price': forms.NumberInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Price per service (TJS)'
+                'placeholder': 'Цена за услугу (сомони)'
             }),
             'photo': forms.FileInput(attrs={
                 'class': 'form-control'

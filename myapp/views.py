@@ -175,12 +175,27 @@ class Home(ListView):
     context_object_name = 'resumes'
 
     def get_queryset(self):
-        self.filterset = ResumeFilter(self.request.GET, queryset=Resume.objects.all())
+        queryset = Resume.objects.select_related('category', 'user').order_by('-created_at')
+        self.filterset = ResumeFilter(self.request.GET, queryset=queryset)
         return self.filterset.qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['filter'] = self.filterset
+        resumes = list(context['resumes'])
+        categories = list(
+            Resume.objects.select_related('category')
+            .values_list('category__name', flat=True)
+            .distinct()
+        )
+        context['featured_resumes'] = resumes[:6]
+        context['categories_preview'] = categories[:8]
+        context['stats'] = {
+            'resumes': Resume.objects.count(),
+            'specialists': Resume.objects.values('user').distinct().count(),
+            'categories': len(categories),
+            'reviews': Review.objects.count(),
+        }
         context.update(base_context(self.request)) 
         return context
 
@@ -225,7 +240,7 @@ class ResumeCreateView(PermissionRequiredMixin, CreateView):
 
     required_permission = 'add_resume'
     model = Resume
-    fields = ['full_name', 'professian', 'category', 'price', 'photo', 'description', 'skills']
+    form_class = ResumeForm
     template_name = 'resume_add.html'
     success_url = reverse_lazy('home')
 
@@ -255,6 +270,12 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
     model = Review
     form_class = ReviewForm
     template_name = 'review_add.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['resume'] = Resume.objects.get(pk=self.kwargs['pk'])
+        context.update(base_context(self.request))
+        return context
 
     def form_valid(self, form):
         form.instance.resume_id = self.kwargs['pk']
@@ -335,3 +356,94 @@ class FeedbackCreateView(PermissionRequiredMixin, CreateView):
 
 def about_view(request):  
     return render(request, 'aboutas.html', base_context(request))
+
+
+def studio_view(request):
+    return render(request, 'studio.html', base_context(request))
+
+
+RESOURCE_PAGES = {
+    'blog': {
+        'title': 'Блог Nexus Elite',
+        'subtitle': 'Новости, кейсы и практические материалы',
+        'description': 'Здесь мы собираем статьи о рынке услуг, портфолио специалистов, подборе исполнителей и цифровых инструментах для работы.',
+    },
+    'faq': {
+        'title': 'Частые вопросы',
+        'subtitle': 'Быстрые ответы по платформе',
+        'description': 'Вопросы о регистрации, заказах, отзывах, безопасности, подборе специалистов и работе AI-помощника.',
+    },
+    'support': {
+        'title': 'Поддержка',
+        'subtitle': 'Мы помогаем с любыми вопросами',
+        'description': 'Если у вас не работает регистрация, заказ, редактирование профиля или AI-чат, напишите в поддержку через форму обратной связи.',
+    },
+    'rules': {
+        'title': 'Правила платформы',
+        'subtitle': 'Прозрачные условия работы',
+        'description': 'Раздел с базовыми правилами публикации резюме, общения с клиентами, оформления заказов и модерации контента.',
+    },
+    'privacy': {
+        'title': 'Конфиденциальность',
+        'subtitle': 'Как мы работаем с данными',
+        'description': 'Мы используем данные аккаунта только для работы платформы, заказов, сообщений и повышения безопасности.',
+    },
+    'offer': {
+        'title': 'Публичная оферта',
+        'subtitle': 'Основные условия использования',
+        'description': 'Раздел с условиями использования платформы Nexus Elite для заказчиков и специалистов.',
+    },
+    'database': {
+        'title': 'База специалистов',
+        'subtitle': 'Категории, навыки и профили',
+        'description': 'Каталог специалистов с фильтрацией по категориям, навыкам, стоимости и доступности.',
+    },
+    'analytics': {
+        'title': 'Аналитика',
+        'subtitle': 'Тренды, востребованность и рост',
+        'description': 'Материалы о популярных категориях, динамике спроса и поведении клиентов на платформе.',
+    },
+    'security': {
+        'title': 'Безопасность',
+        'subtitle': 'Защита аккаунтов и заказов',
+        'description': 'Советы по защите аккаунта, безопасной коммуникации и работе с заказами на платформе.',
+    },
+    'newsletter': {
+        'title': 'Подписка на дайджест',
+        'subtitle': 'Новости платформы и подборки специалистов',
+        'description': 'Подборки новых резюме, статьи, обновления платформы и советы по поиску специалистов.',
+    },
+    'development': {
+        'title': 'Разработка',
+        'subtitle': 'Услуги по созданию цифровых продуктов',
+        'description': 'Backend, frontend, Telegram-боты, автоматизация, корпоративные сайты и внутренние сервисы.',
+    },
+    'design': {
+        'title': 'Дизайн',
+        'subtitle': 'Интерфейсы, брендинг и визуальные системы',
+        'description': 'UI/UX, брендинг, баннеры, лендинги, презентации и визуальные материалы для бизнеса.',
+    },
+    'marketing': {
+        'title': 'Маркетинг',
+        'subtitle': 'Продвижение и рост',
+        'description': 'Контент, таргетинг, аналитика, воронки продаж и упаковка продукта для роста бизнеса.',
+    },
+    'top-categories': {
+        'title': 'Топ категории',
+        'subtitle': 'Самые востребованные направления',
+        'description': 'Раздел с самыми популярными категориями специалистов на платформе и быстрым переходом к поиску.',
+    },
+}
+
+
+def resource_page(request, slug):
+    page = RESOURCE_PAGES.get(slug)
+    if not page:
+        return redirect('home')
+
+    context = {
+        'slug': slug,
+        **page,
+        **base_context(request),
+    }
+    return render(request, 'resource_page.html', context)

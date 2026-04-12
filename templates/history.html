@@ -1,124 +1,113 @@
-<!DOCTYPE html>
-<html lang="ru" data-theme="dark">
+﻿<!DOCTYPE html>
+<html lang="ru" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Elite | Create Profile</title>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Bebas+Neue&family=Space+Mono&display=swap" rel="stylesheet">
+    <title>Nexus Elite | История AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0D0A06; --surface: #16120C; --accent: #E8913A; 
-            --text: #F4EFE4; --text-dim: #B8A888; --border: rgba(244, 239, 228, 0.1);
+            --bg: #f4ede1; --surface: rgba(255,255,255,0.84); --surface-strong: #fffaf2;
+            --text: #1f2937; --muted: #667085; --accent: #0f766e; --accent-2: #f59e0b;
+            --border: rgba(15,23,42,0.10); --shadow: 0 24px 60px rgba(15,23,42,0.10); --radius: 28px;
         }
-        [data-theme="light"] {
-            --bg: #F4F0E8; --surface: #EDE8DC; --accent: #C8622A; 
-            --text: #1A1208; --text-dim: #5A4E38; --border: rgba(26, 18, 8, 0.12);
+        [data-theme="dark"] {
+            --bg: #0f172a; --surface: rgba(15,23,42,0.84); --surface-strong: #182233;
+            --text: #f8fafc; --muted: #94a3b8; --accent: #2dd4bf; --accent-2: #fbbf24;
+            --border: rgba(255,255,255,0.10); --shadow: 0 24px 60px rgba(0,0,0,0.35);
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background: var(--bg); color: var(--text); font-family: 'Manrope', sans-serif; 
-            min-height: 100vh; display: flex; flex-direction: column;
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; font-family: 'Manrope', sans-serif; color: var(--text);
+            background: radial-gradient(circle at top left, rgba(15,118,110,0.12), transparent 24%), radial-gradient(circle at bottom right, rgba(245,158,11,0.12), transparent 20%), var(--bg);
         }
-
-        nav { 
-            padding: 20px 4%; display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid var(--border); background: var(--bg); position: sticky; top: 0; z-index: 100;
+        .page { width: min(1140px, calc(100% - 28px)); margin: 0 auto; padding: 18px 0 36px; }
+        .topbar, .hero, .history-item, .empty {
+            border: 1px solid var(--border); background: var(--surface); backdrop-filter: blur(16px); border-radius: var(--radius); box-shadow: var(--shadow);
         }
-        .logo { font-family: 'Bebas Neue'; font-size: 1.8rem; text-decoration: none; color: var(--text); letter-spacing: 1px; }
+        .topbar {
+            display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 14px 18px; margin-bottom: 18px;
+        }
+        .logo { text-decoration: none; color: var(--text); font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: .06em; }
         .logo span { color: var(--accent); }
-
-        .form-container { 
-            max-width: 800px; margin: 60px auto; width: 90%; 
-            background: var(--surface); border: 1px solid var(--border); border-radius: 32px; padding: 50px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        .toolbar { display: flex; gap: 10px; flex-wrap: wrap; }
+        .btn, .btn-primary {
+            border-radius: 999px; text-decoration: none; font-size: .84rem; font-weight: 800; padding: 11px 16px; transition: .2s ease;
         }
-
-        .form-header { margin-bottom: 40px; }
-        .form-header h1 { font-family: 'Bebas Neue'; font-size: 3.5rem; line-height: 1; margin-bottom: 10px; }
-        .form-header p { color: var(--text-dim); font-size: 0.9rem; font-family: 'Space Mono'; }
-
-        .form-group { margin-bottom: 25px; }
-        label { display: block; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; color: var(--accent); }
-        
-        input, select, textarea {
-            width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 12px;
-            padding: 15px 20px; color: var(--text); font-family: 'Manrope'; font-size: 1rem;
-            transition: 0.3s;
+        .btn { border: 1px solid var(--border); background: rgba(255,255,255,.16); color: var(--text); }
+        .btn-primary { border: none; color: white; background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+        .hero { padding: 28px; margin-bottom: 18px; }
+        .badge {
+            display: inline-flex; gap: 8px; align-items: center; padding: 8px 12px; border-radius: 999px; background: rgba(15,118,110,.10); color: var(--accent); font-size: .76rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
         }
-        input:focus, textarea:focus { border-color: var(--accent); outline: none; background: var(--surface); }
-
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-
-        .btn-submit {
-            background: var(--accent); color: var(--bg); border: none; width: 100%;
-            padding: 18px; border-radius: 100px; font-weight: 800; font-size: 1rem;
-            cursor: pointer; transition: 0.3s; margin-top: 20px; text-transform: uppercase;
-        }
-        .btn-submit:hover { transform: translateY(-3px); filter: brightness(1.1); box-shadow: 0 10px 20px rgba(232, 145, 58, 0.2); }
-
-        footer { margin-top: auto; padding: 40px; text-align: center; font-family: 'Space Mono'; font-size: 0.7rem; opacity: 0.5; }
-
-        @media (max-width: 600px) {
-            .grid-2 { grid-template-columns: 1fr; }
-            .form-container { padding: 30px; }
-            .form-header h1 { font-size: 2.5rem; }
+        h1 { margin: 18px 0 10px; font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 6vw, 5rem); line-height: .92; letter-spacing: .03em; }
+        .hero p, .meta, .item-body { color: var(--muted); line-height: 1.8; }
+        .history-list { display: grid; gap: 14px; }
+        .history-item { padding: 22px; }
+        .item-top { display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; margin-bottom: 10px; }
+        .item-title { margin: 0; font-size: 1.1rem; font-weight: 800; }
+        .stamp { white-space: nowrap; font-size: .8rem; font-weight: 800; color: var(--accent); }
+        .meta { font-size: .86rem; }
+        .empty { padding: 28px; text-align: center; }
+        .empty h2 { margin: 0 0 10px; }
+        @media (max-width: 720px) {
+            .page { width: min(100% - 18px, 1140px); }
+            .topbar { flex-direction: column; align-items: stretch; padding: 14px; border-radius: 24px; }
+            .toolbar > * { flex: 1 1 auto; text-align: center; }
+            .hero, .history-item, .empty { padding: 22px 18px; border-radius: 24px; }
+            .item-top { flex-direction: column; }
+            h1 { font-size: 3.2rem; }
         }
     </style>
 </head>
 <body>
+    <div class="page">
+        <header class="topbar">
+            <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
+            <div class="toolbar">
+                <a href="{% url 'homeview' %}" class="btn-primary">Вернуться в AI</a>
+                <a href="{% url 'studio' %}" class="btn">Studio</a>
+                <a href="{% url 'home' %}" class="btn">Каталог</a>
+                <button class="btn" id="theme-toggle" type="button">Тема</button>
+            </div>
+        </header>
 
-<nav>
-    <a href="/" class="logo">NEXUS<span>ELITE</span></a>
-    <a href="/logs" style="font-family: 'Space Mono'; color: var(--text-dim); text-decoration: none; font-size: 0.8rem;">[ VIEW LOGS ]</a>
-</nav>
+        <section class="hero">
+            <div class="badge">История AI</div>
+            <h1>Все сохранённые запросы в одном месте.</h1>
+            <p>Этот экран я привёл в порядок, чтобы переход из AI-помощника в историю был нормальным, а не вёл на случайный старый шаблон. Здесь можно быстро просмотреть прошлые обращения и ответы.</p>
+        </section>
 
-<main class="form-container">
-    <div class="form-header">
-        <h1>СТАТЬ ЭКСПЕРТОМ</h1>
-        <p>// INITIALIZING REGISTRATION PROTOCOL</p>
+        {% if requests %}
+        <section class="history-list">
+            {% for item in requests %}
+            <article class="history-item">
+                <div class="item-top">
+                    <div>
+                        <h2 class="item-title">{{ item.title|default:'AI запрос' }}</h2>
+                        <div class="meta">Режим: {{ item.get_mode_display }}</div>
+                    </div>
+                    <div class="stamp">{{ item.created_at|date:'d.m.Y H:i' }}</div>
+                </div>
+                <div class="item-body"><strong>Запрос:</strong> {{ item.user_text|truncatechars:220 }}</div>
+                <div class="item-body" style="margin-top: 10px;"><strong>Ответ:</strong> {{ item.ai_response|default:'Ответ пока отсутствует.'|truncatechars:320 }}</div>
+            </article>
+            {% endfor %}
+        </section>
+        {% else %}
+        <section class="empty">
+            <h2>История пока пуста</h2>
+            <p>Откройте AI-помощник, задайте первый вопрос и вернитесь сюда, чтобы увидеть сохранённые обращения.</p>
+            <a href="{% url 'homeview' %}" class="btn-primary">Открыть AI помощник</a>
+        </section>
+        {% endif %}
     </div>
 
-    <form method="POST">
-        <div class="grid-2">
-            <div class="form-group">
-                <label>Имя Фамилия</label>
-                <input type="text" placeholder="Алишер Содиков" required>
-            </div>
-            <div class="form-group">
-                <label>Специализация</label>
-                <select>
-                    <option>UI/UX Designer</option>
-                    <option>Python Developer</option>
-                    <option>C++ Engineer</option>
-                    <option>Marketing Expert</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>О себе (Краткий стек технологий)</label>
-            <textarea rows="4" placeholder="Например: PostgreSQL, Django, React. 5 лет опыта в финтехе."></textarea>
-        </div>
-
-        <div class="grid-2">
-            <div class="form-group">
-                <label>Telegram / Телефон</label>
-                <input type="text" placeholder="@username">
-            </div>
-            <div class="form-group">
-                <label>Ожидаемая ставка (час)</label>
-                <input type="text" placeholder="от 150 смн">
-            </div>
-        </div>
-
-        <button type="submit" class="btn-submit">Опубликовать в системе</button>
-    </form>
-</main>
-
-<footer>
-    © 2026 NEXUS ELITE // ENCRYPTED SUBMISSION SYSTEM
-</footer>
-
+    <script>
+        document.getElementById('theme-toggle').addEventListener('click', function () {
+            const root = document.documentElement;
+            root.setAttribute('data-theme', root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+        });
+    </script>
 </body>
 </html>

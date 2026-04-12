@@ -171,7 +171,7 @@
     <form method="post" class="btn-group reveal">
         {% csrf_token %}
         <button type="submit" class="btn-delete">Confirm Delete</button>
-        <a href="javascript:history.back()" class="btn-cancel">Abort</a>
+        <a href="{% url 'home' %}" class="btn-cancel">Abort</a>
     </form>
 </div>
 

@@ -1,317 +1,223 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Профиль | Nexus Elite</title>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <title>Nexus Elite | Профиль</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #cdc8bf; --surface: #d6d1c8; --surface2: #c4beb3;
-            --text: #1a1a1a; --text2: #525252; --accent: #2563eb;
-            --accent-light: rgba(37, 99, 235, 0.1);
-            --border: rgba(0,0,0,0.1); --radius: 20px;
-            --nav-bg: rgba(205, 200, 191, 0.92);
+            --bg: #f5efe6; --surface: rgba(255,255,255,0.84); --surface-strong: #fffaf2;
+            --text: #1f2937; --muted: #667085; --accent: #2563eb; --accent-2: #ea580c;
+            --border: rgba(15,23,42,0.10); --shadow: 0 24px 60px rgba(15,23,42,0.10); --radius: 28px;
         }
         [data-theme="dark"] {
-            --bg: #1e1e21; --surface: #252529; --surface2: #2d2d33;
-            --text: #f0f0f0; --text2: #9494a1; --accent: #4f8aff;
-            --accent-light: rgba(79, 138, 255, 0.15);
-            --border: rgba(255, 255, 255, 0.08);
-            --nav-bg: rgba(30, 30, 33, 0.92);
+            --bg: #0f172a; --surface: rgba(15,23,42,0.84); --surface-strong: #182233;
+            --text: #f8fafc; --muted: #94a3b8; --accent: #60a5fa; --accent-2: #fb923c;
+            --border: rgba(255,255,255,0.10); --shadow: 0 24px 60px rgba(0,0,0,0.35);
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background: var(--bg); color: var(--text); 
-            font-family: 'Manrope', sans-serif; min-height: 100vh; 
-            transition: background 0.35s, color 0.35s; 
-        }
-
-        nav {
-            position: sticky; top: 0; z-index: 100;
-            background: var(--nav-bg); backdrop-filter: blur(18px);
-            border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 32px; height: 64px;
-        }
-        .logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 2px; color: var(--text); text-decoration: none; }
-        .logo span { color: var(--accent); }
-
-        .nav-right { display: flex; align-items: center; gap: 8px; }
-
-        .btn-pill {
-            font-size: 0.78rem; font-weight: 700; padding: 8px 18px; border-radius: 100px;
-            border: 1.5px solid var(--border); background: transparent; cursor: pointer; 
-            color: var(--text2); text-decoration: none; transition: 0.2s;
-        }
-        .btn-pill:hover { border-color: var(--text); color: var(--text); background: var(--surface2); }
-        
-        .btn-icon {
-            background: var(--surface2); border: none; width: 36px; height: 36px; border-radius: 50%;
-            cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text2);
-        }
-
-        .page { max-width: 1000px; margin: 40px auto; padding: 0 24px; display: grid; grid-template-columns: 320px 1fr; gap: 32px; }
-        .card { 
-            background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); 
-            padding: 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); 
-        }
-
-        .avatar-wrap { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-bottom: 32px; }
-        .avatar-img, .avatar-placeholder { 
-            width: 120px; height: 120px; border-radius: 40px; object-fit: cover; 
-            background: var(--surface2); border: 2px solid var(--border); 
-            display: flex; align-items: center; justify-content: center;
-            font-size: 3rem; font-weight: 800; color: var(--accent);
-        }
-        .username { font-size: 1.4rem; font-weight: 800; text-align: center; }
-        .role-badge { 
-            font-family: 'Space Mono', monospace; font-size: 0.65rem; font-weight: 700; 
-            color: var(--accent); background: var(--accent-light); padding: 6px 14px; border-radius: 12px; 
-        }
-
-        .info-list { margin-top: 20px; }
-        .info-row { 
-            display: flex; justify-content: space-between; padding: 14px 0; 
-            border-bottom: 1px solid var(--border); font-size: 0.85rem; 
-        }
-        .info-row span:first-child { color: var(--text2); font-weight: 500; }
-        .info-row span:last-child { font-weight: 700; }
-
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-        .section-title { font-size: 1.2rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
-        .section-title::before { content: ''; width: 4px; height: 20px; background: var(--accent); border-radius: 4px; }
-
-        .form-group { margin-bottom: 20px; }
-        .form-group label { font-size: 0.8rem; font-weight: 700; color: var(--text2); margin-bottom: 8px; display: block; }
-        
-        .form-group input, .form-group textarea { 
-            width: 100%; background: var(--surface2); border: 1.5px solid var(--border); 
-            border-radius: 12px; padding: 14px; font-family: inherit; font-size: 0.9rem; 
-            color: var(--text); transition: 0.2s; 
-        }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); outline: none; background: var(--bg); }
-
-        .save-btn { 
-            width: 100%; padding: 16px; background: var(--text); color: var(--bg); 
-            border: none; border-radius: 14px; font-weight: 800; cursor: pointer; 
-            transition: 0.3s; font-size: 0.9rem; margin-top: 10px;
-        }
-        .save-btn:hover { background: var(--accent); color: white; transform: translateY(-2px); }
-
-        .resume-item { 
-            background: var(--surface2); border: 1px solid var(--border); border-radius: 16px; 
-            padding: 20px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;
-            transition: 0.2s;
-        }
-        .resume-item:hover { border-color: var(--accent); transform: scale(1.01); }
-        .resume-info h4 { font-size: 1rem; font-weight: 800; }
-        .resume-info p { font-size: 0.8rem; color: var(--text2); margin-top: 4px; }
-        
-        .resume-actions { display: flex; gap: 8px; }
-        .btn-sm { padding: 6px 12px; font-size: 0.7rem; border-radius: 8px; font-weight: 700; }
-        .alert-list { display: grid; gap: 10px; margin-bottom: 18px; }
-        .alert-item {
-            background: rgba(37, 99, 235, 0.08);
-            border: 1px solid rgba(37, 99, 235, 0.15);
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Manrope', sans-serif;
             color: var(--text);
-            border-radius: 14px;
-            padding: 12px 14px;
-            font-size: 0.82rem;
+            background:
+                radial-gradient(circle at top left, rgba(37,99,235,0.12), transparent 24%),
+                radial-gradient(circle at bottom right, rgba(234,88,12,0.12), transparent 20%),
+                var(--bg);
         }
-
-        .reveal { opacity: 0; transform: translateY(20px); }
-
-        @media (max-width: 850px) {
-            .page { 
-                grid-template-columns: 1fr;
-                margin: 20px auto;
-                padding: 0 16px;
-            }
-            nav {
-                padding: 14px 16px;
-                height: auto;
-                gap: 10px;
-                flex-wrap: wrap;
-                align-items: flex-start;
-            }
-            .nav-right {
-                width: 100%;
-                flex-wrap: wrap;
-            }
-            .nav-right .btn-pill,
-            .nav-right .btn-icon {
-                flex: 1 1 auto;
-                text-align: center;
-                justify-content: center;
-            }
-            .card {
-                padding: 24px 18px;
-            }
-            .section-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 12px;
-            }
-            .resume-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 14px;
-            }
-            .resume-actions {
-                width: 100%;
-            }
-            .resume-actions .btn-pill {
-                flex: 1 1 auto;
-                text-align: center;
-            }
+        .page { width: min(1160px, calc(100% - 28px)); margin: 0 auto; padding: 18px 0 36px; }
+        .topbar, .card, .resume-item {
+            border: 1px solid var(--border);
+            background: var(--surface);
+            backdrop-filter: blur(16px);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        .topbar {
+            display: flex; justify-content: space-between; align-items: center; gap: 14px;
+            padding: 14px 18px; margin-bottom: 18px;
+        }
+        .logo { text-decoration: none; color: var(--text); font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: .06em; }
+        .logo span { color: var(--accent); }
+        .toolbar { display: flex; gap: 10px; flex-wrap: wrap; }
+        .btn, .btn-primary {
+            border-radius: 999px; text-decoration: none; font-size: .84rem; font-weight: 800; padding: 11px 16px; transition: .2s ease;
+        }
+        .btn { border: 1px solid var(--border); background: rgba(255,255,255,.16); color: var(--text); }
+        .btn-primary { border: none; color: white; background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+        .layout { display: grid; grid-template-columns: 340px 1fr; gap: 20px; }
+        .card { padding: 24px; }
+        .profile-top { display: grid; gap: 16px; }
+        .avatar {
+            width: 108px; height: 108px; border-radius: 30px;
+            display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: white; font-size: 2rem; font-weight: 800;
+        }
+        .roles { display: flex; gap: 8px; flex-wrap: wrap; }
+        .role-badge {
+            padding: 8px 12px; border-radius: 999px; background: rgba(37,99,235,.10); color: var(--accent); font-size: .74rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
+        }
+        .label { color: var(--muted); font-size: .78rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+        .value { font-size: .96rem; line-height: 1.7; }
+        .info-list { display: grid; gap: 14px; margin-top: 18px; }
+        .info-row { padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+        .section-head {
+            display: flex; justify-content: space-between; align-items: end; gap: 12px; margin-bottom: 18px;
+        }
+        .section-head h2 { margin: 0; font-size: 1.5rem; }
+        .section-head p { margin: 0; color: var(--muted); line-height: 1.7; }
+        .alert-list { display: grid; gap: 10px; margin-bottom: 16px; }
+        .alert-item {
+            border-radius: 16px; padding: 12px 14px; background: rgba(37,99,235,.08); border: 1px solid rgba(37,99,235,.18); color: var(--text); font-size: .84rem; line-height: 1.5;
+        }
+        form { display: grid; gap: 16px; }
+        .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .field { display: grid; gap: 8px; }
+        input, textarea {
+            width: 100%; padding: 15px 16px; border-radius: 18px; border: 1px solid var(--border);
+            background: var(--surface-strong); color: var(--text); font: inherit; outline: none; transition: .2s ease;
+        }
+        textarea { min-height: 140px; resize: vertical; }
+        input:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(37,99,235,.08); }
+        .resume-list { display: grid; gap: 14px; margin-top: 22px; }
+        .resume-item {
+            padding: 18px; display: flex; justify-content: space-between; gap: 14px; align-items: flex-start;
+        }
+        .resume-item h3 { margin: 0 0 6px; font-size: 1rem; }
+        .resume-item p { margin: 0; color: var(--muted); line-height: 1.7; font-size: .88rem; }
+        .resume-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+        @media (max-width: 940px) { .layout { grid-template-columns: 1fr; } }
+        @media (max-width: 720px) {
+            .page { width: min(100% - 18px, 1160px); }
+            .topbar { flex-direction: column; align-items: stretch; padding: 14px; border-radius: 24px; }
+            .toolbar > * { flex: 1 1 auto; text-align: center; }
+            .card, .resume-item { padding: 22px 18px; border-radius: 24px; }
+            .field-grid { grid-template-columns: 1fr; }
+            .resume-item { flex-direction: column; }
+            .resume-actions > * { flex: 1 1 auto; text-align: center; }
         }
     </style>
 </head>
 <body>
+    <div class="page">
+        <header class="topbar">
+            <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
+            <div class="toolbar">
+                <a href="{% url 'home' %}" class="btn">Главная</a>
+                <a href="{% url 'studio' %}" class="btn">Studio</a>
+                <a href="{% url 'homeview' %}" class="btn">AI помощник</a>
+                <button class="btn" id="theme-toggle" type="button">Тема</button>
+            </div>
+        </header>
 
-<nav>
-    <a href="/" class="logo">NEXUS<span>ELITE</span></a>
-    <div class="nav-right">
-        <button class="btn-pill" onclick="toggleLang()" id="lang-btn">RU</button>
-        <button class="btn-icon" id="theme-toggle"><span id="theme-icon">🌙</span></button>
-        <a href="{% url 'home' %}" class="btn-pill">← <span id="nav-text">Главная</span></a>
-    </div>
-</nav>
+        <main class="layout">
+            <aside class="card">
+                <div class="profile-top">
+                    <div class="avatar">{{ current_user.username|first|upper }}</div>
+                    <div>
+                        <h1 style="margin: 0 0 8px; font-size: 1.8rem;">{{ current_user.username }}</h1>
+                        <div class="roles">
+                            {% for r in role %}
+                                <span class="role-badge">{{ r }}</span>
+                            {% empty %}
+                                <span class="role-badge">User</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="info-list">
+                    <div class="info-row"><div class="label">Email</div><div class="value">{{ current_user.email }}</div></div>
+                    <div class="info-row"><div class="label">Имя</div><div class="value">{{ current_user.first_name|default:'—' }}</div></div>
+                    <div class="info-row"><div class="label">Фамилия</div><div class="value">{{ current_user.last_name|default:'—' }}</div></div>
+                    <div class="info-row"><div class="label">Дата регистрации</div><div class="value">{{ current_user.date_joined|date:'d.m.Y' }}</div></div>
+                </div>
+            </aside>
 
-<div class="page">
-    <div class="reveal">
-        <div class="card">
-            <div class="avatar-wrap">
-                {% if current_user.avatar %}
-                    <img src="{{ current_user.avatar.url }}" alt="avatar" class="avatar-img">
-                {% else %}
-                    <div class="avatar-placeholder">{{ current_user.username|first|upper }}</div>
+            <section>
+                <div class="card">
+                    <div class="section-head">
+                        <div>
+                            <h2>Настройки профиля</h2>
+                            <p>Здесь можно обновить личные данные. Я убрал несуществующее поле аватара, чтобы страница не выглядела рабочей только на вид.</p>
+                        </div>
+                    </div>
+
+                    {% if messages %}
+                    <div class="alert-list">
+                        {% for message in messages %}
+                            <div class="alert-item">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="field-grid">
+                            <div class="field">
+                                <label for="{{ form.first_name.id_for_label }}">Имя</label>
+                                {{ form.first_name }}
+                            </div>
+                            <div class="field">
+                                <label for="{{ form.last_name.id_for_label }}">Фамилия</label>
+                                {{ form.last_name }}
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="{{ form.bio.id_for_label }}">О себе</label>
+                            {{ form.bio }}
+                        </div>
+                        <button type="submit" class="btn-primary">Сохранить изменения</button>
+                    </form>
+                </div>
+
+                {% if is_specialist %}
+                <div class="card" style="margin-top: 20px;">
+                    <div class="section-head">
+                        <div>
+                            <h2>Ваши резюме</h2>
+                            <p>Специалистам важна живая карточка. Отсюда можно быстро редактировать или удалить публикацию.</p>
+                        </div>
+                        <a href="{% url 'resume_add' %}" class="btn-primary">Создать резюме</a>
+                    </div>
+
+                    <div class="resume-list">
+                        {% for resume in user_resumes %}
+                        <article class="resume-item">
+                            <div>
+                                <h3>{{ resume.full_name }}</h3>
+                                <p>{{ resume.professian }} • {{ resume.category.name }} • {{ resume.price }} TJS</p>
+                            </div>
+                            <div class="resume-actions">
+                                <a href="{% url 'resume_detail' resume.pk %}" class="btn">Открыть</a>
+                                <a href="{% url 'resume_edit' resume.pk %}" class="btn">Изменить</a>
+                                <a href="{% url 'resume_delete' resume.pk %}" class="btn">Удалить</a>
+                            </div>
+                        </article>
+                        {% empty %}
+                        <article class="resume-item">
+                            <div>
+                                <h3>Пока нет резюме</h3>
+                                <p>Можно создать первую карточку специалиста и сразу показать свои услуги клиентам.</p>
+                            </div>
+                            <div class="resume-actions">
+                                <a href="{% url 'resume_add' %}" class="btn-primary">Создать резюме</a>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </div>
+                </div>
                 {% endif %}
-                <div class="username">{{ current_user.username }}</div>
-                {% for r in role %}
-                    <span class="role-badge">{{ r }}</span>
-                {% endfor %}
-            </div>
-
-            <div class="info-list">
-                <div class="info-row"><span class="tr-email">Email</span><span>{{ current_user.email }}</span></div>
-                <div class="info-row"><span class="tr-fname">Имя</span><span>{{ current_user.first_name|default:"—" }}</span></div>
-                <div class="info-row"><span class="tr-lname">Фамилия</span><span>{{ current_user.last_name|default:"—" }}</span></div>
-                <div class="info-row"><span class="tr-reg">Регистрация</span><span>{{ current_user.date_joined|date:"d.m.Y" }}</span></div>
-            </div>
-        </div>
+            </section>
+        </main>
     </div>
 
-    <div class="reveal">
-        <div class="card">
-            <div class="section-title tr-title">Настройки аккаунта</div>
-            
-            {% if messages %}
-            <div class="alert-list">
-                {% for message in messages %}
-                    <div class="alert-item">{{ message }}</div>
-                {% endfor %}
-            </div>
-            {% endif %}
-            
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label class="tr-fname">Имя</label>
-                    {{ form.first_name }}
-                </div>
-                <div class="form-group">
-                    <label class="tr-lname">Фамилия</label>
-                    {{ form.last_name }}
-                </div>
-                <div class="form-group">
-                    <label class="tr-bio">О себе</label>
-                    {{ form.bio }}
-                </div>
-                <div class="form-group">
-                    <label class="tr-avatar">Аватар профиля</label>
-                    {{ form.avatar }}
-                </div>
-                <button type="submit" class="save-btn tr-save">Обновить данные</button>
-            </form>
-        </div>
-
-        {% if is_specialist %}
-        <div class="card" style="margin-top: 32px;">
-            <div class="section-header">
-                <div class="section-title tr-my-res">Ваши публикации</div>
-                <a href="{% url 'resume_add' %}" class="btn-pill tr-add" style="background: var(--accent); color: white; border: none;">+ Добавить</a>
-            </div>
-
-            {% if user_resumes %}
-                {% for resume in user_resumes %}
-                <div class="resume-item">
-                    <div class="resume-info">
-                        <h4>{{ resume.full_name }}</h4>
-                        <p>{{ resume.professian }} · <span style="color:var(--accent); font-weight:800;">{{ resume.price }} TJS</span></p>
-                    </div>
-                    <div class="resume-actions">
-                        <a href="{% url 'resume_edit' resume.pk %}" class="btn-pill btn-sm tr-edit">Правка</a>
-                        <a href="{% url 'resume_delete' resume.pk %}" class="btn-pill btn-sm tr-del" style="color:#ef4444;">Удалить</a>
-                    </div>
-                </div>
-                {% endfor %}
-            {% else %}
-                <div style="text-align: center; padding: 20px; color: var(--text2); font-size: 0.85rem;" class="tr-empty">У вас пока нет резюме.</div>
-            {% endif %}
-        </div>
-        {% endif %}
-    </div>
-</div>
-
-<script>
-    const translations = {
-        RU: {
-            nav: "Главная", title: "Настройки аккаунта", email: "Email", fname: "Имя", lname: "Фамилия",
-            reg: "Регистрация", bio: "О себе", avatar: "Аватар профиля", save: "Обновить данные",
-            myRes: "Ваши публикации", add: "+ Добавить", edit: "Правка", del: "Удалить", empty: "У вас пока нет резюме."
-        },
-        EN: {
-            nav: "Home", title: "Account Settings", email: "Email", fname: "First Name", lname: "Last Name",
-            reg: "Joined", bio: "About Me", avatar: "Profile Avatar", save: "Update Info",
-            myRes: "Your Publications", add: "+ Create New", edit: "Edit", del: "Delete", empty: "No resumes found."
-        }
-    };
-
-    function toggleLang() {
-        const btn = document.getElementById('lang-btn');
-        const lang = btn.textContent === 'RU' ? 'EN' : 'RU';
-        btn.textContent = lang;
-        const d = translations[lang];
-
-        document.getElementById('nav-text').textContent = d.nav;
-        document.querySelectorAll('.tr-title').forEach(el => el.textContent = d.title);
-        document.querySelectorAll('.tr-email').forEach(el => el.textContent = d.email);
-        document.querySelectorAll('.tr-fname').forEach(el => el.textContent = d.fname);
-        document.querySelectorAll('.tr-lname').forEach(el => el.textContent = d.lname);
-        document.querySelectorAll('.tr-reg').forEach(el => el.textContent = d.reg);
-        document.querySelectorAll('.tr-bio').forEach(el => el.textContent = d.bio);
-        document.querySelectorAll('.tr-avatar').forEach(el => el.textContent = d.avatar);
-        document.querySelectorAll('.tr-save').forEach(el => el.textContent = d.save);
-        document.querySelectorAll('.tr-my-res').forEach(el => el.textContent = d.myRes);
-        document.querySelectorAll('.tr-add').forEach(el => el.textContent = d.add);
-        document.querySelectorAll('.tr-edit').forEach(el => el.textContent = d.edit);
-        document.querySelectorAll('.tr-del').forEach(el => el.textContent = d.del);
-        document.querySelectorAll('.tr-empty').forEach(el => el.textContent = d.empty);
-    }
-
-    document.getElementById('theme-toggle').addEventListener('click', () => {
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-        document.getElementById('theme-icon').textContent = isDark ? '🌙' : '☀️';
-    });
-
-    window.onload = () => {
-        gsap.to('.reveal', { opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: "power4.out" });
-    };
-</script>
+    <script>
+        document.getElementById('theme-toggle').addEventListener('click', function () {
+            const root = document.documentElement;
+            root.setAttribute('data-theme', root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+        });
+    </script>
 </body>
 </html>

@@ -44,13 +44,12 @@ def get_logged_in_user(request):
 
 
 def get_user_role(user):
-    def get_user_role(user):
-        if not user:
-            return None
+    if not user:
+        return None
 
-        for role_name in ['Admin', 'Specialist', 'Customer']:
-            if user.groups.filter(name=role_name).exists():
-             return role_name
+    for role_name in ['Admin', 'Specialist', 'Customer']:
+        if user.groups.filter(name=role_name).exists():
+            return role_name
     return None
 
 

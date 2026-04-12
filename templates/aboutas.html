@@ -1,258 +1,259 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>О нас | Nexus Elite</title>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>Nexus Elite | О нас</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #cdc8bf; 
-            --surface: #d6d1c8; 
-            --surface2: #c4beb3; 
-            --text: #1a1a1a;
-            --text2: #525252;
-            --accent: #2563eb;
-            --accent-light: rgba(37, 99, 235, 0.1);
-            --border: rgba(0, 0, 0, 0.1);
-            --nav-bg: rgba(205, 200, 191, 0.92);
-            --shadow: 0 4px 20px rgba(0,0,0,0.08);
-            --radius: 20px;
-            --radius-sm: 12px;
+            --bg: #f5efe6;
+            --surface: rgba(255,255,255,0.84);
+            --surface-strong: #fffaf2;
+            --text: #1f2937;
+            --muted: #667085;
+            --accent: #1d4ed8;
+            --accent-2: #ea580c;
+            --border: rgba(15,23,42,0.10);
+            --shadow: 0 24px 60px rgba(15,23,42,0.10);
+            --radius: 28px;
         }
-
         [data-theme="dark"] {
-            --bg: #1e1e21; 
-            --surface: #252529;
-            --surface2: #2d2d33;
-            --text: #f0f0f0;
-            --text2: #9494a1;
-            --accent: #4f8aff;
-            --accent-light: rgba(79, 138, 255, 0.15);
-            --border: rgba(255, 255, 255, 0.08);
-            --nav-bg: rgba(30, 30, 33, 0.92);
-            --shadow: 0 8px 30px rgba(0,0,0,0.4);
+            --bg: #0f172a;
+            --surface: rgba(15,23,42,0.84);
+            --surface-strong: #162033;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --accent: #60a5fa;
+            --accent-2: #fb923c;
+            --border: rgba(255,255,255,0.10);
+            --shadow: 0 24px 60px rgba(0,0,0,0.35);
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        * { box-sizing: border-box; }
         body {
+            margin: 0;
             font-family: 'Manrope', sans-serif;
-            background: var(--bg);
             color: var(--text);
-            transition: background 0.35s, color 0.35s;
-            overflow-x: hidden;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            background:
+                radial-gradient(circle at top left, rgba(29,78,216,0.12), transparent 24%),
+                radial-gradient(circle at bottom right, rgba(234,88,12,0.12), transparent 20%),
+                var(--bg);
         }
-
-        nav {
-            position: sticky; top: 0; z-index: 100;
-            background: var(--nav-bg);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 32px; height: 64px;
+        .page { width: min(1180px, calc(100% - 28px)); margin: 0 auto; padding: 18px 0 36px; }
+        .topbar, .hero, .story, .metric, .timeline-item, .feature, .footer-grid {
+            border: 1px solid var(--border);
+            background: var(--surface);
+            backdrop-filter: blur(16px);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
         }
-        .logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 2px; color: var(--text); text-decoration: none; }
+        .topbar {
+            display: flex; justify-content: space-between; align-items: center; gap: 14px;
+            padding: 14px 18px; position: sticky; top: 10px; z-index: 30; margin-bottom: 18px;
+        }
+        .logo { text-decoration: none; color: var(--text); font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 0.06em; }
         .logo span { color: var(--accent); }
-
-        .nav-links { display: flex; gap: 4px; list-style: none; }
-        .nav-links a {
-            font-size: 0.82rem; font-weight: 600; color: var(--text2); text-decoration: none;
-            padding: 7px 14px; border-radius: 8px; transition: 0.2s;
+        .nav, .actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+        .chip, .btn, .btn-primary {
+            border-radius: 999px; text-decoration: none; font-size: 0.84rem; font-weight: 800; padding: 11px 16px; transition: 0.2s ease;
         }
-        .nav-links a:hover { background: var(--surface2); color: var(--text); }
-
-        .btn-pill {
-            font-family: 'Manrope', sans-serif; font-size: 0.78rem; font-weight: 700;
-            padding: 8px 18px; border-radius: 100px; border: none; cursor: pointer; text-decoration: none;
-            display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;
+        .chip, .btn { border: 1px solid var(--border); background: rgba(255,255,255,0.16); color: var(--text); }
+        .btn-primary { border: none; color: white; background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+        .hero {
+            padding: 34px;
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 22px;
+            margin-bottom: 22px;
         }
-        .btn-pill-ghost { background: transparent; border: 1.5px solid var(--border); color: var(--text2); }
-        .btn-icon {
-            background: var(--surface2); border: none; width: 36px; height: 36px; border-radius: 50%;
-            cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text2);
+        .badge {
+            display: inline-flex; gap: 8px; align-items: center; padding: 8px 12px; border-radius: 999px;
+            background: rgba(29,78,216,0.10); color: var(--accent); font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;
         }
-
-        /* ── ABOUT CONTENT ── */
-        .hero-about { padding: 80px 32px 40px; max-width: 1200px; margin: 0 auto; }
-        .hero-about h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; line-height: 1.1; letter-spacing: -1px; margin-bottom: 24px; }
-        .hero-about p { font-size: 1.1rem; color: var(--text2); max-width: 700px; line-height: 1.7; }
-
-        .grid-section { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; padding: 40px 32px; max-width: 1200px; margin: 0 auto; }
-        .grid-text h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; letter-spacing: 1px; margin-bottom: 20px; color: var(--accent); }
-        .grid-text p { margin-bottom: 20px; color: var(--text2); }
-
-        .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 40px 32px; max-width: 1200px; margin: 0 auto; }
-        .value-card {
-            background: var(--surface); padding: 32px; border-radius: var(--radius); border: 1px solid var(--border); transition: 0.3s;
+        h1 {
+            margin: 18px 0 12px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 6vw, 5.4rem);
+            line-height: 0.92;
+            letter-spacing: 0.03em;
         }
-        .value-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: var(--shadow); }
-        .value-card h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 12px; }
-        .value-card p { font-size: 0.9rem; color: var(--text2); }
-
-        /* ── WORKFLOW ── */
-        .workflow { background: var(--surface2); padding: 60px 32px; border-radius: var(--radius); margin: 40px 32px; }
-        .workflow-inner { max-width: 1136px; margin: 0 auto; }
-        .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; margin-top: 40px; }
-        .step-num { font-family: 'Space Mono', monospace; color: var(--accent); font-weight: 700; font-size: 1.2rem; display: block; margin-bottom: 10px; }
-        .step h4 { font-size: 1.1rem; font-weight: 800; margin-bottom: 10px; }
-        .step p { font-size: 0.85rem; color: var(--text2); }
-
-        /* ── FOOTER (Sync with Main) ── */
-        footer { background: var(--surface); border-top: 1px solid var(--border); padding: 60px 32px 20px; margin-top: auto; }
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1.5fr; gap: 32px; margin-bottom: 40px; }
-        .footer-col h4 { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; margin-bottom: 20px; }
-        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-        .footer-col ul a { font-size: 0.82rem; color: var(--text2); text-decoration: none; }
-        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 25px; border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--text2); }
-        #footer-clock { font-family: 'Space Mono', monospace; color: var(--accent); font-weight: 700; }
-
-        .reveal { opacity: 0; transform: translateY(18px); transition: 0.55s ease; }
-        .reveal.visible { opacity: 1; transform: none; }
-
-        @media (max-width: 1024px) {
-            .footer-grid { grid-template-columns: repeat(3, 1fr); }
-            .values-grid, .steps { grid-template-columns: repeat(2, 1fr); }
-            .grid-section { grid-template-columns: 1fr; }
+        .hero p, .story p, .feature span, .timeline-item span { color: var(--muted); line-height: 1.8; }
+        .hero-side {
+            border-radius: 26px;
+            border: 1px solid var(--border);
+            padding: 24px;
+            background: linear-gradient(160deg, rgba(37,99,235,0.10), rgba(234,88,12,0.08));
+            display: grid; gap: 14px;
         }
-        @media (max-width: 600px) {
-            .values-grid, .steps { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr; }
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+        .metric, .feature, .timeline-item, .story { padding: 22px; }
+        .metric strong { display: block; font-size: 2rem; margin-bottom: 6px; }
+        .metric span { color: var(--muted); font-size: 0.9rem; }
+        .story-grid, .feature-grid { display: grid; gap: 16px; }
+        .story-grid { grid-template-columns: 1.15fr 0.85fr; margin-bottom: 22px; }
+        .feature-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-bottom: 22px; }
+        .section-title { margin: 0 0 10px; font-size: 1.5rem; }
+        .timeline { display: grid; gap: 14px; }
+        .timeline-item strong { display: block; margin-bottom: 8px; font-size: 1rem; }
+        .footer-grid {
+            padding: 22px;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr 1.2fr;
+            gap: 16px;
+            margin-top: 26px;
+        }
+        .footer-list { display: grid; gap: 10px; }
+        .footer-list a { text-decoration: none; color: var(--muted); font-weight: 600; }
+        .newsletter-form { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+        .newsletter-form input {
+            flex: 1 1 180px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: var(--surface-strong);
+            color: var(--text);
+            font: inherit;
+        }
+        .footer-bottom {
+            display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 14px;
+            color: var(--muted); font-size: 0.84rem;
+        }
+        @media (max-width: 980px) {
+            .hero, .story-grid, .feature-grid, .footer-grid, .metrics { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 720px) {
+            .page { width: min(100% - 18px, 1180px); }
+            .topbar {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 14px;
+                border-radius: 24px;
+            }
+            .nav > *, .actions > * { flex: 1 1 calc(50% - 8px); text-align: center; }
+            .hero, .metric, .story, .feature, .timeline-item, .footer-grid { padding: 22px 18px; border-radius: 24px; }
+            h1 { font-size: 3.3rem; }
         }
     </style>
 </head>
 <body>
-
-<nav>
-    <a href="/" class="logo">NEXUS<span>ELITE</span></a>
-    <ul class="nav-links">
-        <li><a href="/">Главная</a></li>
-        <li><a href="/about" style="color: var(--text); background: var(--surface2);">О нас</a></li>
-        <li><a href="/ai">AI Ассистент</a></li>
-    </ul>
-    <div class="nav-right" style="display: flex; gap: 8px; align-items: center;">
-        <button class="btn-pill btn-pill-ghost" id="lang-btn">RU</button>
-        <button class="btn-icon" id="theme-toggle"><span id="theme-icon">🌙</span></button>
-        <a href="/" class="btn-pill btn-pill-ghost">На главную</a>
-    </div>
-</nav>
-
-<header class="hero-about reveal">
-    <div class="banner-tag" style="background: var(--accent); color: white; display: inline-block; padding: 4px 12px; border-radius: 100px; font-size: 0.7rem; font-weight: 700; margin-bottom: 16px;">✦ О ПРОЕКТЕ</div>
-    <h1>Больше чем платформа. <br>Это Ваш цифровой цех.</h1>
-    <p>Nexus Elite — это интеллектуальная экосистема Таджикистана, созданная для того, чтобы стереть границы между талантом и возможностями. Мы объединяем лучших мастеров своего дела в единую сеть.</p>
-</header>
-
-<section class="grid-section reveal">
-    <div class="grid-text">
-        <h2>Наша философия</h2>
-        <p>В эпоху перенасыщения информацией, найти настоящего эксперта становится всё сложнее. Мы верим, что качество важнее количества. Каждый специалист в нашей базе проходит проверку, чтобы вы получали только лучший результат.</p>
-        <p>Наша цель на 2026 год — создать самый прозрачный и эффективный рынок услуг, где репутация подтверждается делом, а поиск занимает секунды благодаря AI технологиям.</p>
-    </div>
-    <div style="background: var(--surface2); border-radius: var(--radius); min-height: 300px; background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center;"></div>
-</section>
-
-<div class="reveal" style="text-align: center; padding-top: 40px;">
-    <h2 style="font-family: 'Bebas Neue'; font-size: 3rem; letter-spacing: 1px;">Наши ценности</h2>
-</div>
-
-<section class="values-grid reveal">
-    <div class="value-card">
-        <h3>Качество</h3>
-        <p>Мы не просто список контактов. Мы фильтруем шум, оставляя только тех, кто действительно горит своим делом.</p>
-    </div>
-    <div class="value-card">
-        <h3>Инновации</h3>
-        <p>Использование нейросетей для подбора кадров позволяет нам находить идеальные совпадения для сложных задач.</p>
-    </div>
-    <div class="value-card">
-        <h3>Локальность</h3>
-        <p>Мы ориентированы на рынок Таджикистана, понимая его специфику и поддерживая местных профессионалов.</p>
-    </div>
-</section>
-
-<section class="workflow reveal">
-    <div class="workflow-inner">
-        <h2 style="font-family: 'Bebas Neue'; font-size: 2.5rem; margin-bottom: 10px;">Как это работает</h2>
-        <div class="steps">
-            <div class="step">
-                <span class="step-num">01</span>
-                <h4>Регистрация</h4>
-                <p>Мастер создает детальное портфолио, указывая свои навыки и достижения.</p>
+    <div class="page">
+        <header class="topbar">
+            <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
+            <nav class="nav">
+                <a href="{% url 'home' %}" class="chip">Главная</a>
+                <a href="{% url 'aboutas' %}" class="chip">О нас</a>
+                <a href="{% url 'homeview' %}" class="chip">AI помощник</a>
+                <a href="{% url 'studio' %}" class="chip">Studio</a>
+            </nav>
+            <div class="actions">
+                <a href="{% url 'resource_page' 'blog' %}" class="btn">Блог</a>
+                <button class="btn" id="theme-toggle" type="button">Тема</button>
             </div>
-            <div class="step">
-                <span class="step-num">02</span>
-                <h4>Модерация</h4>
-                <p>Наша система и администраторы проверяют данные на актуальность и честность.</p>
+        </header>
+
+        <section class="hero">
+            <div>
+                <div class="badge">О проекте</div>
+                <h1>Мы строим платформу, где поиск специалиста не превращается в хаос.</h1>
+                <p>Nexus Elite задуман как аккуратная экосистема для мастеров, специалистов и заказчиков. Здесь можно не только найти исполнителя, но и сформулировать задачу, проверить детали через AI и подготовить бриф до первого контакта.</p>
+                <div class="actions" style="margin-top: 18px;">
+                    <a href="{% url 'studio' %}" class="btn-primary">Открыть Studio</a>
+                    <a href="{% url 'homeview' %}" class="btn">Попробовать AI</a>
+                </div>
             </div>
-            <div class="step">
-                <span class="step-num">03</span>
-                <h4>Поиск</h4>
-                <p>Заказчик находит эксперта через умные фильтры или с помощью AI Ассистента.</p>
+            <aside class="hero-side">
+                <strong>Что делает проект сильнее</strong>
+                <p>Мы оставили фирменный характер интерфейса, но убрали пустые ссылки, восстановили страницы, усилили мобильную версию и сделали основные сценарии более живыми.</p>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <strong>Для клиентов</strong>
+                        <span>Быстрый поиск, заказ услуги, ориентир по доступности и удобные переходы по платформе.</span>
+                    </div>
+                    <div class="timeline-item">
+                        <strong>Для специалистов</strong>
+                        <span>Публикация резюме, понятное представление услуг и более сильная подача профиля.</span>
+                    </div>
+                </div>
+            </aside>
+        </section>
+
+        <section class="metrics">
+            <div class="metric"><strong>01</strong><span>Каталог специалистов и услуг</span></div>
+            <div class="metric"><strong>02</strong><span>AI-помощник для подбора и формулировки задач</span></div>
+            <div class="metric"><strong>03</strong><span>Новая Studio-страница с полезными инструментами</span></div>
+        </section>
+
+        <section class="story-grid">
+            <article class="story">
+                <h2 class="section-title">Почему Nexus Elite отличается</h2>
+                <p>Обычные каталоги часто заканчиваются на списке карточек. Мы идём дальше: пользователь получает не только подбор специалистов, но и инструменты подготовки задачи, служебные страницы, навигацию без тупиков и мобильный интерфейс, который не стыдно открывать с телефона.</p>
+                <p>Проект хорошо подходит как для локальных услуг, так и для цифровых специалистов: разработчиков, дизайнеров, маркетологов, консультантов, мастеров по ремонту и других экспертов.</p>
+            </article>
+            <article class="story">
+                <h2 class="section-title">Как использовать платформу</h2>
+                <div class="timeline">
+                    <div class="timeline-item"><strong>1. Изучите каталог</strong><span>Откройте главную и посмотрите карточки мастеров.</span></div>
+                    <div class="timeline-item"><strong>2. Подготовьте задачу</strong><span>Зайдите в Studio или AI-помощник, если хотите точнее сформулировать заказ.</span></div>
+                    <div class="timeline-item"><strong>3. Оформите заказ</strong><span>Откройте резюме и отправьте заявку с длительностью услуги.</span></div>
+                </div>
+            </article>
+        </section>
+
+        <section class="feature-grid">
+            <article class="feature"><strong>Прозрачность</strong><span>Понятные переходы, служебные страницы и аккуратная структура для новых пользователей.</span></article>
+            <article class="feature"><strong>Удобство</strong><span>Телефонная версия больше не должна ощущаться случайной или сломанной.</span></article>
+            <article class="feature"><strong>Рост</strong><span>Studio и AI дают платформе дополнительную ценность, а не просто декоративные разделы.</span></article>
+        </section>
+
+        <footer>
+            <div class="footer-grid">
+                <div>
+                    <strong>Nexus Elite</strong>
+                    <p style="color: var(--muted); line-height: 1.7;">Интеллектуальная экосистема для объединения специалистов и заказчиков в одном современном пространстве.</p>
+                </div>
+                <div>
+                    <strong>Разделы</strong>
+                    <div class="footer-list">
+                        <a href="{% url 'home' %}">Главная</a>
+                        <a href="{% url 'homeview' %}">AI помощник</a>
+                        <a href="{% url 'studio' %}">Studio</a>
+                        <a href="{% url 'resource_page' 'faq' %}">FAQ</a>
+                    </div>
+                </div>
+                <div>
+                    <strong>Документы</strong>
+                    <div class="footer-list">
+                        <a href="{% url 'resource_page' 'privacy' %}">Конфиденциальность</a>
+                        <a href="{% url 'resource_page' 'offer' %}">Оферта</a>
+                        <a href="{% url 'resource_page' 'rules' %}">Правила</a>
+                    </div>
+                </div>
+                <div>
+                    <strong>Подписка</strong>
+                    <p style="color: var(--muted); line-height: 1.7;">Получайте новости платформы и свежие идеи по работе с заказами.</p>
+                    <form class="newsletter-form" action="{% url 'resource_page' 'newsletter' %}" method="get">
+                        <input type="email" placeholder="Email">
+                        <button type="submit" class="btn-primary">Подписаться</button>
+                    </form>
+                </div>
             </div>
-            <div class="step">
-                <span class="step-num">04</span>
-                <h4>Результат</h4>
-                <p>Успешное сотрудничество и рост цифровой экономики региона.</p>
+            <div class="footer-bottom">
+                <span>© 2026 Nexus Elite</span>
+                <span>Сильнее как продукт, понятнее как сервис.</span>
             </div>
-        </div>
+        </footer>
     </div>
-</section>
 
-<footer>
-    <div class="footer-grid reveal">
-        <div class="footer-brand">
-            <a href="#" class="logo">NEXUS<span>ELITE</span></a>
-            <p class="footer-desc">Интеллектуальная экосистема для объединения талантов и заказчиков в Таджикистане.</p>
-        </div>
-        <div class="footer-col">
-            <h4>Платформа</h4>
-            <ul>
-                <li><a href="/">Все мастера</a></li>
-                <li><a href="/ai">AI Ассистент</a></li>
-                <li><a href="#">Топ категорий</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h4>Контакты</h4>
-            <ul>
-                <li><a href="mailto:info@nexus.tj">info@nexus.tj</a></li>
-                <li><a href="tel:+992939939641">+992 939 939 641</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <p>© 2026 NEXUS ELITE. Designed for the future.</p>
-        <div id="footer-clock">00:00:00</div>
-    </div>
-</footer>
-
-<script>
-    // Theme Toggle
-    const themeBtn = document.getElementById('theme-toggle');
-    themeBtn.addEventListener('click', () => {
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-        document.getElementById('theme-icon').textContent = isDark ? '🌙' : '☀️';
-    });
-
-    // Clock
-    setInterval(() => { document.getElementById('footer-clock').textContent = new Date().toLocaleTimeString(); }, 1000);
-
-    // Scroll Animations
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-            if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    <script>
+        document.getElementById('theme-toggle').addEventListener('click', function () {
+            const root = document.documentElement;
+            root.setAttribute('data-theme', root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
         });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach((el, i) => { 
-        el.style.transitionDelay = (i * 0.1) + 's'; 
-        observer.observe(el); 
-    });
-</script>
+    </script>
 </body>
 </html>
