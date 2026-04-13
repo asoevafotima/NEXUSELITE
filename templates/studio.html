@@ -97,7 +97,7 @@ form p{display:grid;gap:7px;margin-bottom:14px}
   <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
   <ul class='nav-links'><li><a href="{% url 'home' %}" class="btn-g" >Главная</a></li><li><a href="{% url 'aboutas' %}" class="btn-g" >О нас</a></li><li><a href="{% url 'homeview' %}" class="btn-g" >AI</a></li><li><a href="{% url 'studio' %}" class="btn-g" style='background:var(--surface2)'>Studio</a></li></ul>
   <div style="display:flex;gap:8px;align-items:center">
-    <a href="{{% url 'feedback' %}}" class="btn">Поддержка</a>
+    <a href="{% url 'feedback' %}" class="btn">Поддержка</a>
     <button class="btn" id="tt" type="button" onclick="document.documentElement.setAttribute('data-theme',document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')">◐</button>
   </div>
 </nav>
