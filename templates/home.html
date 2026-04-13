@@ -1,594 +1,241 @@
 ﻿<!DOCTYPE html>
 <html lang="ru" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Elite | Главная</title>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #f4ede1;
-            --bg-soft: #efe4d1;
-            --surface: rgba(255,255,255,0.82);
-            --surface-strong: #fffaf2;
-            --text: #1f2937;
-            --muted: #667085;
-            --accent: #2563eb;
-            --accent-2: #f59e0b;
-            --border: rgba(15,23,42,0.10);
-            --shadow: 0 24px 60px rgba(15,23,42,0.10);
-            --radius: 28px;
-        }
-        [data-theme="dark"] {
-            --bg: #0f172a;
-            --bg-soft: #111c31;
-            --surface: rgba(15,23,42,0.82);
-            --surface-strong: #182233;
-            --text: #f8fafc;
-            --muted: #94a3b8;
-            --accent: #60a5fa;
-            --accent-2: #fbbf24;
-            --border: rgba(255,255,255,0.10);
-            --shadow: 0 24px 60px rgba(0,0,0,0.35);
-        }
-        * { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            margin: 0;
-            font-family: 'Manrope', sans-serif;
-            color: var(--text);
-            background:
-                radial-gradient(circle at top left, rgba(37,99,235,0.16), transparent 24%),
-                radial-gradient(circle at bottom right, rgba(245,158,11,0.12), transparent 22%),
-                linear-gradient(180deg, var(--bg), var(--bg-soft));
-        }
-        a { color: inherit; }
-        .page { width: min(1200px, calc(100% - 28px)); margin: 0 auto; padding: 18px 0 36px; }
-        .topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 18px;
-            padding: 14px 18px;
-            border: 1px solid var(--border);
-            border-radius: 999px;
-            background: rgba(255,255,255,0.22);
-            backdrop-filter: blur(16px);
-            position: sticky;
-            top: 10px;
-            z-index: 50;
-        }
-        .logo {
-            text-decoration: none;
-            color: var(--text);
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2rem;
-            letter-spacing: 0.06em;
-        }
-        .logo span { color: var(--accent); }
-        .nav-links, .nav-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-        .nav-link, .btn, .btn-primary, .icon-btn {
-            border-radius: 999px;
-            border: 1px solid var(--border);
-            text-decoration: none;
-            transition: 0.2s ease;
-            font-weight: 800;
-        }
-        .nav-link, .btn {
-            padding: 11px 16px;
-            font-size: 0.84rem;
-            background: rgba(255,255,255,0.18);
-        }
-        .btn-primary {
-            padding: 12px 18px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-2));
-            color: white;
-            border: none;
-            box-shadow: 0 18px 30px rgba(37,99,235,0.22);
-        }
-        .icon-btn {
-            width: 44px;
-            height: 44px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255,255,255,0.18);
-            cursor: pointer;
-        }
-        .hero {
-            display: grid;
-            grid-template-columns: 1.12fr 0.88fr;
-            gap: 22px;
-            margin-top: 18px;
-            align-items: stretch;
-        }
-        .hero-main, .hero-side, .stats, .section-card, .resume-card, .cta-panel, .footer-grid {
-            border: 1px solid var(--border);
-            background: var(--surface);
-            backdrop-filter: blur(18px);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-        }
-        .hero-main {
-            padding: 34px;
-            min-height: 420px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            background:
-                linear-gradient(120deg, rgba(15,23,42,0.52), rgba(15,23,42,0.18)),
-                url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=80') center/cover;
-            color: #fff;
-        }
-        .hero-main::after {
-            content: '';
-            position: absolute;
-            inset: auto -60px -60px auto;
-            width: 220px;
-            height: 220px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.08);
-            filter: blur(10px);
-        }
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            width: fit-content;
-            padding: 8px 12px;
-            border-radius: 999px;
-            background: rgba(96,165,250,0.18);
-            font-size: 0.78rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-        }
-        h1 {
-            margin: 18px 0 12px;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(3rem, 7vw, 5.8rem);
-            line-height: 0.9;
-            letter-spacing: 0.03em;
-            max-width: 660px;
-        }
-        .hero-copy {
-            max-width: 620px;
-            font-size: 1rem;
-            line-height: 1.8;
-            color: rgba(255,255,255,0.88);
-        }
-        .hero-actions, .mini-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-        .ghost-btn {
-            padding: 12px 18px;
-            border-radius: 999px;
-            text-decoration: none;
-            font-size: 0.86rem;
-            font-weight: 800;
-            border: 1px solid rgba(255,255,255,0.22);
-            background: rgba(255,255,255,0.10);
-            color: white;
-        }
-        .hero-side {
-            padding: 24px;
-            display: grid;
-            gap: 16px;
-            align-content: start;
-        }
-        .side-title {
-            margin: 0;
-            font-size: 1.25rem;
-            font-weight: 800;
-        }
-        .side-text { margin: 0; color: var(--muted); line-height: 1.7; }
-        .stats {
-            margin-top: 22px;
-            padding: 18px;
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 12px;
-        }
-        .stat {
-            background: rgba(255,255,255,0.18);
-            border: 1px solid var(--border);
-            border-radius: 22px;
-            padding: 18px;
-        }
-        .stat strong {
-            display: block;
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 4px;
-        }
-        .stat span { color: var(--muted); font-size: 0.88rem; }
-        .section-head {
-            display: flex;
-            justify-content: space-between;
-            align-items: end;
-            gap: 12px;
-            margin: 30px 0 16px;
-        }
-        .section-head h2 {
-            margin: 0;
-            font-size: 1.8rem;
-            font-weight: 800;
-        }
-        .section-head p { margin: 0; color: var(--muted); line-height: 1.7; }
-        .categories {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .pill {
-            padding: 10px 14px;
-            border-radius: 999px;
-            background: rgba(255,255,255,0.18);
-            border: 1px solid var(--border);
-            font-size: 0.82rem;
-            font-weight: 800;
-        }
-        .resume-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 16px;
-        }
-        .resume-card {
-            padding: 20px;
-            display: grid;
-            gap: 14px;
-        }
-        .resume-top {
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            align-items: flex-start;
-        }
-        .resume-name { margin: 0; font-size: 1.08rem; font-weight: 800; }
-        .resume-role { margin: 4px 0 0; color: var(--muted); font-size: 0.88rem; }
-        .price {
-            white-space: nowrap;
-            padding: 8px 12px;
-            border-radius: 999px;
-            background: rgba(37,99,235,0.10);
-            color: var(--accent);
-            font-size: 0.82rem;
-            font-weight: 800;
-        }
-        .availability {
-            display: inline-flex;
-            width: fit-content;
-            padding: 7px 12px;
-            border-radius: 999px;
-            font-size: 0.74rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            background: rgba(16,185,129,0.12);
-            color: #047857;
-        }
-        [data-theme="dark"] .availability { color: #6ee7b7; }
-        .skills {
-            color: var(--muted);
-            line-height: 1.7;
-            font-size: 0.88rem;
-            min-height: 72px;
-        }
-        .resume-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .section-card {
-            padding: 24px;
-        }
-        .feature-grid, .links-grid, .footer-grid {
-            display: grid;
-            gap: 16px;
-        }
-        .feature-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-        .feature, .footer-card {
-            padding: 20px;
-            border-radius: 24px;
-            border: 1px solid var(--border);
-            background: rgba(255,255,255,0.15);
-        }
-        .feature strong, .footer-card strong {
-            display: block;
-            font-size: 1rem;
-            margin-bottom: 8px;
-        }
-        .feature span, .footer-card span {
-            color: var(--muted);
-            line-height: 1.7;
-            font-size: 0.88rem;
-        }
-        .cta-panel {
-            margin-top: 26px;
-            padding: 26px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px;
-        }
-        .cta-panel h3 {
-            margin: 0 0 8px;
-            font-size: 1.5rem;
-        }
-        .cta-panel p { margin: 0; color: var(--muted); line-height: 1.7; }
-        .footer-wrap {
-            margin-top: 34px;
-            display: grid;
-            gap: 14px;
-        }
-        .footer-grid {
-            grid-template-columns: 1.2fr 1fr 1fr 1.2fr;
-            padding: 22px;
-        }
-        .footer-list {
-            display: grid;
-            gap: 10px;
-        }
-        .footer-list a {
-            text-decoration: none;
-            color: var(--muted);
-            font-weight: 600;
-        }
-        .newsletter-form {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 12px;
-        }
-        .newsletter-form input {
-            flex: 1 1 180px;
-            min-width: 0;
-            padding: 14px 16px;
-            border-radius: 18px;
-            border: 1px solid var(--border);
-            background: var(--surface-strong);
-            color: var(--text);
-            font: inherit;
-        }
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            gap: 16px;
-            align-items: center;
-            color: var(--muted);
-            font-size: 0.84rem;
-        }
-        .footer-bottom-links {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-        .footer-bottom a { text-decoration: none; }
-        @media (max-width: 1100px) {
-            .hero, .resume-grid, .feature-grid, .footer-grid, .stats {
-                grid-template-columns: 1fr 1fr;
-            }
-            .hero { grid-template-columns: 1fr; }
-        }
-        @media (max-width: 780px) {
-            .page { width: min(100% - 18px, 1200px); }
-            .topbar {
-                padding: 14px;
-                border-radius: 28px;
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .nav-links, .nav-actions {
-                width: 100%;
-            }
-            .nav-links > *, .nav-actions > * {
-                flex: 1 1 calc(50% - 8px);
-                text-align: center;
-                justify-content: center;
-            }
-            .hero-main, .hero-side, .section-card, .cta-panel, .footer-grid {
-                border-radius: 24px;
-                padding: 22px 18px;
-            }
-            .stats, .resume-grid, .feature-grid, .footer-grid {
-                grid-template-columns: 1fr;
-            }
-            .cta-panel, .footer-bottom {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            h1 { font-size: 3.5rem; }
-        }
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nexus Elite | Главная</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#cdc8bf;--bg2:#c4beb3;--surface:#d6d1c8;--surface2:#c4beb3;--text:#1a1a1a;--text2:#525252;--accent:#2563eb;--accent2:#f59e0b;--soft:rgba(37,99,235,.10);--border:rgba(0,0,0,.10);--nav:rgba(205,200,191,.94);--shadow:0 8px 28px rgba(0,0,0,.08);--r:22px;--r-sm:14px}
+[data-theme="dark"]{--bg:#1e1e21;--bg2:#191919;--surface:#252529;--surface2:#2d2d33;--text:#f0f0f0;--text2:#9494a1;--accent:#4f8aff;--accent2:#fbbf24;--soft:rgba(79,138,255,.14);--border:rgba(255,255,255,.08);--nav:rgba(30,30,33,.94);--shadow:0 8px 28px rgba(0,0,0,.35)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'Manrope',sans-serif;font-size:14px;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;transition:background .35s,color .35s}
+a{color:inherit;text-decoration:none}
+nav.nx{position:sticky;top:0;z-index:100;height:60px;padding:0 28px;background:var(--nav);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:1.45rem;letter-spacing:2px;color:var(--text)}.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:6px;list-style:none}
+.btn,.btn-p,.btn-g{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:8px 14px;font:700 .76rem/1 'Manrope',sans-serif;text-decoration:none;cursor:pointer;border:1px solid var(--border);transition:.18s ease;white-space:nowrap}
+.btn{background:var(--surface2);color:var(--text)}.btn:hover{background:var(--surface);border-color:var(--text2)}
+.btn-p{background:var(--accent);color:#fff;border-color:var(--accent)}.btn-p:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn-g{background:transparent;color:var(--text2)}.btn-g:hover{background:var(--surface2);color:var(--text)}
+.wrap{width:min(1200px,calc(100% - 28px));margin:0 auto}
+/* FOOTER */
+footer.nx-foot{background:var(--surface);border-top:1px solid var(--border);padding:36px 28px 20px;margin-top:auto}
+.f-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1.4fr;gap:24px;margin-bottom:22px}
+.f-brand .logo{font-size:1.3rem;display:block;margin-bottom:9px}
+.f-desc{font-size:.75rem;color:var(--text2);line-height:1.65;max-width:210px;margin-bottom:12px}
+.f-socials{display:flex;gap:7px}
+.social{width:30px;height:30px;border-radius:9px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font:700 .63rem/1 'Manrope',sans-serif;color:var(--text);transition:.18s}
+.social:hover{background:var(--accent);color:#fff}
+.f-col h4{font:800 .65rem/1 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:.09em;color:var(--text);margin-bottom:12px}
+.f-col ul{list-style:none;display:grid;gap:8px}
+.f-col a{font-size:.77rem;color:var(--text2);transition:.18s}.f-col a:hover{color:var(--accent);padding-left:3px}
+.nl-row{display:flex;gap:6px;background:var(--surface2);border:1px solid var(--border);border-radius:999px;padding:4px 4px 4px 12px;margin-top:9px}
+.nl-row input{flex:1;min-width:0;background:transparent;border:none;outline:none;font:500 .77rem/1 'Manrope',sans-serif;color:var(--text)}
+.nl-row input::placeholder{color:var(--text2)}
+.f-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding-top:15px;border-top:1px solid var(--border);font-size:.73rem;color:var(--text2)}
+.f-btm-links{display:flex;gap:11px;flex-wrap:wrap}
+.f-bottom a:hover{color:var(--accent)}
+/* FORM */
+.alerts{display:grid;gap:8px;margin-bottom:14px}
+.alert{padding:10px 13px;border-radius:var(--r-sm);background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.18);color:#b91c1c;font-size:.8rem;line-height:1.45}
+[data-theme="dark"] .alert{color:#fca5a5}
+.nx-field{display:grid;gap:7px}
+.nx-label{font:800 .66rem/1 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:.08em;color:var(--text2)}
+input,select,textarea{width:100%;background:var(--surface2)!important;border:1px solid var(--border)!important;border-radius:var(--r-sm)!important;padding:11px 14px!important;font:500 .86rem/1.4 'Manrope',sans-serif!important;color:var(--text)!important;outline:none;transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)!important;box-shadow:0 0 0 3px var(--soft)!important}
+textarea{min-height:120px;resize:vertical}
+label{font:800 .66rem/1 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:.08em;color:var(--text2);display:block;margin-bottom:6px}
+form p{display:grid;gap:7px;margin-bottom:14px}
+/* CARD */
+.nx-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow)}
+.nx-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;background:var(--soft);color:var(--accent);font:800 .67rem/1 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:.08em}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}
+.stat strong{display:block;font-family:'Bebas Neue',sans-serif;font-size:2.1rem;color:var(--accent);line-height:1;margin-bottom:4px}
+.stat span{color:var(--text2);font-size:.78rem}
+.nx-clock{font-family:'Space Mono',monospace;font-size:.76rem;font-weight:700;color:var(--accent)}
+@media(max-width:1100px){.f-grid{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:720px){nav.nx{height:auto;padding:12px 16px;flex-wrap:wrap;gap:8px}.nav-links{flex-wrap:wrap;width:100%}.wrap{width:calc(100% - 20px)}.f-grid{grid-template-columns:1fr 1fr}.f-bottom{flex-direction:column;align-items:flex-start}}
+@media(max-width:480px){.f-grid{grid-template-columns:1fr}}
+</style>
+<style>
+.hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:18px;align-items:stretch;padding:20px 0}
+.hero-main{position:relative;overflow:hidden;border-radius:var(--r);padding:28px;min-height:390px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(135deg,rgba(15,23,42,.52),rgba(15,23,42,.18)),url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=80') center/cover;color:#fff;border:1px solid var(--border);box-shadow:var(--shadow)}
+.hero-main h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,5.5vw,4.6rem);line-height:.9;letter-spacing:.03em;margin:12px 0 9px}
+.hero-copy{font-size:.85rem;line-height:1.75;color:rgba(255,255,255,.88)}
+.hero-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}
+.ghost-btn{padding:8px 14px;border-radius:999px;font:700 .74rem/1 'Manrope',sans-serif;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.10);color:#fff}
+.hero-side{border-radius:var(--r);border:1px solid var(--border);background:var(--surface);box-shadow:var(--shadow);padding:20px;display:grid;gap:13px;align-content:start}
+.side-title{font-size:1rem;font-weight:800}
+.side-text{font-size:.8rem;color:var(--text2);line-height:1.7}
+.feat-sm{border:1px solid var(--border);border-radius:var(--r-sm);padding:13px;background:rgba(255,255,255,.12)}
+.feat-sm strong{display:block;font-size:.84rem;margin-bottom:5px}
+.feat-sm span{color:var(--text2);font-size:.78rem;line-height:1.6}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;padding:0 0 18px}
+.sh{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin:18px 0 12px}
+.sh h2{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:1px}
+.sh p{color:var(--text2);font-size:.8rem;line-height:1.6;margin:3px 0 0}
+.cats{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px}
+.pill{padding:7px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--border);font:700 .74rem/1 'Manrope',sans-serif}
+.resume-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-bottom:18px}
+.resume-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:17px;box-shadow:var(--shadow);display:grid;gap:11px}
+.r-top{display:flex;justify-content:space-between;gap:9px;align-items:flex-start}
+.r-name{font-size:.94rem;font-weight:800;margin:0 0 3px}
+.r-role{color:var(--text2);font-size:.76rem;margin:0}
+.price-tag{white-space:nowrap;padding:6px 10px;border-radius:999px;background:var(--soft);color:var(--accent);font:800 .72rem/1 'Manrope',sans-serif}
+.avail{display:inline-flex;width:fit-content;padding:5px 9px;border-radius:999px;font:800 .66rem/1 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:.06em;background:rgba(16,185,129,.12);color:#047857}
+[data-theme="dark"] .avail{color:#6ee7b7}
+.skills-txt{color:var(--text2);font-size:.78rem;line-height:1.65;min-height:60px}
+.r-actions{display:flex;gap:7px;flex-wrap:wrap}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:18px}
+.feat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:17px;box-shadow:var(--shadow)}
+.feat strong{display:block;font-size:.88rem;margin-bottom:6px}
+.feat span{color:var(--text2);font-size:.78rem;line-height:1.65}
+.cta-bar{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:var(--shadow);display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:20px}
+.cta-bar h3{font-size:1.05rem;font-weight:800;margin-bottom:6px}
+.cta-bar p{color:var(--text2);font-size:.8rem;line-height:1.6}
+@media(max-width:1100px){.hero-grid,.resume-grid,.feat-grid{grid-template-columns:1fr 1fr}.stats-row{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.hero-grid,.resume-grid,.feat-grid{grid-template-columns:1fr}.cta-bar{flex-direction:column;align-items:flex-start}.stats-row{grid-template-columns:1fr 1fr}}
+</style>
 </head>
 <body>
-    <div class="page">
-        <header class="topbar">
-            <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
-            <nav class="nav-links">
-                <a href="{% url 'home' %}" class="nav-link">Главная</a>
-                <a href="{% url 'aboutas' %}" class="nav-link">О нас</a>
-                <a href="{% url 'homeview' %}" class="nav-link">AI помощник</a>
-                <a href="{% url 'studio' %}" class="nav-link">Studio</a>
-            </nav>
-            <div class="nav-actions">
-                {% if current_user %}
-                    <a href="{% url 'profile' %}" class="btn">Профиль</a>
-                    <a href="{% url 'logout' %}" class="btn">Выйти</a>
-                {% else %}
-                    <a href="{% url 'login' %}" class="btn">Войти</a>
-                    <a href="{% url 'register' %}" class="btn-primary">Регистрация</a>
-                {% endif %}
-                <button class="icon-btn" id="theme-toggle" type="button">◐</button>
-            </div>
-        </header>
 
-        <section class="hero">
-            <div class="hero-main">
-                <div>
-                    <div class="hero-badge">Проверенные специалисты</div>
-                    <h1>Создавая будущее своими руками.</h1>
-                    <p class="hero-copy">Nexus Elite соединяет клиентов и специалистов в одном современном пространстве: быстрый поиск, AI-помощник, заказы, отзывы и удобная подача резюме без лишнего хаоса.</p>
-                </div>
-                <div class="hero-actions">
-                    <a href="#specialists" class="btn-primary">Выбрать специалиста</a>
-                    <a href="{% url 'studio' %}" class="ghost-btn">Открыть Studio</a>
-                    <a href="{% url 'homeview' %}" class="ghost-btn">Спросить AI</a>
-                </div>
-            </div>
-            <aside class="hero-side">
-                <h2 class="side-title">Быстрый старт</h2>
-                <p class="side-text">Мы сохранили ваш фирменный характер, но сделали интерфейс ровнее, мобильнее и понятнее. Теперь ключевые разделы связаны между собой и выглядят как единый продукт.</p>
-                <div class="mini-actions">
-                    <a href="{% url 'resume_add' %}" class="btn-primary">Создать резюме</a>
-                    <a href="{% url 'feedback' %}" class="btn">Поддержка</a>
-                </div>
-                <div class="feature">
-                    <strong>Что уже можно делать</strong>
-                    <span>Публиковать резюме, заказывать услуги, смотреть доступность мастеров, работать с AI-чатом, открывать служебные страницы и переходить по футеру без пустых ссылок.</span>
-                </div>
-                <div class="feature">
-                    <strong>Кому подойдёт</strong>
-                    <span>Заказчикам, которые хотят быстро найти нужного специалиста, и мастерам, которым нужен аккуратный профиль с понятной стоимостью и услугами.</span>
-                </div>
-            </aside>
-        </section>
+<nav class="nx">
+  <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
+  <ul class='nav-links'><li><a href="{% url 'home' %}" class="btn-g" style='background:var(--surface2)'>Главная</a></li><li><a href="{% url 'aboutas' %}" class="btn-g" >О нас</a></li><li><a href="{% url 'homeview' %}" class="btn-g" >AI</a></li><li><a href="{% url 'studio' %}" class="btn-g" >Studio</a></li></ul>
+  <div style="display:flex;gap:8px;align-items:center">
+    
+    {%% if current_user %%}
+      <a href="{%% url 'profile' %%}" class="btn">Профиль</a>
+      <a href="{%% url 'logout' %%}" class="btn">Выйти</a>
+    {%% else %%}
+      <a href="{%% url 'login' %%}" class="btn">Войти</a>
+      <a href="{%% url 'register' %%}" class="btn-p">Регистрация</a>
+    {%% endif %%}
+    <button class="btn" id="tt" type="button" onclick="document.documentElement.setAttribute('data-theme',document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')">◐</button>
+  </div>
+</nav>
 
-        <section class="stats">
-            <div class="stat"><strong>{{ stats.resumes }}</strong><span>Резюме в каталоге</span></div>
-            <div class="stat"><strong>{{ stats.specialists }}</strong><span>Активных специалистов</span></div>
-            <div class="stat"><strong>{{ stats.categories }}</strong><span>Категорий услуг</span></div>
-            <div class="stat"><strong>{{ stats.reviews }}</strong><span>Отзывов клиентов</span></div>
-        </section>
-
-        <section class="section-head">
-            <div>
-                <h2>Популярные направления</h2>
-                <p>Быстрые переходы по основным типам специалистов и услуг на платформе.</p>
-            </div>
-        </section>
-        <div class="categories">
-            {% for category in categories_preview %}
-                <span class="pill">{{ category }}</span>
-            {% empty %}
-                <span class="pill">Разработка</span>
-                <span class="pill">Дизайн</span>
-                <span class="pill">Сантехника</span>
-                <span class="pill">Электрика</span>
-            {% endfor %}
+<div class="wrap">
+  <section>
+    <div class="hero-grid">
+      <div class="hero-main">
+        <div>
+          <div class="nx-badge">Проверенные специалисты</div>
+          <h1>Создавая будущее своими руками.</h1>
+          <p class="hero-copy">Nexus Elite соединяет клиентов и специалистов: быстрый поиск, AI-помощник, заказы, отзывы и удобная подача резюме без лишнего хаоса.</p>
         </div>
-
-        <section class="section-head" id="specialists">
-            <div>
-                <h2>Специалисты</h2>
-                <p>Карточки живые и кликабельные: доступность, цена, навыки и переход к заказу услуги.</p>
-            </div>
-            <a href="{% url 'studio' %}" class="btn">Открыть Studio</a>
-        </section>
-        <section class="resume-grid">
-            {% for resume in featured_resumes %}
-            <article class="resume-card">
-                <div class="resume-top">
-                    <div>
-                        <h3 class="resume-name">{{ resume.full_name }}</h3>
-                        <p class="resume-role">{{ resume.professian }} • {{ resume.category.name }}</p>
-                    </div>
-                    <span class="price">{{ resume.price }} TJS</span>
-                </div>
-                <span class="availability">{{ resume.get_availability_text }}</span>
-                <div class="skills">{{ resume.description|default:resume.skills|truncatechars:150 }}</div>
-                <div class="resume-actions">
-                    <a href="{% url 'resume_detail' resume.pk %}" class="btn-primary">Открыть резюме</a>
-                    {% if can_add_orders %}
-                        <a href="{% url 'order_add' resume.pk %}" class="btn">Заказать услугу</a>
-                    {% endif %}
-                </div>
-            </article>
-            {% empty %}
-            <article class="resume-card">
-                <h3 class="resume-name">Каталог пока пуст</h3>
-                <p class="skills">Добавьте первое резюме специалиста или откройте Studio, чтобы подготовить задачу и структуру профиля.</p>
-                <div class="resume-actions">
-                    <a href="{% url 'resume_add' %}" class="btn-primary">Добавить резюме</a>
-                    <a href="{% url 'studio' %}" class="btn">Перейти в Studio</a>
-                </div>
-            </article>
-            {% endfor %}
-        </section>
-
-        <section class="section-head">
-            <div>
-                <h2>Возможности платформы</h2>
-                <p>Собрал здесь главные функции, чтобы новые пользователи быстрее понимали ценность сайта.</p>
-            </div>
-        </section>
-        <section class="feature-grid">
-            <div class="feature"><strong>AI подбор</strong><span>Чат помогает подобрать специалиста, составить заказ и улучшить резюме без хаотичных переписок.</span></div>
-            <div class="feature"><strong>Studio</strong><span>Новая страница для брифа, расчёта бюджета и подготовки задачи перед заказом услуги.</span></div>
-            <div class="feature"><strong>Живой каталог</strong><span>Карточки показывают цену, навыки, категорию и ориентир по доступности специалиста.</span></div>
-        </section>
-
-        <section class="cta-panel">
-            <div>
-                <h3>Нужно больше, чем просто каталог?</h3>
-                <p>Откройте Studio: там собраны сценарии работы, генератор брифа и быстрые инструменты для подготовки заказа.</p>
-            </div>
-            <div class="hero-actions">
-                <a href="{% url 'studio' %}" class="btn-primary">Перейти в Studio</a>
-                <a href="{% url 'resource_page' 'faq' %}" class="btn">FAQ</a>
-            </div>
-        </section>
-
-        <footer class="footer-wrap">
-            <div class="footer-grid">
-                <div class="footer-card">
-                    <strong>Nexus Elite</strong>
-                    <span>Интеллектуальная экосистема для объединения лучших специалистов и заказчиков в одном удобном интерфейсе.</span>
-                </div>
-                <div class="footer-card">
-                    <strong>Навигация</strong>
-                    <div class="footer-list">
-                        <a href="{% url 'home' %}">Главная</a>
-                        <a href="{% url 'aboutas' %}">О нас</a>
-                        <a href="{% url 'homeview' %}">AI помощник</a>
-                        <a href="{% url 'studio' %}">Studio</a>
-                    </div>
-                </div>
-                <div class="footer-card">
-                    <strong>Помощь</strong>
-                    <div class="footer-list">
-                        <a href="{% url 'resource_page' 'faq' %}">FAQ</a>
-                        <a href="{% url 'resource_page' 'support' %}">Поддержка</a>
-                        <a href="{% url 'resource_page' 'rules' %}">Правила</a>
-                        <a href="{% url 'resource_page' 'security' %}">Безопасность</a>
-                    </div>
-                </div>
-                <div class="footer-card">
-                    <strong>Nexus Newsletter</strong>
-                    <span>Получайте дайджест новых специалистов, идей для заказа и обновлений платформы.</span>
-                    <form class="newsletter-form" action="{% url 'resource_page' 'newsletter' %}" method="get">
-                        <input type="email" placeholder="Email">
-                        <button type="submit" class="btn-primary">Подписаться</button>
-                    </form>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <div>© 2026 Nexus Elite. Все права защищены.</div>
-                <div class="footer-bottom-links">
-                    <a href="{% url 'resource_page' 'privacy' %}">Конфиденциальность</a>
-                    <a href="{% url 'resource_page' 'offer' %}">Оферта</a>
-                    <a href="{% url 'resource_page' 'blog' %}">Блог</a>
-                </div>
-            </div>
-        </footer>
+        <div class="hero-actions">
+          <a href="#specialists" class="btn-p">Выбрать специалиста</a>
+          <a href="{% url 'studio' %}" class="ghost-btn">Studio</a>
+          <a href="{% url 'homeview' %}" class="ghost-btn">AI помощник</a>
+        </div>
+      </div>
+      <aside class="hero-side">
+        <h2 class="side-title">Быстрый старт</h2>
+        <p class="side-text">Удобная экосистема: каталог, AI-подбор и Studio-инструменты в одном месте.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <a href="{% url 'resume_add' %}" class="btn-p">Создать резюме</a>
+          <a href="{% url 'feedback' %}" class="btn">Поддержка</a>
+        </div>
+        <div class="feat-sm"><strong>Что уже работает</strong><span>Резюме, заказы, AI-чат, Studio с брифами и калькулятором бюджета.</span></div>
+        <div class="feat-sm"><strong>Для кого</strong><span>Заказчикам нужен мастер, специалистам нужны клиенты — обе роли поддерживаются.</span></div>
+      </aside>
     </div>
+  </section>
 
-    <script>
-        document.getElementById('theme-toggle').addEventListener('click', function () {
-            const root = document.documentElement;
-            root.setAttribute('data-theme', root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-        });
-    </script>
-</body>
-</html>
+  <div class="stats-row">
+    <div class="stat"><strong>{{ stats.resumes }}</strong><span>Резюме в каталоге</span></div>
+    <div class="stat"><strong>{{ stats.specialists }}</strong><span>Активных специалистов</span></div>
+    <div class="stat"><strong>{{ stats.categories }}</strong><span>Категорий услуг</span></div>
+    <div class="stat"><strong>{{ stats.reviews }}</strong><span>Отзывов клиентов</span></div>
+  </div>
+
+  <div class="sh"><div><h2>Популярные направления</h2><p>Быстрые переходы по основным типам специалистов.</p></div></div>
+  <div class="cats">
+    {% for category in categories_preview %}<span class="pill">{{ category }}</span>{% empty %}<span class="pill">Разработка</span><span class="pill">Дизайн</span><span class="pill">Сантехника</span><span class="pill">Электрика</span>{% endfor %}
+  </div>
+
+  <div class="sh" id="specialists"><div><h2>Специалисты</h2><p>Карточки с ценой, навыками и переходом к заказу.</p></div><a href="{% url 'studio' %}" class="btn">Открыть Studio</a></div>
+  <section class="resume-grid">
+    {% for resume in featured_resumes %}
+    <article class="resume-card">
+      <div class="r-top"><div><h3 class="r-name">{{ resume.full_name }}</h3><p class="r-role">{{ resume.professian }} · {{ resume.category.name }}</p></div><span class="price-tag">{{ resume.price }} TJS</span></div>
+      <span class="avail">{{ resume.get_availability_text }}</span>
+      <div class="skills-txt">{{ resume.description|default:resume.skills|truncatechars:140 }}</div>
+      <div class="r-actions"><a href="{% url 'resume_detail' resume.pk %}" class="btn-p">Открыть</a>{% if can_add_orders %}<a href="{% url 'order_add' resume.pk %}" class="btn">Заказать</a>{% endif %}</div>
+    </article>
+    {% empty %}
+    <article class="resume-card">
+      <h3 class="r-name">Каталог пока пуст</h3>
+      <div class="skills-txt">Добавьте первое резюме или откройте Studio.</div>
+      <div class="r-actions"><a href="{% url 'resume_add' %}" class="btn-p">Добавить резюме</a><a href="{% url 'studio' %}" class="btn">Studio</a></div>
+    </article>
+    {% endfor %}
+  </section>
+
+  <div class="sh"><div><h2>Возможности платформы</h2><p>Главные функции для новых пользователей.</p></div></div>
+  <section class="feat-grid">
+    <div class="feat"><strong>AI подбор</strong><span>Чат помогает найти специалиста, составить заказ и улучшить резюме.</span></div>
+    <div class="feat"><strong>Studio</strong><span>Бриф, расчёт бюджета и подготовка задачи перед заказом услуги.</span></div>
+    <div class="feat"><strong>Живой каталог</strong><span>Карточки с ценой, навыками, категорией и доступностью специалиста.</span></div>
+  </section>
+
+  <div class="cta-bar">
+    <div><h3>Нужно больше, чем просто каталог?</h3><p>Откройте Studio: сценарии работы, генератор брифа и инструменты для подготовки заказа.</p></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;flex-shrink:0"><a href="{% url 'studio' %}" class="btn-p">Перейти в Studio</a><a href="{% url 'resource_page' 'faq' %}" class="btn">FAQ</a></div>
+  </div>
+</div>
+
+
+<footer class="nx-foot">
+<div class="wrap">
+  <div class="f-grid">
+    <div class="f-brand">
+      <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
+      <p class="f-desc">Интеллектуальная экосистема для объединения специалистов и заказчиков.</p>
+      <div class="f-socials">
+        <a href="{% url 'resource_page' 'support' %}" class="social">TG</a>
+        <a href="{% url 'resource_page' 'blog' %}" class="social">IG</a>
+        <a href="{% url 'resource_page' 'design' %}" class="social">BE</a>
+      </div>
+    </div>
+    <div class="f-col"><h4>Платформа</h4><ul>
+      <li><a href="{% url 'home' %}">Все мастера</a></li>
+      <li><a href="{% url 'resume_add' %}">Стать экспертом</a></li>
+      <li><a href="{% url 'homeview' %}">AI Ассистент</a></li>
+      <li><a href="{% url 'studio' %}">Studio</a></li>
+    </ul></div>
+    <div class="f-col"><h4>Помощь</h4><ul>
+      <li><a href="{% url 'resource_page' 'faq' %}">FAQ</a></li>
+      <li><a href="{% url 'resource_page' 'support' %}">Поддержка</a></li>
+      <li><a href="{% url 'resource_page' 'rules' %}">Правила</a></li>
+      <li><a href="{% url 'resource_page' 'security' %}">Безопасность</a></li>
+    </ul></div>
+    <div class="f-col"><h4>Связь</h4><ul>
+      <li><a href="mailto:info@nexus.tj">info@nexus.tj</a></li>
+      <li><a href="tel:+992939939641">+992 939 939 641</a></li>
+    </ul></div>
+    <div class="f-col"><h4>Подписка</h4>
+      <p style="color:var(--text2);font-size:.75rem;line-height:1.6;margin-bottom:0">Дайджест новых специалистов и обновлений.</p>
+      <form class="nl-row" action="{% url 'resource_page' 'newsletter' %}" method="get">
+        <input type="email" placeholder="Email">
+        <button type="submit" class="btn-p" style="border-radius:999px;font-size:.7rem;padding:7px 12px">OK</button>
+      </form>
+    </div>
+  </div>
+  <div class="f-bottom">
+    <span>© 2026 Nexus Elite. Все права защищены.</span>
+    <div class="f-btm-links">
+      <a href="{% url 'resource_page' 'privacy' %}">Конфиденциальность</a>
+      <a href="{% url 'resource_page' 'offer' %}">Оферта</a>
+      <a href="{% url 'resource_page' 'blog' %}">Блог</a>
+    </div>
+  </div>
+</div>
+</footer>
+<script>
+(function(){const s=localStorage.getItem('nx-theme');if(s)document.documentElement.setAttribute('data-theme',s)})();
+document.getElementById('tt')?.addEventListener('click',function(){const d=document.documentElement,v=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',v);localStorage.setItem('nx-theme',v)});
+</script>
+</body></html>

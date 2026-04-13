@@ -1,273 +1,156 @@
 <!DOCTYPE html>
 <html lang="ru" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вход | Nexus Elite</title>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Вход | Nexus Elite</title>
 
-    <style>
-        :root {
-            --bg: #cdc8bf; 
-            --surface: #d6d1c8; 
-            --surface2: #c4beb3;
-            --text: #1a1a1a;
-            --text2: #525252;
-            --accent: #2563eb;
-            --border: rgba(0, 0, 0, 0.1);
-            --shadow: 0 10px 30px rgba(0,0,0,0.05);
-            --radius: 20px;
-        }
-
-        [data-theme="dark"] {
-            --bg: #1a1a1c; 
-            --surface: #222226;
-            --surface2: #2d2d33;
-            --text: #f0f0f0;
-            --text2: #9494a1;
-            --accent: #4f8aff;
-            --border: rgba(255, 255, 255, 0.08);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body { 
-            background: var(--bg); 
-            color: var(--text); 
-            font-family: 'Manrope', sans-serif; 
-            display: flex; flex-direction: column; min-height: 100vh;
-            transition: 0.4s ease;
-        }
-
-        /* --- NAV --- */
-        nav {
-            position: sticky; top: 0; z-index: 1000;
-            background: var(--bg); border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 5%; height: 65px; backdrop-filter: blur(10px);
-        }
-        
-        .logo { 
-            font-weight: 800; font-size: 1.2rem; color: var(--text); 
-            text-decoration: none; letter-spacing: 1px; text-transform: uppercase;
-        }
-        .logo span { color: var(--accent); }
-
-        .btn-ui {
-            font-size: 0.7rem; font-weight: 800; padding: 8px 18px; border-radius: 50px;
-            border: 1px solid var(--border); background: var(--surface2);
-            cursor: pointer; text-decoration: none; color: var(--text); transition: 0.3s;
-        }
-        .btn-ui:hover { background: var(--text); color: var(--bg); }
-
-        /* --- AUTH CARD --- */
-        .main-wrapper { flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        
-        .auth-card {
-            background: var(--surface);
-            padding: 40px 35px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            max-width: 400px;
-            width: 100%;
-            box-shadow: var(--shadow);
-        }
-
-        .auth-card h2 {
-            font-weight: 700;
-            font-size: 1.5rem;
-            margin-bottom: 8px;
-            text-align: center;
-            letter-spacing: -0.5px;
-            color: var(--text);
-        }
-
-        .status-msg {
-            display: block; text-align: center; font-family: 'Space Mono', monospace;
-            font-size: 0.6rem; color: var(--accent); letter-spacing: 1px;
-            text-transform: uppercase; margin-bottom: 30px; font-weight: 700;
-        }
-
-        .alert-list {
-            display: grid;
-            gap: 10px;
-            margin-bottom: 18px;
-        }
-
-        .alert-item {
-            background: rgba(239, 68, 68, 0.08);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            color: #b91c1c;
-            border-radius: 14px;
-            padding: 12px 14px;
-            font-size: 0.82rem;
-            line-height: 1.45;
-        }
-
-        /* Django Form Elements */
-        form p { margin-bottom: 18px; display: flex; flex-direction: column; }
-        
-        label { 
-            font-size: 0.7rem; font-weight: 700; text-transform: uppercase; 
-            margin-bottom: 8px; color: var(--text2); letter-spacing: 0.5px;
-        }
-
-        input {
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 14px;
-            font-family: 'Manrope', sans-serif;
-            font-size: 0.95rem;
-            color: var(--text);
-            outline: none;
-            transition: 0.3s;
-            width: 100%;
-        }
-
-        input:focus { border-color: var(--accent); background: var(--bg); }
-
-        .auth-btn {
-            width: 100%; padding: 16px;
-            background: #1a1a1a;
-            color: white; border: none; border-radius: 12px;
-            font-family: 'Manrope', sans-serif; font-weight: 700; font-size: 1rem;
-            cursor: pointer; transition: 0.3s;
-            margin-top: 10px;
-        }
-        .auth-btn:hover { background: var(--accent); transform: translateY(-2px); }
-
-        .auth-footer { 
-            margin-top: 25px; text-align: center; font-size: 0.8rem; 
-            color: var(--text2); font-weight: 600; 
-        }
-        .auth-footer a { color: var(--accent); text-decoration: none; margin: 0 8px; font-weight: 800; transition: 0.2s; }
-        .auth-footer a:hover { opacity: 0.7; }
-
-        /* --- FOOTER --- */
-        footer { background: var(--surface); border-top: 1px solid var(--border); padding: 30px 5%; margin-top: auto; }
-        .f-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.7rem; color: var(--text2); }
-        
-        .reveal { opacity: 0; transform: translateY(15px); }
-
-        @media (max-width: 640px) {
-            nav {
-                padding: 14px 16px;
-                height: auto;
-            }
-
-            .main-wrapper {
-                padding: 16px;
-                align-items: flex-start;
-            }
-
-            .auth-card {
-                padding: 28px 20px;
-                border-radius: 18px;
-            }
-
-            .auth-card h2 {
-                font-size: 1.25rem;
-            }
-
-            .f-bottom {
-                flex-direction: column;
-                gap: 10px;
-                text-align: center;
-            }
-        }
-    </style>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#cdc8bf;--bg2:#c4beb3;--surface:#d6d1c8;--surface2:#c4beb3;--text:#1a1a1a;--text2:#525252;--accent:#2563eb;--accent2:#f59e0b;--soft:rgba(37,99,235,.10);--border:rgba(0,0,0,.10);--nav:rgba(205,200,191,.94);--shadow:0 8px 28px rgba(0,0,0,.08);--r:22px;--r-sm:14px}
+[data-theme="dark"]{--bg:#1e1e21;--bg2:#191919;--surface:#252529;--surface2:#2d2d33;--text:#f0f0f0;--text2:#9494a1;--accent:#4f8aff;--accent2:#fbbf24;--soft:rgba(79,138,255,.14);--border:rgba(255,255,255,.08);--nav:rgba(30,30,33,.94);--shadow:0 8px 28px rgba(0,0,0,.35)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'Manrope',sans-serif;font-size:14px;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;transition:background .35s,color .35s}
+a{color:inherit;text-decoration:none}
+nav.nx{position:sticky;top:0;z-index:100;height:60px;padding:0 28px;background:var(--nav);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:1.45rem;letter-spacing:2px;color:var(--text)}.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:6px;list-style:none}
+.btn,.btn-p,.btn-g{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:8px 14px;font:700 .76rem/1 'Manrope',sans-serif;text-decoration:none;cursor:pointer;border:1px solid var(--border);transition:.18s ease;white-space:nowrap}
+.btn{background:var(--surface2);color:var(--text)}.btn:hover{background:var(--surface);border-color:var(--text2)}
+.btn-p{background:var(--accent);color:#fff;border-color:var(--accent)}.btn-p:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn-g{background:transparent;color:var(--text2)}.btn-g:hover{background:var(--surface2);color:var(--text)}
+.wrap{width:min(1200px,calc(100% - 28px));margin:0 auto}
+/* FOOTER */
+footer.nx-foot{background:var(--surface);border-top:1px solid var(--border);padding:36px 28px 20px;margin-top:auto}
+.f-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1.4fr;gap:24px;margin-bottom:22px}
+.f-brand .logo{font-size:1.3rem;display:block;margin-bottom:9px}
+.f-desc{font-size:.75rem;color:var(--text2);line-height:1.65;max-width:210px;margin-bottom:12px}
+.f-socials{display:flex;gap:7px}
+.social{width:30px;height:30px;border-radius:9px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font:700 .63rem/1 'Manrope',sans-serif;color:var(--text);transition:.18s}
+.social:hover{background:var(--accent);color:#fff}
+.f-col h4{font:800 .65rem/1 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:.09em;color:var(--text);margin-bottom:12px}
+.f-col ul{list-style:none;display:grid;gap:8px}
+.f-col a{font-size:.77rem;color:var(--text2);transition:.18s}.f-col a:hover{color:var(--accent);padding-left:3px}
+.nl-row{display:flex;gap:6px;background:var(--surface2);border:1px solid var(--border);border-radius:999px;padding:4px 4px 4px 12px;margin-top:9px}
+.nl-row input{flex:1;min-width:0;background:transparent;border:none;outline:none;font:500 .77rem/1 'Manrope',sans-serif;color:var(--text)}
+.nl-row input::placeholder{color:var(--text2)}
+.f-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding-top:15px;border-top:1px solid var(--border);font-size:.73rem;color:var(--text2)}
+.f-btm-links{display:flex;gap:11px;flex-wrap:wrap}
+.f-bottom a:hover{color:var(--accent)}
+/* FORM */
+.alerts{display:grid;gap:8px;margin-bottom:14px}
+.alert{padding:10px 13px;border-radius:var(--r-sm);background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.18);color:#b91c1c;font-size:.8rem;line-height:1.45}
+[data-theme="dark"] .alert{color:#fca5a5}
+.nx-field{display:grid;gap:7px}
+.nx-label{font:800 .66rem/1 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:.08em;color:var(--text2)}
+input,select,textarea{width:100%;background:var(--surface2)!important;border:1px solid var(--border)!important;border-radius:var(--r-sm)!important;padding:11px 14px!important;font:500 .86rem/1.4 'Manrope',sans-serif!important;color:var(--text)!important;outline:none;transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)!important;box-shadow:0 0 0 3px var(--soft)!important}
+textarea{min-height:120px;resize:vertical}
+label{font:800 .66rem/1 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:.08em;color:var(--text2);display:block;margin-bottom:6px}
+form p{display:grid;gap:7px;margin-bottom:14px}
+/* CARD */
+.nx-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow)}
+.nx-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;background:var(--soft);color:var(--accent);font:800 .67rem/1 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:.08em}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}
+.stat strong{display:block;font-family:'Bebas Neue',sans-serif;font-size:2.1rem;color:var(--accent);line-height:1;margin-bottom:4px}
+.stat span{color:var(--text2);font-size:.78rem}
+.nx-clock{font-family:'Space Mono',monospace;font-size:.76rem;font-weight:700;color:var(--accent)}
+@media(max-width:1100px){.f-grid{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:720px){nav.nx{height:auto;padding:12px 16px;flex-wrap:wrap;gap:8px}.nav-links{flex-wrap:wrap;width:100%}.wrap{width:calc(100% - 20px)}.f-grid{grid-template-columns:1fr 1fr}.f-bottom{flex-direction:column;align-items:flex-start}}
+@media(max-width:480px){.f-grid{grid-template-columns:1fr}}
+</style>
+<style>
+.auth-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:32px 16px}
+.auth-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:36px 32px;width:100%;max-width:400px;box-shadow:var(--shadow)}
+.auth-card h2{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:1px;text-align:center;margin-bottom:5px}
+.auth-sub{display:block;text-align:center;font-family:'Space Mono',monospace;font-size:.6rem;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:24px;font-weight:700}
+.auth-foot{margin-top:22px;text-align:center;font-size:.8rem;color:var(--text2)}
+.auth-foot a{color:var(--accent);font-weight:800;margin:0 7px}
+.submit-btn{width:100%;padding:14px;background:var(--accent);color:#fff;border:none;border-radius:999px;font:700 .84rem/1 'Manrope',sans-serif;cursor:pointer;transition:.18s;margin-top:8px;letter-spacing:.04em}
+.submit-btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
+</style>
 </head>
 <body>
 
-<nav>
-    <a href="/" class="logo">NEXUS<span>ELITE</span></a>
-    <div style="display: flex; gap: 8px;">
-        <button class="btn-ui" onclick="toggleLang()" id="lang-btn">RU</button>
-        <button class="btn-ui" id="theme-toggle">🌙</button>
-    </div>
+<nav class="nx">
+  <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
+  
+  <div style="display:flex;gap:8px;align-items:center">
+    <a href="{{% url 'register' %}}" class="btn">Регистрация</a>
+    <button class="btn" id="tt" type="button" onclick="document.documentElement.setAttribute('data-theme',document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')">◐</button>
+  </div>
 </nav>
-
-<div class="main-wrapper">
-    <div class="auth-card reveal">
-        <h2 data-i18n="h_login">Вход в систему</h2>
-        <span class="status-msg" data-i18n="status">Secure Authentication</span>
-
-        {% if messages or form.errors or form.non_field_errors %}
-        <div class="alert-list">
-            {% for message in messages %}
-                <div class="alert-item">{{ message }}</div>
-            {% endfor %}
-            {% for error in form.non_field_errors %}
-                <div class="alert-item">{{ error }}</div>
-            {% endfor %}
-            {% for field in form %}
-                {% for error in field.errors %}
-                    <div class="alert-item">{{ error }}</div>
-                {% endfor %}
-            {% endfor %}
-        </div>
-        {% endif %}
-
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="auth-btn" data-i18n="btn_login">Войти</button>
-        </form>
-
-        <div class="auth-footer">
-            <a href="{% url 'forgot_password' %}" data-i18n="f_forgot">Забыли пароль?</a>
-            <span style="opacity: 0.2;">|</span>
-            <a href="{% url 'register' %}" data-i18n="f_create">Регистрация</a>
-        </div>
+<div class="auth-wrap">
+  <div class="auth-card">
+    <h2>Вход в систему</h2>
+    <span class="auth-sub">Secure Authentication</span>
+    {% if messages or form.errors or form.non_field_errors %}
+    <div class="alerts">
+      {% for message in messages %}<div class="alert">{{ message }}</div>{% endfor %}
+      {% for error in form.non_field_errors %}<div class="alert">{{ error }}</div>{% endfor %}
+      {% for field in form %}{% for error in field.errors %}<div class="alert">{{ error }}</div>{% endfor %}{% endfor %}
     </div>
+    {% endif %}
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="submit-btn">Войти</button>
+    </form>
+    <div class="auth-foot">
+      <a href="{% url 'forgot_password' %}">Забыли пароль?</a>
+      <span style="opacity:.2">|</span>
+      <a href="{% url 'register' %}">Регистрация</a>
+    </div>
+  </div>
 </div>
 
-<footer>
-    <div class="f-bottom">
-        <p>© 2026 NEXUS ELITE. Система управления.</p>
-        <div style="font-family: 'Space Mono', monospace; font-weight: 700; color: var(--accent);" id="footer-clock">00:00:00</div>
+<footer class="nx-foot">
+<div class="wrap">
+  <div class="f-grid">
+    <div class="f-brand">
+      <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
+      <p class="f-desc">Интеллектуальная экосистема для объединения специалистов и заказчиков.</p>
+      <div class="f-socials">
+        <a href="{% url 'resource_page' 'support' %}" class="social">TG</a>
+        <a href="{% url 'resource_page' 'blog' %}" class="social">IG</a>
+        <a href="{% url 'resource_page' 'design' %}" class="social">BE</a>
+      </div>
     </div>
+    <div class="f-col"><h4>Платформа</h4><ul>
+      <li><a href="{% url 'home' %}">Все мастера</a></li>
+      <li><a href="{% url 'resume_add' %}">Стать экспертом</a></li>
+      <li><a href="{% url 'homeview' %}">AI Ассистент</a></li>
+      <li><a href="{% url 'studio' %}">Studio</a></li>
+    </ul></div>
+    <div class="f-col"><h4>Помощь</h4><ul>
+      <li><a href="{% url 'resource_page' 'faq' %}">FAQ</a></li>
+      <li><a href="{% url 'resource_page' 'support' %}">Поддержка</a></li>
+      <li><a href="{% url 'resource_page' 'rules' %}">Правила</a></li>
+      <li><a href="{% url 'resource_page' 'security' %}">Безопасность</a></li>
+    </ul></div>
+    <div class="f-col"><h4>Связь</h4><ul>
+      <li><a href="mailto:info@nexus.tj">info@nexus.tj</a></li>
+      <li><a href="tel:+992939939641">+992 939 939 641</a></li>
+    </ul></div>
+    <div class="f-col"><h4>Подписка</h4>
+      <p style="color:var(--text2);font-size:.75rem;line-height:1.6;margin-bottom:0">Дайджест новых специалистов и обновлений.</p>
+      <form class="nl-row" action="{% url 'resource_page' 'newsletter' %}" method="get">
+        <input type="email" placeholder="Email">
+        <button type="submit" class="btn-p" style="border-radius:999px;font-size:.7rem;padding:7px 12px">OK</button>
+      </form>
+    </div>
+  </div>
+  <div class="f-bottom">
+    <span>© 2026 Nexus Elite. Система управления.</span>
+    <div class="f-btm-links">
+      <a href="{% url 'resource_page' 'privacy' %}">Конфиденциальность</a>
+      <a href="{% url 'resource_page' 'offer' %}">Оферта</a>
+      <a href="{% url 'resource_page' 'blog' %}">Блог</a>
+    </div>
+  </div>
+</div>
 </footer>
-
 <script>
-    const T = {
-        en: { 
-            h_login: "System Login", 
-            status: "Secure Authentication", 
-            btn_login: "Login", 
-            f_forgot: "Forgot Password?", 
-            f_create: "Sign Up" 
-        },
-        ru: { 
-            h_login: "Вход в систему", 
-            status: "Защищенный вход", 
-            btn_login: "Войти", 
-            f_forgot: "Забыли пароль?", 
-            f_create: "Регистрация" 
-        }
-    };
-    
-    let currentLang = 'ru';
-    function toggleLang() {
-        currentLang = currentLang === 'ru' ? 'en' : 'ru';
-        document.getElementById('lang-btn').textContent = currentLang === 'en' ? 'RU' : 'EN';
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const k = el.getAttribute('data-i18n');
-            if (T[currentLang][k]) el.textContent = T[currentLang][k];
-        });
-    }
-
-    document.getElementById('theme-toggle').addEventListener('click', function() {
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-        this.textContent = isDark ? '☀️' : '🌙';
-    });
-
-    setInterval(() => { document.getElementById('footer-clock').textContent = new Date().toLocaleTimeString(); }, 1000);
-    window.onload = () => { gsap.to('.reveal', { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }); };
+(function(){const s=localStorage.getItem('nx-theme');if(s)document.documentElement.setAttribute('data-theme',s)})();
+document.getElementById('tt')?.addEventListener('click',function(){const d=document.documentElement,v=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',v);localStorage.setItem('nx-theme',v)});
 </script>
-
-</body>
-</html>
+</body></html>

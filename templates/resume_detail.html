@@ -1,381 +1,210 @@
 <!DOCTYPE html>
 <html lang="ru" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ resume.full_name }} | Nexus Elite</title>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{ resume.full_name }} | Nexus Elite</title>
 
-    <style>
-        :root {
-            --bg: #cdc8bf; 
-            --surface: #d6d1c8; 
-            --surface2: #c4beb3;
-            --text: #1a1a1a;
-            --text2: #525252;
-            --accent: #2563eb;
-            --border: rgba(0, 0, 0, 0.1);
-            --shadow: 0 10px 40px rgba(0,0,0,0.05);
-            --radius: 24px;
-        }
-
-        [data-theme="dark"] {
-            --bg: #1a1a1c; 
-            --surface: #222226;
-            --surface2: #2d2d33;
-            --text: #f0f0f0;
-            --text2: #9494a1;
-            --accent: #4f8aff;
-            --border: rgba(255, 255, 255, 0.08);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body { 
-            background: var(--bg); 
-            color: var(--text); 
-            font-family: 'Manrope', sans-serif; 
-            transition: background 0.4s ease; 
-            display: flex; flex-direction: column; min-height: 100vh;
-        }
-
-        /* --- NAV --- */
-        nav {
-            position: sticky; top: 0; z-index: 1000;
-            background: var(--bg); border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 5%; height: 75px; backdrop-filter: blur(10px);
-        }
-        .logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--text); text-decoration: none; letter-spacing: 1px; }
-        .logo span { color: var(--accent); }
-
-        .btn-ui {
-            font-size: 0.75rem; font-weight: 800; padding: 10px 22px; border-radius: 50px;
-            border: 1px solid var(--border); background: var(--surface2);
-            cursor: pointer; text-decoration: none; color: var(--text); transition: 0.3s;
-        }
-        .btn-ui:hover { background: var(--text); color: var(--bg); }
-
-        /* --- LAYOUT --- */
-        .wrapper { flex: 1; width: 100%; max-width: 1300px; margin: 40px auto; padding: 0 20px; }
-        .grid { display: grid; grid-template-columns: 360px 1fr; gap: 40px; }
-
-        /* --- SIDEBAR --- */
-        .sidebar { position: sticky; top: 110px; height: fit-content; }
-        .photo { width: 100%; aspect-ratio: 1; border-radius: var(--radius); object-fit: cover; border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 20px; }
-        .action-card { background: var(--surface); padding: 35px; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow); }
-        .availability-pill {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            margin-bottom: 18px;
-            padding: 12px 16px;
-            border-radius: 18px;
-            font-size: 0.82rem;
-            font-weight: 800;
-            background: rgba(37, 99, 235, 0.10);
-            color: var(--accent);
-            text-align: center;
-        }
-        .price { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; text-align: center; display: block; margin-bottom: 25px; }
-        .price small { font-family: 'Manrope'; font-size: 0.9rem; color: var(--text2); }
-
-        .btn-main {
-            display: block; width: 100%; padding: 18px; border-radius: 50px; text-align: center;
-            text-decoration: none; font-weight: 800; font-size: 0.8rem; text-transform: uppercase;
-            transition: 0.3s; margin-bottom: 12px; border: none;
-        }
-        .btn-solid { background: var(--accent); color: white; }
-        .btn-solid:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2); }
-        .btn-outline { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
-
-        /* --- CONTENT --- */
-        .content-card { background: var(--surface); padding: 50px; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow); }
-        .label { color: var(--accent); font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block; }
-        .title { font-family: 'Bebas Neue', sans-serif; font-size: 4.5rem; line-height: 0.9; margin-bottom: 15px; }
-        .subtitle { font-family: 'Space Mono', monospace; color: var(--text2); font-size: 1rem; border-left: 4px solid var(--accent); padding-left: 20px; margin-bottom: 50px; }
-
-        .section { margin-bottom: 45px; }
-        .section h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text2); margin-bottom: 20px; }
-        .body-text { font-size: 1.1rem; line-height: 1.8; white-space: pre-line; }
-
-        /* --- REVIEWS --- */
-        .review-card { background: var(--surface2); padding: 25px; border-radius: 20px; margin-bottom: 20px; border: 1px solid var(--border); }
-        .review-meta { display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: 800; }
-
-        /* --- FOOTER (IMAGE ACCURATE) --- */
-        footer { background: var(--surface); border-top: 1px solid var(--border); padding: 80px 5% 40px; margin-top: auto; }
-        .f-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1.5fr; gap: 30px; margin-bottom: 60px; }
-        
-        .f-brand .logo { font-size: 1.8rem; display: block; margin-bottom: 20px; }
-        .f-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.6; max-width: 260px; margin-bottom: 25px; }
-        
-        .f-socials { display: flex; gap: 10px; }
-        .social-btn { 
-            width: 36px; height: 36px; border-radius: 50%; background: var(--surface2); 
-            display: flex; align-items: center; justify-content: center; 
-            font-size: 0.7rem; font-weight: 800; color: var(--text); 
-            text-decoration: none; border: 1px solid var(--border); transition: 0.3s;
-        }
-        .social-btn:hover { background: var(--text); color: var(--bg); }
-
-        .f-col h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 25px; color: var(--text); }
-        .f-col ul { list-style: none; }
-        .f-col li { margin-bottom: 12px; }
-        .f-col a { color: var(--text2); text-decoration: none; font-size: 0.9rem; transition: 0.2s; }
-        .f-col a:hover { color: var(--accent); }
-
-        /* Subscribe Box */
-        .f-sub-label { font-size: 0.9rem; font-weight: 700; margin-bottom: 15px; display: block; }
-        .f-sub-form { display: flex; background: var(--surface2); border-radius: 50px; padding: 5px; border: 1px solid var(--border); }
-        .f-sub-form input { 
-            background: none; border: none; padding: 10px 20px; flex: 1; 
-            font-family: 'Manrope'; font-size: 0.85rem; color: var(--text); outline: none;
-        }
-        .f-sub-btn { 
-            background: #1a1a1a; color: white; border: none; padding: 0 20px; 
-            border-radius: 50px; font-weight: 800; font-size: 0.7rem; cursor: pointer; 
-        }
-
-        .f-bottom { border-top: 1px solid var(--border); padding-top: 30px; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text2); }
-        .reveal { opacity: 0; transform: translateY(20px); }
-
-        @media (max-width: 1100px) {
-            .f-grid { grid-template-columns: repeat(3, 1fr); gap: 40px; }
-            .grid { grid-template-columns: 1fr; }
-            .sidebar { position: static; order: 2; }
-            .title { font-size: 3.5rem; }
-        }
-
-        @media (max-width: 720px) {
-            nav {
-                padding: 14px 16px;
-                height: auto;
-                gap: 10px;
-                flex-wrap: wrap;
-                align-items: flex-start;
-            }
-            nav > div {
-                width: 100%;
-                display: flex;
-                flex-wrap: wrap;
-            }
-            nav > div .btn-ui {
-                flex: 1 1 auto;
-                text-align: center;
-            }
-            .wrapper {
-                margin: 20px auto 32px;
-                padding: 0 16px;
-            }
-            .content-card,
-            .action-card {
-                padding: 24px 18px;
-                border-radius: 18px;
-            }
-            .title {
-                font-size: 2.6rem;
-            }
-            .subtitle {
-                padding-left: 14px;
-                margin-bottom: 28px;
-            }
-            .price {
-                font-size: 2.6rem;
-            }
-            .btn-main {
-                padding: 16px;
-            }
-            .f-grid {
-                grid-template-columns: 1fr;
-            }
-            .f-bottom {
-                flex-direction: column;
-                gap: 18px;
-                text-align: center;
-            }
-            .f-sub-form {
-                flex-direction: column;
-                border-radius: 20px;
-                gap: 8px;
-                padding: 10px;
-            }
-            .f-sub-btn {
-                padding: 12px 20px;
-                border-radius: 14px;
-            }
-        }
-    </style>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#cdc8bf;--bg2:#c4beb3;--surface:#d6d1c8;--surface2:#c4beb3;--text:#1a1a1a;--text2:#525252;--accent:#2563eb;--accent2:#f59e0b;--soft:rgba(37,99,235,.10);--border:rgba(0,0,0,.10);--nav:rgba(205,200,191,.94);--shadow:0 8px 28px rgba(0,0,0,.08);--r:22px;--r-sm:14px}
+[data-theme="dark"]{--bg:#1e1e21;--bg2:#191919;--surface:#252529;--surface2:#2d2d33;--text:#f0f0f0;--text2:#9494a1;--accent:#4f8aff;--accent2:#fbbf24;--soft:rgba(79,138,255,.14);--border:rgba(255,255,255,.08);--nav:rgba(30,30,33,.94);--shadow:0 8px 28px rgba(0,0,0,.35)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'Manrope',sans-serif;font-size:14px;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;transition:background .35s,color .35s}
+a{color:inherit;text-decoration:none}
+nav.nx{position:sticky;top:0;z-index:100;height:60px;padding:0 28px;background:var(--nav);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:1.45rem;letter-spacing:2px;color:var(--text)}.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:6px;list-style:none}
+.btn,.btn-p,.btn-g{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:8px 14px;font:700 .76rem/1 'Manrope',sans-serif;text-decoration:none;cursor:pointer;border:1px solid var(--border);transition:.18s ease;white-space:nowrap}
+.btn{background:var(--surface2);color:var(--text)}.btn:hover{background:var(--surface);border-color:var(--text2)}
+.btn-p{background:var(--accent);color:#fff;border-color:var(--accent)}.btn-p:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn-g{background:transparent;color:var(--text2)}.btn-g:hover{background:var(--surface2);color:var(--text)}
+.wrap{width:min(1200px,calc(100% - 28px));margin:0 auto}
+/* FOOTER */
+footer.nx-foot{background:var(--surface);border-top:1px solid var(--border);padding:36px 28px 20px;margin-top:auto}
+.f-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1.4fr;gap:24px;margin-bottom:22px}
+.f-brand .logo{font-size:1.3rem;display:block;margin-bottom:9px}
+.f-desc{font-size:.75rem;color:var(--text2);line-height:1.65;max-width:210px;margin-bottom:12px}
+.f-socials{display:flex;gap:7px}
+.social{width:30px;height:30px;border-radius:9px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font:700 .63rem/1 'Manrope',sans-serif;color:var(--text);transition:.18s}
+.social:hover{background:var(--accent);color:#fff}
+.f-col h4{font:800 .65rem/1 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:.09em;color:var(--text);margin-bottom:12px}
+.f-col ul{list-style:none;display:grid;gap:8px}
+.f-col a{font-size:.77rem;color:var(--text2);transition:.18s}.f-col a:hover{color:var(--accent);padding-left:3px}
+.nl-row{display:flex;gap:6px;background:var(--surface2);border:1px solid var(--border);border-radius:999px;padding:4px 4px 4px 12px;margin-top:9px}
+.nl-row input{flex:1;min-width:0;background:transparent;border:none;outline:none;font:500 .77rem/1 'Manrope',sans-serif;color:var(--text)}
+.nl-row input::placeholder{color:var(--text2)}
+.f-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding-top:15px;border-top:1px solid var(--border);font-size:.73rem;color:var(--text2)}
+.f-btm-links{display:flex;gap:11px;flex-wrap:wrap}
+.f-bottom a:hover{color:var(--accent)}
+/* FORM */
+.alerts{display:grid;gap:8px;margin-bottom:14px}
+.alert{padding:10px 13px;border-radius:var(--r-sm);background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.18);color:#b91c1c;font-size:.8rem;line-height:1.45}
+[data-theme="dark"] .alert{color:#fca5a5}
+.nx-field{display:grid;gap:7px}
+.nx-label{font:800 .66rem/1 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:.08em;color:var(--text2)}
+input,select,textarea{width:100%;background:var(--surface2)!important;border:1px solid var(--border)!important;border-radius:var(--r-sm)!important;padding:11px 14px!important;font:500 .86rem/1.4 'Manrope',sans-serif!important;color:var(--text)!important;outline:none;transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)!important;box-shadow:0 0 0 3px var(--soft)!important}
+textarea{min-height:120px;resize:vertical}
+label{font:800 .66rem/1 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:.08em;color:var(--text2);display:block;margin-bottom:6px}
+form p{display:grid;gap:7px;margin-bottom:14px}
+/* CARD */
+.nx-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow)}
+.nx-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;background:var(--soft);color:var(--accent);font:800 .67rem/1 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:.08em}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}
+.stat strong{display:block;font-family:'Bebas Neue',sans-serif;font-size:2.1rem;color:var(--accent);line-height:1;margin-bottom:4px}
+.stat span{color:var(--text2);font-size:.78rem}
+.nx-clock{font-family:'Space Mono',monospace;font-size:.76rem;font-weight:700;color:var(--accent)}
+@media(max-width:1100px){.f-grid{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:720px){nav.nx{height:auto;padding:12px 16px;flex-wrap:wrap;gap:8px}.nav-links{flex-wrap:wrap;width:100%}.wrap{width:calc(100% - 20px)}.f-grid{grid-template-columns:1fr 1fr}.f-bottom{flex-direction:column;align-items:flex-start}}
+@media(max-width:480px){.f-grid{grid-template-columns:1fr}}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<style>
+.detail-wrap{flex:1;width:min(1240px,calc(100% - 28px));margin:28px auto 36px;padding:0}
+.detail-grid{display:grid;grid-template-columns:320px 1fr;gap:28px}
+.sidebar{position:sticky;top:76px;height:fit-content}
+.photo{width:100%;aspect-ratio:1;border-radius:var(--r);object-fit:cover;border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:16px;display:block}
+.action-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:22px;box-shadow:var(--shadow)}
+.avail-pill{display:flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:var(--r-sm);background:var(--soft);color:var(--accent);font:800 .74rem/1 'Manrope',sans-serif;text-align:center;margin-bottom:14px}
+.price-big{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;text-align:center;display:block;margin-bottom:18px;line-height:1}
+.price-big small{font-family:'Manrope',sans-serif;font-size:.82rem;color:var(--text2)}
+.btn-full{display:block;width:100%;padding:13px;border-radius:999px;text-align:center;font:800 .78rem/1 'Manrope',sans-serif;text-decoration:none;transition:.18s;margin-bottom:9px;border:1px solid var(--border)}
+.btn-full.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-full.primary:hover{filter:brightness(1.1)}
+.btn-full.secondary{background:var(--surface2);color:var(--text)}
+.btn-full.secondary:hover{background:var(--surface)}
+.content-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:34px;box-shadow:var(--shadow)}
+.tag{color:var(--accent);font:800 .68rem/1 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;display:block}
+.title-big{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,5vw,4rem);line-height:.9;margin-bottom:12px}
+.subtitle{font-size:.9rem;color:var(--text2);border-left:3px solid var(--accent);padding-left:14px;margin-bottom:32px}
+.section{margin-bottom:32px}
+.section h3{font:800 .68rem/1 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:2px;color:var(--text2);margin-bottom:14px}
+.body-text{font-size:.9rem;line-height:1.8;white-space:pre-line}
+.review-card{background:var(--surface2);padding:18px;border-radius:var(--r-sm);margin-bottom:14px;border:1px solid var(--border)}
+.review-meta{display:flex;justify-content:space-between;margin-bottom:10px;font-weight:800;font-size:.82rem}
+.reviews-title{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;margin-bottom:20px;margin-top:36px}
+.reveal{opacity:0;transform:translateY(16px)}
+@media(max-width:1050px){.detail-grid{grid-template-columns:1fr}.sidebar{position:static}}
+@media(max-width:720px){.detail-wrap{margin:16px auto 24px}.content-card{padding:22px 18px}.action-card{padding:18px}.title-big{font-size:2.4rem}}
+</style>
 </head>
 <body>
 
-<nav>
-    <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
-    <div style="display: flex; gap: 12px;">
-        <button class="btn-ui" onclick="toggleLang()" id="lang-btn">EN</button>
-        <button class="btn-ui" id="theme-toggle">🌙 <span data-i18n="t_night">НОЧЬ</span></button>
-        <a href="{% url 'home' %}" class="btn-ui" data-i18n="btn_back">НАЗАД</a>
-    </div>
+<nav class="nx">
+  <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
+  <ul class='nav-links'><li><a href="{% url 'home' %}" class="btn-g" >Главная</a></li><li><a href="{% url 'aboutas' %}" class="btn-g" >О нас</a></li><li><a href="{% url 'homeview' %}" class="btn-g" >AI</a></li><li><a href="{% url 'studio' %}" class="btn-g" >Studio</a></li></ul>
+  <div style="display:flex;gap:8px;align-items:center">
+    
+  <button class="btn" onclick="toggleLang()" id="lang-btn">EN</button>
+  <a href="{{% url 'home' %}}" class="btn" data-i18n="btn_back">Назад</a>
+    <button class="btn" id="tt" type="button" onclick="document.documentElement.setAttribute('data-theme',document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')">◐</button>
+  </div>
 </nav>
-
-<div class="wrapper">
-    <div class="grid">
-        <aside class="sidebar reveal">
-            {% if resume.photo %}
-            <img src="{{ resume.photo.url }}" class="photo" alt="Profile">
-            {% else %}
-            <img src="https://placehold.co/600x600/333/fff?text=N" class="photo" alt="Profile">
-            {% endif %}
-            <div class="action-card">
-                <div class="availability-pill">{{ availability_text }}</div>
-                <span class="price">{{ resume.price }} <small>TJS</small></span>
-                <a href="{% url 'order_add' resume.pk %}" class="btn-main btn-solid" data-i18n="btn_order">Заказать услугу</a>
-                <a href="{% url 'review_add' resume.pk %}" class="btn-main btn-outline" data-i18n="btn_review">Оставить отзыв</a>
-                
-                {% if current_user and resume.user == current_user or is_admin %}
-                    <div style="display: flex; gap: 10px; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 20px;">
-                        <a href="{% url 'resume_edit' resume.pk %}" class="btn-ui" style="flex:1; text-align:center;" data-i18n="btn_edit">Изм.</a>
-                        <a href="{% url 'resume_delete' resume.pk %}" class="btn-ui" style="flex:1; text-align:center; color:#ef4444;" data-i18n="btn_del">Удал.</a>
-                    </div>
-                {% endif %}
-            </div>
-        </aside>
-
-        <main class="content-card reveal">
-            <span class="label">{{ resume.category }}</span>
-            <h1 class="title">{{ resume.full_name }}</h1>
-            <p class="subtitle">{{ resume.professian }}</p>
-
-            <div class="section">
-                <h3 data-i18n="h_skills">Ключевые навыки</h3>
-                <div class="body-text">{{ resume.skills|linebreaks }}</div>
-            </div>
-
-            {% if resume.description %}
-            <div class="section">
-                <h3 data-i18n="h_about">О специалисте</h3>
-                <div class="body-text">{{ resume.description|linebreaks }}</div>
-            </div>
-            {% endif %}
-
-            <div style="margin-top: 60px;">
-                <h2 style="font-family:'Bebas Neue'; font-size: 2.5rem; margin-bottom: 30px;" data-i18n="h_reviews">Отзывы ({{ reviews|length }})</h2>
-                {% for review in reviews %}
-                <div class="review-card">
-                    <div class="review-meta">
-                        <span>@{{ review.author.username }}</span>
-                        <span style="color:#f59e0b">
-                            {% for i in "12345" %}{% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}{% endfor %}
-                        </span>
-                    </div>
-                    <p class="body-text" style="font-size: 1rem;">{{ review.text }}</p>
-                </div>
-                {% empty %}
-                <p style="text-align:center; color:var(--text2); padding:40px; border:1px dashed var(--border); border-radius:20px" data-i18n="no_reviews">Отзывов пока нет.</p>
-                {% endfor %}
-            </div>
-        </main>
-    </div>
+<div class="detail-wrap">
+  <div class="detail-grid">
+    <aside class="sidebar reveal">
+      {% if resume.photo %}
+      <img src="{{ resume.photo.url }}" class="photo" alt="Profile">
+      {% else %}
+      <img src="https://placehold.co/600x600/cdc8bf/2563eb?text=N" class="photo" alt="">
+      {% endif %}
+      <div class="action-card">
+        <div class="avail-pill">{{ availability_text }}</div>
+        <span class="price-big">{{ resume.price }} <small>TJS</small></span>
+        <a href="{% url 'order_add' resume.pk %}" class="btn-full primary" data-i18n="btn_order">Заказать услугу</a>
+        <a href="{% url 'review_add' resume.pk %}" class="btn-full secondary" data-i18n="btn_review">Оставить отзыв</a>
+        {% if current_user and resume.user == current_user or is_admin %}
+        <div style="display:flex;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+          <a href="{% url 'resume_edit' resume.pk %}" class="btn" style="flex:1;text-align:center" data-i18n="btn_edit">Изм.</a>
+          <a href="{% url 'resume_delete' resume.pk %}" class="btn" style="flex:1;text-align:center;color:#ef4444" data-i18n="btn_del">Удал.</a>
+        </div>
+        {% endif %}
+      </div>
+    </aside>
+    <main class="content-card reveal">
+      <span class="tag">{{ resume.category }}</span>
+      <h1 class="title-big">{{ resume.full_name }}</h1>
+      <p class="subtitle">{{ resume.professian }}</p>
+      <div class="section">
+        <h3 data-i18n="h_skills">Ключевые навыки</h3>
+        <div class="body-text">{{ resume.skills|linebreaks }}</div>
+      </div>
+      {% if resume.description %}
+      <div class="section">
+        <h3 data-i18n="h_about">О специалисте</h3>
+        <div class="body-text">{{ resume.description|linebreaks }}</div>
+      </div>
+      {% endif %}
+      <h2 class="reviews-title" data-i18n="h_reviews">Отзывы ({{ reviews|length }})</h2>
+      {% for review in reviews %}
+      <div class="review-card">
+        <div class="review-meta">
+          <span>@{{ review.author.username }}</span>
+          <span style="color:#f59e0b">{% for i in "12345" %}{% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}{% endfor %}</span>
+        </div>
+        <p class="body-text" style="font-size:.86rem">{{ review.text }}</p>
+      </div>
+      {% empty %}
+      <p style="text-align:center;color:var(--text2);padding:28px;border:1px dashed var(--border);border-radius:var(--r-sm)" data-i18n="no_reviews">Отзывов пока нет.</p>
+      {% endfor %}
+    </main>
+  </div>
 </div>
 
-<footer>
-    <div class="f-grid reveal">
-        <div class="f-brand">
-            <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
-            <p class="f-desc">Система управления талантами Nexus Elite. Точность и эффективность.</p>
-            <div class="f-socials">
-                <a href="{% url 'resource_page' 'support' %}" class="social-btn">TG</a>
-                <a href="{% url 'resource_page' 'blog' %}" class="social-btn">IG</a>
-                <a href="{% url 'resource_page' 'design' %}" class="social-btn">BE</a>
-            </div>
-        </div>
-
-        <div class="f-col">
-            <h4>Платформа</h4>
-            <ul>
-                <li><a href="{% url 'home' %}">Все мастера</a></li>
-                <li><a href="{% url 'resume_add' %}">Стать экспертом</a></li>
-                <li><a href="{% url 'homeview' %}">AI Ассистент</a></li>
-                <li><a href="{% url 'studio' %}">Studio</a></li>
-            </ul>
-        </div>
-
-        <div class="f-col">
-            <h4>Сервисы</h4>
-            <ul>
-                <li><a href="{% url 'resource_page' 'database' %}">База данных</a></li>
-                <li><a href="{% url 'resource_page' 'analytics' %}">Аналитика</a></li>
-                <li><a href="{% url 'resource_page' 'support' %}">Поддержка</a></li>
-            </ul>
-        </div>
-
-        <div class="f-col">
-            <h4>Право</h4>
-            <ul>
-                <li><a href="{% url 'resource_page' 'rules' %}">Условия</a></li>
-                <li><a href="{% url 'resource_page' 'privacy' %}">Приватность</a></li>
-                <li><a href="{% url 'resource_page' 'security' %}">Cookies</a></li>
-            </ul>
-        </div>
-
-        <div class="f-col">
-            <h4>Связь</h4>
-            <ul>
-                <li><a href="mailto:info@nexus.tj">info@nexus.tj</a></li>
-                <li><a href="tel:+992939939641">+992 939 939 641</a></li>
-            </ul>
-        </div>
-
-        <div class="f-sub">
-            <h4 data-i18n="f_sub">Подписка</h4>
-            <form class="f-sub-form" action="{% url 'resource_page' 'newsletter' %}" method="get">
-                <input type="email" placeholder="Email">
-                <button class="f-sub-btn">OK</button>
-            </form>
-        </div>
+<footer class="nx-foot">
+<div class="wrap">
+  <div class="f-grid">
+    <div class="f-brand">
+      <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
+      <p class="f-desc">Интеллектуальная экосистема для объединения специалистов и заказчиков.</p>
+      <div class="f-socials">
+        <a href="{% url 'resource_page' 'support' %}" class="social">TG</a>
+        <a href="{% url 'resource_page' 'blog' %}" class="social">IG</a>
+        <a href="{% url 'resource_page' 'design' %}" class="social">BE</a>
+      </div>
     </div>
-
-    <div class="f-bottom">
-        <p>© 2026 NEXUS ELITE. Личная карточка специалиста.</p>
-        <div style="font-family: 'Space Mono', monospace; font-weight: 700; color: var(--accent);" id="footer-clock">00:00:00</div>
+    <div class="f-col"><h4>Платформа</h4><ul>
+      <li><a href="{% url 'home' %}">Все мастера</a></li>
+      <li><a href="{% url 'resume_add' %}">Стать экспертом</a></li>
+      <li><a href="{% url 'homeview' %}">AI Ассистент</a></li>
+      <li><a href="{% url 'studio' %}">Studio</a></li>
+    </ul></div>
+    <div class="f-col"><h4>Помощь</h4><ul>
+      <li><a href="{% url 'resource_page' 'faq' %}">FAQ</a></li>
+      <li><a href="{% url 'resource_page' 'support' %}">Поддержка</a></li>
+      <li><a href="{% url 'resource_page' 'rules' %}">Правила</a></li>
+      <li><a href="{% url 'resource_page' 'security' %}">Безопасность</a></li>
+    </ul></div>
+    <div class="f-col"><h4>Связь</h4><ul>
+      <li><a href="mailto:info@nexus.tj">info@nexus.tj</a></li>
+      <li><a href="tel:+992939939641">+992 939 939 641</a></li>
+    </ul></div>
+    <div class="f-col"><h4>Подписка</h4>
+      <p style="color:var(--text2);font-size:.75rem;line-height:1.6;margin-bottom:0">Дайджест новых специалистов и обновлений.</p>
+      <form class="nl-row" action="{% url 'resource_page' 'newsletter' %}" method="get">
+        <input type="email" placeholder="Email">
+        <button type="submit" class="btn-p" style="border-radius:999px;font-size:.7rem;padding:7px 12px">OK</button>
+      </form>
     </div>
+  </div>
+  <div class="f-bottom">
+    <span>© 2026 Nexus Elite. Личная карточка специалиста.</span>
+    <div class="f-btm-links">
+      <a href="{% url 'resource_page' 'privacy' %}">Конфиденциальность</a>
+      <a href="{% url 'resource_page' 'offer' %}">Оферта</a>
+      <a href="{% url 'resource_page' 'blog' %}">Блог</a>
+    </div>
+  </div>
+</div>
 </footer>
-
 <script>
-    const T = {
-        en: { 
-            t_night: "NIGHT", btn_back: "BACK", btn_order: "ORDER SERVICE", 
-            btn_review: "REVIEW", btn_edit: "EDIT", btn_del: "DEL",
-            h_skills: "SKILLS", h_about: "ABOUT", h_reviews: "REVIEWS", no_reviews: "No reviews yet.", f_sub: "NEWSLETTER"
-        },
-        ru: { 
-            t_night: "НОЧЬ", btn_back: "НАЗАД", btn_order: "ЗАКАЗАТЬ УСЛУГУ", 
-            btn_review: "ОТЗЫВ", btn_edit: "ИЗМ.", btn_del: "УДАЛ.",
-            h_skills: "КЛЮЧЕВЫЕ НАВЫКИ", h_about: "О СПЕЦИАЛИСТЕ", h_reviews: "ОТЗЫВЫ", no_reviews: "Отзывов пока нет.", f_sub: "ПОДПИСКА"
-        }
-    };
-    
-    let currentLang = 'ru';
-    function toggleLang() {
-        currentLang = currentLang === 'ru' ? 'en' : 'ru';
-        document.getElementById('lang-btn').textContent = currentLang === 'en' ? 'RU' : 'EN';
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const k = el.getAttribute('data-i18n');
-            if (T[currentLang][k]) el.textContent = T[currentLang][k];
-        });
-    }
+const T={en:{t_night:'NIGHT',btn_back:'BACK',btn_order:'ORDER',btn_review:'REVIEW',btn_edit:'EDIT',btn_del:'DEL',h_skills:'SKILLS',h_about:'ABOUT',h_reviews:'REVIEWS',no_reviews:'No reviews yet.'},ru:{t_night:'НОЧЬ',btn_back:'НАЗАД',btn_order:'ЗАКАЗАТЬ УСЛУГУ',btn_review:'ОТЗЫВ',btn_edit:'ИЗМ.',btn_del:'УДАЛ.',h_skills:'КЛЮЧЕВЫЕ НАВЫКИ',h_about:'О СПЕЦИАЛИСТЕ',h_reviews:'ОТЗЫВЫ',no_reviews:'Отзывов пока нет.'}};
+let cl='ru';
+function toggleLang(){cl=cl==='ru'?'en':'ru';document.getElementById('lang-btn').textContent=cl==='en'?'RU':'EN';document.querySelectorAll('[data-i18n]').forEach(e=>{const k=e.getAttribute('data-i18n');if(T[cl][k])e.textContent=T[cl][k]})}
 
-    document.getElementById('theme-toggle').addEventListener('click', function() {
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-        this.innerHTML = isDark ? '🌙 <span>НОЧЬ</span>' : '☀️ <span>ДЕНЬ</span>';
-    });
+(function(){const s=localStorage.getItem('nx-theme');if(s)document.documentElement.setAttribute('data-theme',s)})();
+document.getElementById('tt')?.addEventListener('click',function(){const d=document.documentElement,v=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',v);localStorage.setItem('nx-theme',v)});
 
-    setInterval(() => { document.getElementById('footer-clock').textContent = new Date().toLocaleTimeString(); }, 1000);
-    window.onload = () => { gsap.to('.reveal', { opacity: 1, y: 0, duration: 0.7, stagger: 0.15, ease: "power2.out" }); };
+gsap.to('.reveal',{opacity:1,y:0,duration:.6,stagger:.1,ease:'power2.out'});
 </script>
-
-</body>
-</html>
+</body></html>

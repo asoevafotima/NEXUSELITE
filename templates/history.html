@@ -1,113 +1,167 @@
 ﻿<!DOCTYPE html>
 <html lang="ru" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Elite | История AI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #f4ede1; --surface: rgba(255,255,255,0.84); --surface-strong: #fffaf2;
-            --text: #1f2937; --muted: #667085; --accent: #0f766e; --accent-2: #f59e0b;
-            --border: rgba(15,23,42,0.10); --shadow: 0 24px 60px rgba(15,23,42,0.10); --radius: 28px;
-        }
-        [data-theme="dark"] {
-            --bg: #0f172a; --surface: rgba(15,23,42,0.84); --surface-strong: #182233;
-            --text: #f8fafc; --muted: #94a3b8; --accent: #2dd4bf; --accent-2: #fbbf24;
-            --border: rgba(255,255,255,0.10); --shadow: 0 24px 60px rgba(0,0,0,0.35);
-        }
-        * { box-sizing: border-box; }
-        body {
-            margin: 0; font-family: 'Manrope', sans-serif; color: var(--text);
-            background: radial-gradient(circle at top left, rgba(15,118,110,0.12), transparent 24%), radial-gradient(circle at bottom right, rgba(245,158,11,0.12), transparent 20%), var(--bg);
-        }
-        .page { width: min(1140px, calc(100% - 28px)); margin: 0 auto; padding: 18px 0 36px; }
-        .topbar, .hero, .history-item, .empty {
-            border: 1px solid var(--border); background: var(--surface); backdrop-filter: blur(16px); border-radius: var(--radius); box-shadow: var(--shadow);
-        }
-        .topbar {
-            display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 14px 18px; margin-bottom: 18px;
-        }
-        .logo { text-decoration: none; color: var(--text); font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: .06em; }
-        .logo span { color: var(--accent); }
-        .toolbar { display: flex; gap: 10px; flex-wrap: wrap; }
-        .btn, .btn-primary {
-            border-radius: 999px; text-decoration: none; font-size: .84rem; font-weight: 800; padding: 11px 16px; transition: .2s ease;
-        }
-        .btn { border: 1px solid var(--border); background: rgba(255,255,255,.16); color: var(--text); }
-        .btn-primary { border: none; color: white; background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
-        .hero { padding: 28px; margin-bottom: 18px; }
-        .badge {
-            display: inline-flex; gap: 8px; align-items: center; padding: 8px 12px; border-radius: 999px; background: rgba(15,118,110,.10); color: var(--accent); font-size: .76rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
-        }
-        h1 { margin: 18px 0 10px; font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 6vw, 5rem); line-height: .92; letter-spacing: .03em; }
-        .hero p, .meta, .item-body { color: var(--muted); line-height: 1.8; }
-        .history-list { display: grid; gap: 14px; }
-        .history-item { padding: 22px; }
-        .item-top { display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; margin-bottom: 10px; }
-        .item-title { margin: 0; font-size: 1.1rem; font-weight: 800; }
-        .stamp { white-space: nowrap; font-size: .8rem; font-weight: 800; color: var(--accent); }
-        .meta { font-size: .86rem; }
-        .empty { padding: 28px; text-align: center; }
-        .empty h2 { margin: 0 0 10px; }
-        @media (max-width: 720px) {
-            .page { width: min(100% - 18px, 1140px); }
-            .topbar { flex-direction: column; align-items: stretch; padding: 14px; border-radius: 24px; }
-            .toolbar > * { flex: 1 1 auto; text-align: center; }
-            .hero, .history-item, .empty { padding: 22px 18px; border-radius: 24px; }
-            .item-top { flex-direction: column; }
-            h1 { font-size: 3.2rem; }
-        }
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nexus Elite | История AI</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#cdc8bf;--bg2:#c4beb3;--surface:#d6d1c8;--surface2:#c4beb3;--text:#1a1a1a;--text2:#525252;--accent:#2563eb;--accent2:#f59e0b;--soft:rgba(37,99,235,.10);--border:rgba(0,0,0,.10);--nav:rgba(205,200,191,.94);--shadow:0 8px 28px rgba(0,0,0,.08);--r:22px;--r-sm:14px}
+[data-theme="dark"]{--bg:#1e1e21;--bg2:#191919;--surface:#252529;--surface2:#2d2d33;--text:#f0f0f0;--text2:#9494a1;--accent:#4f8aff;--accent2:#fbbf24;--soft:rgba(79,138,255,.14);--border:rgba(255,255,255,.08);--nav:rgba(30,30,33,.94);--shadow:0 8px 28px rgba(0,0,0,.35)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'Manrope',sans-serif;font-size:14px;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;transition:background .35s,color .35s}
+a{color:inherit;text-decoration:none}
+nav.nx{position:sticky;top:0;z-index:100;height:60px;padding:0 28px;background:var(--nav);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:1.45rem;letter-spacing:2px;color:var(--text)}.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:6px;list-style:none}
+.btn,.btn-p,.btn-g{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:8px 14px;font:700 .76rem/1 'Manrope',sans-serif;text-decoration:none;cursor:pointer;border:1px solid var(--border);transition:.18s ease;white-space:nowrap}
+.btn{background:var(--surface2);color:var(--text)}.btn:hover{background:var(--surface);border-color:var(--text2)}
+.btn-p{background:var(--accent);color:#fff;border-color:var(--accent)}.btn-p:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn-g{background:transparent;color:var(--text2)}.btn-g:hover{background:var(--surface2);color:var(--text)}
+.wrap{width:min(1200px,calc(100% - 28px));margin:0 auto}
+/* FOOTER */
+footer.nx-foot{background:var(--surface);border-top:1px solid var(--border);padding:36px 28px 20px;margin-top:auto}
+.f-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1.4fr;gap:24px;margin-bottom:22px}
+.f-brand .logo{font-size:1.3rem;display:block;margin-bottom:9px}
+.f-desc{font-size:.75rem;color:var(--text2);line-height:1.65;max-width:210px;margin-bottom:12px}
+.f-socials{display:flex;gap:7px}
+.social{width:30px;height:30px;border-radius:9px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font:700 .63rem/1 'Manrope',sans-serif;color:var(--text);transition:.18s}
+.social:hover{background:var(--accent);color:#fff}
+.f-col h4{font:800 .65rem/1 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:.09em;color:var(--text);margin-bottom:12px}
+.f-col ul{list-style:none;display:grid;gap:8px}
+.f-col a{font-size:.77rem;color:var(--text2);transition:.18s}.f-col a:hover{color:var(--accent);padding-left:3px}
+.nl-row{display:flex;gap:6px;background:var(--surface2);border:1px solid var(--border);border-radius:999px;padding:4px 4px 4px 12px;margin-top:9px}
+.nl-row input{flex:1;min-width:0;background:transparent;border:none;outline:none;font:500 .77rem/1 'Manrope',sans-serif;color:var(--text)}
+.nl-row input::placeholder{color:var(--text2)}
+.f-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding-top:15px;border-top:1px solid var(--border);font-size:.73rem;color:var(--text2)}
+.f-btm-links{display:flex;gap:11px;flex-wrap:wrap}
+.f-bottom a:hover{color:var(--accent)}
+/* FORM */
+.alerts{display:grid;gap:8px;margin-bottom:14px}
+.alert{padding:10px 13px;border-radius:var(--r-sm);background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.18);color:#b91c1c;font-size:.8rem;line-height:1.45}
+[data-theme="dark"] .alert{color:#fca5a5}
+.nx-field{display:grid;gap:7px}
+.nx-label{font:800 .66rem/1 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:.08em;color:var(--text2)}
+input,select,textarea{width:100%;background:var(--surface2)!important;border:1px solid var(--border)!important;border-radius:var(--r-sm)!important;padding:11px 14px!important;font:500 .86rem/1.4 'Manrope',sans-serif!important;color:var(--text)!important;outline:none;transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)!important;box-shadow:0 0 0 3px var(--soft)!important}
+textarea{min-height:120px;resize:vertical}
+label{font:800 .66rem/1 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:.08em;color:var(--text2);display:block;margin-bottom:6px}
+form p{display:grid;gap:7px;margin-bottom:14px}
+/* CARD */
+.nx-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow)}
+.nx-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;background:var(--soft);color:var(--accent);font:800 .67rem/1 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:.08em}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}
+.stat strong{display:block;font-family:'Bebas Neue',sans-serif;font-size:2.1rem;color:var(--accent);line-height:1;margin-bottom:4px}
+.stat span{color:var(--text2);font-size:.78rem}
+.nx-clock{font-family:'Space Mono',monospace;font-size:.76rem;font-weight:700;color:var(--accent)}
+@media(max-width:1100px){.f-grid{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:720px){nav.nx{height:auto;padding:12px 16px;flex-wrap:wrap;gap:8px}.nav-links{flex-wrap:wrap;width:100%}.wrap{width:calc(100% - 20px)}.f-grid{grid-template-columns:1fr 1fr}.f-bottom{flex-direction:column;align-items:flex-start}}
+@media(max-width:480px){.f-grid{grid-template-columns:1fr}}
+</style>
+<style>
+.hist-wrap{padding:20px 0 32px}
+.hero-hist{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:24px;box-shadow:var(--shadow);margin-bottom:20px}
+.hero-hist h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,3.8rem);line-height:.92;letter-spacing:.03em;margin:12px 0 9px}
+.hero-hist p{color:var(--text2);font-size:.8rem;line-height:1.7}
+.hist-list{display:grid;gap:13px}
+.hist-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px;box-shadow:var(--shadow)}
+.hist-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:9px}
+.hist-title{font-size:.92rem;font-weight:800;margin:0 0 3px}
+.hist-mode{color:var(--text2);font-size:.76rem}
+.hist-stamp{white-space:nowrap;font:700 .74rem/1 'Manrope',sans-serif;color:var(--accent)}
+.hist-body{font-size:.78rem;color:var(--text2);line-height:1.65}
+.empty-state{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:32px;text-align:center;box-shadow:var(--shadow)}
+.empty-state h2{font-size:1.1rem;font-weight:800;margin-bottom:9px}
+.empty-state p{color:var(--text2);font-size:.82rem;margin-bottom:18px}
+@media(max-width:720px){.hist-top{flex-direction:column}}
+</style>
 </head>
 <body>
-    <div class="page">
-        <header class="topbar">
-            <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
-            <div class="toolbar">
-                <a href="{% url 'homeview' %}" class="btn-primary">Вернуться в AI</a>
-                <a href="{% url 'studio' %}" class="btn">Studio</a>
-                <a href="{% url 'home' %}" class="btn">Каталог</a>
-                <button class="btn" id="theme-toggle" type="button">Тема</button>
-            </div>
-        </header>
 
-        <section class="hero">
-            <div class="badge">История AI</div>
-            <h1>Все сохранённые запросы в одном месте.</h1>
-            <p>Этот экран я привёл в порядок, чтобы переход из AI-помощника в историю был нормальным, а не вёл на случайный старый шаблон. Здесь можно быстро просмотреть прошлые обращения и ответы.</p>
-        </section>
+<nav class="nx">
+  <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
+  <ul class='nav-links'><li><a href="{% url 'home' %}" class="btn-g" >Главная</a></li><li><a href="{% url 'aboutas' %}" class="btn-g" >О нас</a></li><li><a href="{% url 'homeview' %}" class="btn-g" >AI</a></li><li><a href="{% url 'studio' %}" class="btn-g" >Studio</a></li></ul>
+  <div style="display:flex;gap:8px;align-items:center">
+    <a href="{{% url 'homeview' %}}" class="btn-p">AI помощник</a><a href="{{% url 'studio' %}}" class="btn">Studio</a>
+    <button class="btn" id="tt" type="button" onclick="document.documentElement.setAttribute('data-theme',document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')">◐</button>
+  </div>
+</nav>
+<div class="wrap hist-wrap">
+  <section class="hero-hist">
+    <div class="nx-badge">История AI</div>
+    <h1>Все сохранённые запросы.</h1>
+    <p>Здесь можно быстро просмотреть прошлые обращения и ответы AI-ассистента.</p>
+  </section>
+  {% if requests %}
+  <section class="hist-list">
+    {% for item in requests %}
+    <article class="hist-card">
+      <div class="hist-top">
+        <div><h2 class="hist-title">{{ item.title|default:'AI запрос' }}</h2><div class="hist-mode">Режим: {{ item.get_mode_display }}</div></div>
+        <div class="hist-stamp">{{ item.created_at|date:'d.m.Y H:i' }}</div>
+      </div>
+      <div class="hist-body"><strong>Запрос:</strong> {{ item.user_text|truncatechars:200 }}</div>
+      <div class="hist-body" style="margin-top:8px"><strong>Ответ:</strong> {{ item.ai_response|default:'Ответ отсутствует.'|truncatechars:300 }}</div>
+    </article>
+    {% endfor %}
+  </section>
+  {% else %}
+  <div class="empty-state">
+    <h2>История пуста</h2>
+    <p>Откройте AI-помощника, задайте вопрос и вернитесь сюда для просмотра истории.</p>
+    <a href="{% url 'homeview' %}" class="btn-p">Открыть AI помощник</a>
+  </div>
+  {% endif %}
+</div>
 
-        {% if requests %}
-        <section class="history-list">
-            {% for item in requests %}
-            <article class="history-item">
-                <div class="item-top">
-                    <div>
-                        <h2 class="item-title">{{ item.title|default:'AI запрос' }}</h2>
-                        <div class="meta">Режим: {{ item.get_mode_display }}</div>
-                    </div>
-                    <div class="stamp">{{ item.created_at|date:'d.m.Y H:i' }}</div>
-                </div>
-                <div class="item-body"><strong>Запрос:</strong> {{ item.user_text|truncatechars:220 }}</div>
-                <div class="item-body" style="margin-top: 10px;"><strong>Ответ:</strong> {{ item.ai_response|default:'Ответ пока отсутствует.'|truncatechars:320 }}</div>
-            </article>
-            {% endfor %}
-        </section>
-        {% else %}
-        <section class="empty">
-            <h2>История пока пуста</h2>
-            <p>Откройте AI-помощник, задайте первый вопрос и вернитесь сюда, чтобы увидеть сохранённые обращения.</p>
-            <a href="{% url 'homeview' %}" class="btn-primary">Открыть AI помощник</a>
-        </section>
-        {% endif %}
+<footer class="nx-foot">
+<div class="wrap">
+  <div class="f-grid">
+    <div class="f-brand">
+      <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
+      <p class="f-desc">Интеллектуальная экосистема для объединения специалистов и заказчиков.</p>
+      <div class="f-socials">
+        <a href="{% url 'resource_page' 'support' %}" class="social">TG</a>
+        <a href="{% url 'resource_page' 'blog' %}" class="social">IG</a>
+        <a href="{% url 'resource_page' 'design' %}" class="social">BE</a>
+      </div>
     </div>
-
-    <script>
-        document.getElementById('theme-toggle').addEventListener('click', function () {
-            const root = document.documentElement;
-            root.setAttribute('data-theme', root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-        });
-    </script>
-</body>
-</html>
+    <div class="f-col"><h4>Платформа</h4><ul>
+      <li><a href="{% url 'home' %}">Все мастера</a></li>
+      <li><a href="{% url 'resume_add' %}">Стать экспертом</a></li>
+      <li><a href="{% url 'homeview' %}">AI Ассистент</a></li>
+      <li><a href="{% url 'studio' %}">Studio</a></li>
+    </ul></div>
+    <div class="f-col"><h4>Помощь</h4><ul>
+      <li><a href="{% url 'resource_page' 'faq' %}">FAQ</a></li>
+      <li><a href="{% url 'resource_page' 'support' %}">Поддержка</a></li>
+      <li><a href="{% url 'resource_page' 'rules' %}">Правила</a></li>
+      <li><a href="{% url 'resource_page' 'security' %}">Безопасность</a></li>
+    </ul></div>
+    <div class="f-col"><h4>Связь</h4><ul>
+      <li><a href="mailto:info@nexus.tj">info@nexus.tj</a></li>
+      <li><a href="tel:+992939939641">+992 939 939 641</a></li>
+    </ul></div>
+    <div class="f-col"><h4>Подписка</h4>
+      <p style="color:var(--text2);font-size:.75rem;line-height:1.6;margin-bottom:0">Дайджест новых специалистов и обновлений.</p>
+      <form class="nl-row" action="{% url 'resource_page' 'newsletter' %}" method="get">
+        <input type="email" placeholder="Email">
+        <button type="submit" class="btn-p" style="border-radius:999px;font-size:.7rem;padding:7px 12px">OK</button>
+      </form>
+    </div>
+  </div>
+  <div class="f-bottom">
+    <span>© 2026 Nexus Elite. История запросов AI.</span>
+    <div class="f-btm-links">
+      <a href="{% url 'resource_page' 'privacy' %}">Конфиденциальность</a>
+      <a href="{% url 'resource_page' 'offer' %}">Оферта</a>
+      <a href="{% url 'resource_page' 'blog' %}">Блог</a>
+    </div>
+  </div>
+</div>
+</footer>
+<script>
+(function(){const s=localStorage.getItem('nx-theme');if(s)document.documentElement.setAttribute('data-theme',s)})();
+document.getElementById('tt')?.addEventListener('click',function(){const d=document.documentElement,v=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',v);localStorage.setItem('nx-theme',v)});
+</script>
+</body></html>

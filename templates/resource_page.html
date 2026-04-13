@@ -1,193 +1,186 @@
 ﻿<!DOCTYPE html>
 <html lang="ru" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Elite | {{ title }}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #f6efe4; --surface: rgba(255,255,255,0.84); --surface-strong: #fffaf2;
-            --text: #1f2937; --muted: #667085; --accent: #2563eb; --accent-2: #ea580c;
-            --border: rgba(15,23,42,0.10); --shadow: 0 24px 60px rgba(15,23,42,0.10); --radius: 28px;
-        }
-        [data-theme="dark"] {
-            --bg: #0f172a; --surface: rgba(15,23,42,0.84); --surface-strong: #182233;
-            --text: #f8fafc; --muted: #94a3b8; --accent: #60a5fa; --accent-2: #fb923c;
-            --border: rgba(255,255,255,0.10); --shadow: 0 24px 60px rgba(0,0,0,0.35);
-        }
-        * { box-sizing: border-box; }
-        body {
-            margin: 0;
-            font-family: 'Manrope', sans-serif;
-            color: var(--text);
-            background:
-                radial-gradient(circle at top left, rgba(37,99,235,0.12), transparent 24%),
-                radial-gradient(circle at bottom right, rgba(234,88,12,0.12), transparent 20%),
-                var(--bg);
-        }
-        .page { width: min(1120px, calc(100% - 28px)); margin: 0 auto; padding: 18px 0 36px; }
-        .topbar, .hero, .content, .side-card, .footer-grid {
-            border: 1px solid var(--border);
-            background: var(--surface);
-            backdrop-filter: blur(16px);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-        }
-        .topbar {
-            display: flex; justify-content: space-between; align-items: center; gap: 14px;
-            padding: 14px 18px; margin-bottom: 18px; position: sticky; top: 10px; z-index: 20;
-        }
-        .logo { text-decoration: none; color: var(--text); font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: .06em; }
-        .logo span { color: var(--accent); }
-        .nav, .actions, .quick-links { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-        .chip, .btn, .btn-primary {
-            border-radius: 999px; text-decoration: none; font-size: .84rem; font-weight: 800; padding: 11px 16px; transition: .2s ease;
-        }
-        .chip, .btn { border: 1px solid var(--border); background: rgba(255,255,255,.16); color: var(--text); }
-        .btn-primary { border: none; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; }
-        .hero {
-            padding: 32px; margin-bottom: 22px;
-            display: grid; grid-template-columns: 1.08fr .92fr; gap: 20px;
-        }
-        .badge {
-            display: inline-flex; align-items: center; gap: 8px; width: fit-content;
-            padding: 8px 12px; border-radius: 999px; background: rgba(37,99,235,.10);
-            color: var(--accent); font-size: .76rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
-        }
-        h1 {
-            margin: 18px 0 10px; font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(3rem, 6vw, 5.2rem); line-height: .92; letter-spacing: .03em;
-        }
-        .hero p, .content p, .side-card p, .list li { color: var(--muted); line-height: 1.8; }
-        .layout { display: grid; grid-template-columns: 1.1fr .9fr; gap: 20px; }
-        .content, .side-card { padding: 24px; }
-        .content h2, .side-card h2 { margin: 0 0 12px; font-size: 1.35rem; }
-        .list { margin: 0; padding-left: 18px; display: grid; gap: 8px; }
-        .quick-links { margin-top: 18px; }
-        .footer-grid {
-            padding: 22px; display: grid; grid-template-columns: 1.2fr 1fr 1fr 1.2fr; gap: 16px; margin-top: 24px;
-        }
-        .footer-list { display: grid; gap: 10px; }
-        .footer-list a { text-decoration: none; color: var(--muted); font-weight: 600; }
-        .newsletter-form { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
-        .newsletter-form input {
-            flex: 1 1 180px; padding: 14px 16px; border-radius: 16px; border: 1px solid var(--border);
-            background: var(--surface-strong); color: var(--text); font: inherit;
-        }
-        .footer-bottom { margin-top: 14px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; color: var(--muted); font-size: .84rem; }
-        @media (max-width: 980px) { .hero, .layout, .footer-grid { grid-template-columns: 1fr; } }
-        @media (max-width: 720px) {
-            .page { width: min(100% - 18px, 1120px); }
-            .topbar { flex-direction: column; align-items: stretch; padding: 14px; border-radius: 24px; }
-            .nav > *, .actions > * { flex: 1 1 calc(50% - 8px); text-align: center; }
-            .hero, .content, .side-card, .footer-grid { padding: 22px 18px; border-radius: 24px; }
-            h1 { font-size: 3.2rem; }
-        }
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nexus Elite | {{ title }}</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#cdc8bf;--bg2:#c4beb3;--surface:#d6d1c8;--surface2:#c4beb3;--text:#1a1a1a;--text2:#525252;--accent:#2563eb;--accent2:#f59e0b;--soft:rgba(37,99,235,.10);--border:rgba(0,0,0,.10);--nav:rgba(205,200,191,.94);--shadow:0 8px 28px rgba(0,0,0,.08);--r:22px;--r-sm:14px}
+[data-theme="dark"]{--bg:#1e1e21;--bg2:#191919;--surface:#252529;--surface2:#2d2d33;--text:#f0f0f0;--text2:#9494a1;--accent:#4f8aff;--accent2:#fbbf24;--soft:rgba(79,138,255,.14);--border:rgba(255,255,255,.08);--nav:rgba(30,30,33,.94);--shadow:0 8px 28px rgba(0,0,0,.35)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:'Manrope',sans-serif;font-size:14px;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;transition:background .35s,color .35s}
+a{color:inherit;text-decoration:none}
+nav.nx{position:sticky;top:0;z-index:100;height:60px;padding:0 28px;background:var(--nav);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:1.45rem;letter-spacing:2px;color:var(--text)}.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:6px;list-style:none}
+.btn,.btn-p,.btn-g{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:8px 14px;font:700 .76rem/1 'Manrope',sans-serif;text-decoration:none;cursor:pointer;border:1px solid var(--border);transition:.18s ease;white-space:nowrap}
+.btn{background:var(--surface2);color:var(--text)}.btn:hover{background:var(--surface);border-color:var(--text2)}
+.btn-p{background:var(--accent);color:#fff;border-color:var(--accent)}.btn-p:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn-g{background:transparent;color:var(--text2)}.btn-g:hover{background:var(--surface2);color:var(--text)}
+.wrap{width:min(1200px,calc(100% - 28px));margin:0 auto}
+/* FOOTER */
+footer.nx-foot{background:var(--surface);border-top:1px solid var(--border);padding:36px 28px 20px;margin-top:auto}
+.f-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1.4fr;gap:24px;margin-bottom:22px}
+.f-brand .logo{font-size:1.3rem;display:block;margin-bottom:9px}
+.f-desc{font-size:.75rem;color:var(--text2);line-height:1.65;max-width:210px;margin-bottom:12px}
+.f-socials{display:flex;gap:7px}
+.social{width:30px;height:30px;border-radius:9px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font:700 .63rem/1 'Manrope',sans-serif;color:var(--text);transition:.18s}
+.social:hover{background:var(--accent);color:#fff}
+.f-col h4{font:800 .65rem/1 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:.09em;color:var(--text);margin-bottom:12px}
+.f-col ul{list-style:none;display:grid;gap:8px}
+.f-col a{font-size:.77rem;color:var(--text2);transition:.18s}.f-col a:hover{color:var(--accent);padding-left:3px}
+.nl-row{display:flex;gap:6px;background:var(--surface2);border:1px solid var(--border);border-radius:999px;padding:4px 4px 4px 12px;margin-top:9px}
+.nl-row input{flex:1;min-width:0;background:transparent;border:none;outline:none;font:500 .77rem/1 'Manrope',sans-serif;color:var(--text)}
+.nl-row input::placeholder{color:var(--text2)}
+.f-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding-top:15px;border-top:1px solid var(--border);font-size:.73rem;color:var(--text2)}
+.f-btm-links{display:flex;gap:11px;flex-wrap:wrap}
+.f-bottom a:hover{color:var(--accent)}
+/* FORM */
+.alerts{display:grid;gap:8px;margin-bottom:14px}
+.alert{padding:10px 13px;border-radius:var(--r-sm);background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.18);color:#b91c1c;font-size:.8rem;line-height:1.45}
+[data-theme="dark"] .alert{color:#fca5a5}
+.nx-field{display:grid;gap:7px}
+.nx-label{font:800 .66rem/1 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:.08em;color:var(--text2)}
+input,select,textarea{width:100%;background:var(--surface2)!important;border:1px solid var(--border)!important;border-radius:var(--r-sm)!important;padding:11px 14px!important;font:500 .86rem/1.4 'Manrope',sans-serif!important;color:var(--text)!important;outline:none;transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)!important;box-shadow:0 0 0 3px var(--soft)!important}
+textarea{min-height:120px;resize:vertical}
+label{font:800 .66rem/1 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:.08em;color:var(--text2);display:block;margin-bottom:6px}
+form p{display:grid;gap:7px;margin-bottom:14px}
+/* CARD */
+.nx-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow)}
+.nx-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;background:var(--soft);color:var(--accent);font:800 .67rem/1 'Manrope',sans-serif;text-transform:uppercase;letter-spacing:.08em}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}
+.stat strong{display:block;font-family:'Bebas Neue',sans-serif;font-size:2.1rem;color:var(--accent);line-height:1;margin-bottom:4px}
+.stat span{color:var(--text2);font-size:.78rem}
+.nx-clock{font-family:'Space Mono',monospace;font-size:.76rem;font-weight:700;color:var(--accent)}
+@media(max-width:1100px){.f-grid{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:720px){nav.nx{height:auto;padding:12px 16px;flex-wrap:wrap;gap:8px}.nav-links{flex-wrap:wrap;width:100%}.wrap{width:calc(100% - 20px)}.f-grid{grid-template-columns:1fr 1fr}.f-bottom{flex-direction:column;align-items:flex-start}}
+@media(max-width:480px){.f-grid{grid-template-columns:1fr}}
+</style>
+<style>
+.res-wrap{padding:20px 0 32px}
+.hero-res{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:26px;box-shadow:var(--shadow);display:grid;grid-template-columns:1.08fr .92fr;gap:18px;margin-bottom:20px}
+.hero-res h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,3.8rem);line-height:.92;letter-spacing:.03em;margin:12px 0 9px}
+.hero-res p{color:var(--text2);font-size:.8rem;line-height:1.75}
+.side-info{background:rgba(37,99,235,.06);border:1px solid var(--border);border-radius:var(--r-sm);padding:18px}
+.side-info h2{font-size:.96rem;font-weight:800;margin-bottom:9px}
+.side-info p{color:var(--text2);font-size:.78rem;line-height:1.7;margin-bottom:8px}
+.side-info ul{color:var(--text2);font-size:.76rem;line-height:1.7;padding-left:16px}
+.layout-res{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;margin-bottom:20px}
+.content-box,.side-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:var(--shadow)}
+.content-box h2,.side-box h2{font-size:1.05rem;font-weight:800;margin-bottom:10px}
+.content-box p{color:var(--text2);font-size:.8rem;line-height:1.75;margin-bottom:9px}
+.quick-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.footer-list{display:grid;gap:9px}
+.footer-list a{font-size:.8rem;color:var(--text2);text-decoration:none;font-weight:600;transition:.18s}
+.footer-list a:hover{color:var(--accent)}
+@media(max-width:960px){.hero-res,.layout-res{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-    <div class="page">
-        <header class="topbar">
-            <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
-            <nav class="nav">
-                <a href="{% url 'home' %}" class="chip">Главная</a>
-                <a href="{% url 'aboutas' %}" class="chip">О нас</a>
-                <a href="{% url 'homeview' %}" class="chip">AI помощник</a>
-                <a href="{% url 'studio' %}" class="chip">Studio</a>
-            </nav>
-            <div class="actions">
-                <a href="{% url 'feedback' %}" class="btn">Поддержка</a>
-                <button class="btn" id="theme-toggle" type="button">Тема</button>
-            </div>
-        </header>
 
-        <section class="hero">
-            <div>
-                <div class="badge">{{ slug }}</div>
-                <h1>{{ title }}</h1>
-                <p>{{ subtitle }}</p>
-                <div class="quick-links">
-                    <a href="{% url 'studio' %}" class="btn-primary">Открыть Studio</a>
-                    <a href="{% url 'homeview' %}" class="btn">AI помощник</a>
-                </div>
-            </div>
-            <div class="side-card">
-                <h2>Зачем эта страница нужна</h2>
-                <p>{{ description }}</p>
-                <ul class="list">
-                    <li>Помогает пользователю не потеряться в навигации.</li>
-                    <li>Делает футер и служебные ссылки рабочими, а не декоративными.</li>
-                    <li>Поддерживает единый стиль проекта и на телефоне, и на десктопе.</li>
-                </ul>
-            </div>
-        </section>
-
-        <section class="layout">
-            <article class="content">
-                <h2>Что здесь можно найти</h2>
-                <p>{{ description }}</p>
-                <p>Мы оформили служебные страницы в общем стиле Nexus Elite, чтобы они выглядели частью продукта, а не временными заглушками. Это делает сайт аккуратнее, понятнее и сильнее визуально.</p>
-                <div class="quick-links">
-                    <a href="{% url 'resource_page' 'faq' %}" class="btn">FAQ</a>
-                    <a href="{% url 'resource_page' 'blog' %}" class="btn">Блог</a>
-                    <a href="{% url 'resource_page' 'security' %}" class="btn">Безопасность</a>
-                </div>
-            </article>
-            <aside class="side-card">
-                <h2>Быстрые переходы</h2>
-                <div class="footer-list">
-                    <a href="{% url 'home' %}">Каталог специалистов</a>
-                    <a href="{% url 'aboutas' %}">О проекте</a>
-                    <a href="{% url 'homeview' %}">AI помощник</a>
-                    <a href="{% url 'studio' %}">Studio</a>
-                    <a href="{% url 'feedback' %}">Обратная связь</a>
-                </div>
-            </aside>
-        </section>
-
-        <footer>
-            <div class="footer-grid">
-                <div>
-                    <strong>Nexus Elite</strong>
-                    <p style="color: var(--muted); line-height: 1.7;">Сильная навигация и цельный вид проекта даже на служебных страницах.</p>
-                </div>
-                <div>
-                    <strong>Навигация</strong>
-                    <div class="footer-list">
-                        <a href="{% url 'home' %}">Главная</a>
-                        <a href="{% url 'aboutas' %}">О нас</a>
-                        <a href="{% url 'studio' %}">Studio</a>
-                    </div>
-                </div>
-                <div>
-                    <strong>Документы</strong>
-                    <div class="footer-list">
-                        <a href="{% url 'resource_page' 'privacy' %}">Конфиденциальность</a>
-                        <a href="{% url 'resource_page' 'offer' %}">Оферта</a>
-                        <a href="{% url 'resource_page' 'rules' %}">Правила</a>
-                    </div>
-                </div>
-                <div>
-                    <strong>Подписка</strong>
-                    <form class="newsletter-form" action="{% url 'resource_page' 'newsletter' %}" method="get">
-                        <input type="email" placeholder="Email">
-                        <button type="submit" class="btn-primary">Подписаться</button>
-                    </form>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <span>© 2026 Nexus Elite</span>
-                <span>Рабочие ссылки, единый стиль, современная подача.</span>
-            </div>
-        </footer>
+<nav class="nx">
+  <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
+  <ul class='nav-links'><li><a href="{% url 'home' %}" class="btn-g" >Главная</a></li><li><a href="{% url 'aboutas' %}" class="btn-g" >О нас</a></li><li><a href="{% url 'homeview' %}" class="btn-g" >AI</a></li><li><a href="{% url 'studio' %}" class="btn-g" >Studio</a></li></ul>
+  <div style="display:flex;gap:8px;align-items:center">
+    <a href="{{% url 'feedback' %}}" class="btn">Поддержка</a>
+    <button class="btn" id="tt" type="button" onclick="document.documentElement.setAttribute('data-theme',document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')">◐</button>
+  </div>
+</nav>
+<div class="wrap res-wrap">
+  <section class="hero-res">
+    <div>
+      <div class="nx-badge">{{ slug }}</div>
+      <h1>{{ title }}</h1>
+      <p>{{ subtitle }}</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
+        <a href="{% url 'studio' %}" class="btn-p">Открыть Studio</a>
+        <a href="{% url 'homeview' %}" class="btn">AI помощник</a>
+      </div>
     </div>
+    <div class="side-info">
+      <h2>Зачем эта страница</h2>
+      <p>{{ description }}</p>
+      <ul>
+        <li>Помогает не потеряться в навигации</li>
+        <li>Делает футер рабочим, а не декоративным</li>
+        <li>Единый стиль на телефоне и десктопе</li>
+      </ul>
+    </div>
+  </section>
+  <section class="layout-res">
+    <article class="content-box">
+      <h2>Что здесь можно найти</h2>
+      <p>{{ description }}</p>
+      <p>Служебные страницы оформлены в стиле Nexus Elite — они выглядят частью продукта, а не временными заглушками.</p>
+      <div class="quick-links">
+        <a href="{% url 'resource_page' 'faq' %}" class="btn">FAQ</a>
+        <a href="{% url 'resource_page' 'blog' %}" class="btn">Блог</a>
+        <a href="{% url 'resource_page' 'security' %}" class="btn">Безопасность</a>
+      </div>
+    </article>
+    <aside class="side-box">
+      <h2>Быстрые переходы</h2>
+      <div class="footer-list">
+        <a href="{% url 'home' %}">Каталог специалистов</a>
+        <a href="{% url 'aboutas' %}">О проекте</a>
+        <a href="{% url 'homeview' %}">AI помощник</a>
+        <a href="{% url 'studio' %}">Studio</a>
+        <a href="{% url 'feedback' %}">Обратная связь</a>
+      </div>
+    </aside>
+  </section>
+</div>
 
-    <script>
-        document.getElementById('theme-toggle').addEventListener('click', function () {
-            const root = document.documentElement;
-            root.setAttribute('data-theme', root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-        });
-    </script>
-</body>
-</html>
+<footer class="nx-foot">
+<div class="wrap">
+  <div class="f-grid">
+    <div class="f-brand">
+      <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
+      <p class="f-desc">Интеллектуальная экосистема для объединения специалистов и заказчиков.</p>
+      <div class="f-socials">
+        <a href="{% url 'resource_page' 'support' %}" class="social">TG</a>
+        <a href="{% url 'resource_page' 'blog' %}" class="social">IG</a>
+        <a href="{% url 'resource_page' 'design' %}" class="social">BE</a>
+      </div>
+    </div>
+    <div class="f-col"><h4>Платформа</h4><ul>
+      <li><a href="{% url 'home' %}">Все мастера</a></li>
+      <li><a href="{% url 'resume_add' %}">Стать экспертом</a></li>
+      <li><a href="{% url 'homeview' %}">AI Ассистент</a></li>
+      <li><a href="{% url 'studio' %}">Studio</a></li>
+    </ul></div>
+    <div class="f-col"><h4>Помощь</h4><ul>
+      <li><a href="{% url 'resource_page' 'faq' %}">FAQ</a></li>
+      <li><a href="{% url 'resource_page' 'support' %}">Поддержка</a></li>
+      <li><a href="{% url 'resource_page' 'rules' %}">Правила</a></li>
+      <li><a href="{% url 'resource_page' 'security' %}">Безопасность</a></li>
+    </ul></div>
+    <div class="f-col"><h4>Связь</h4><ul>
+      <li><a href="mailto:info@nexus.tj">info@nexus.tj</a></li>
+      <li><a href="tel:+992939939641">+992 939 939 641</a></li>
+    </ul></div>
+    <div class="f-col"><h4>Подписка</h4>
+      <p style="color:var(--text2);font-size:.75rem;line-height:1.6;margin-bottom:0">Дайджест новых специалистов и обновлений.</p>
+      <form class="nl-row" action="{% url 'resource_page' 'newsletter' %}" method="get">
+        <input type="email" placeholder="Email">
+        <button type="submit" class="btn-p" style="border-radius:999px;font-size:.7rem;padding:7px 12px">OK</button>
+      </form>
+    </div>
+  </div>
+  <div class="f-bottom">
+    <span>© 2026 Nexus Elite. Рабочие ссылки, единый стиль.</span>
+    <div class="f-btm-links">
+      <a href="{% url 'resource_page' 'privacy' %}">Конфиденциальность</a>
+      <a href="{% url 'resource_page' 'offer' %}">Оферта</a>
+      <a href="{% url 'resource_page' 'blog' %}">Блог</a>
+    </div>
+  </div>
+</div>
+</footer>
+<script>
+(function(){const s=localStorage.getItem('nx-theme');if(s)document.documentElement.setAttribute('data-theme',s)})();
+document.getElementById('tt')?.addEventListener('click',function(){const d=document.documentElement,v=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',v);localStorage.setItem('nx-theme',v)});
+</script>
+</body></html>
