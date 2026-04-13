@@ -105,13 +105,13 @@ form p{display:grid;gap:7px;margin-bottom:14px}
   <ul class='nav-links'><li><a href="{% url 'home' %}" class="btn-g" style='background:var(--surface2)'>Главная</a></li><li><a href="{% url 'aboutas' %}" class="btn-g" >О нас</a></li><li><a href="{% url 'homeview' %}" class="btn-g" >AI</a></li><li><a href="{% url 'studio' %}" class="btn-g" >Studio</a></li></ul>
   <div style="display:flex;gap:8px;align-items:center">
     
-    {%% if current_user %%}
-      <a href="{%% url 'profile' %%}" class="btn">Профиль</a>
-      <a href="{%% url 'logout' %%}" class="btn">Выйти</a>
-    {%% else %%}
-      <a href="{%% url 'login' %%}" class="btn">Войти</a>
-      <a href="{%% url 'register' %%}" class="btn-p">Регистрация</a>
-    {%% endif %%}
+    {% if current_user %}
+      <a href="{% url 'profile' %}" class="btn">Профиль</a>
+      <a href="{% url 'logout' %}" class="btn">Выйти</a>
+    {% else %}
+      <a href="{% url 'login' %}" class="btn">Войти</a>
+      <a href="{% url 'register' %}" class="btn-p">Регистрация</a>
+    {% endif %}
     <button class="btn" id="tt" type="button" onclick="document.documentElement.setAttribute('data-theme',document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')">◐</button>
   </div>
 </nav>
