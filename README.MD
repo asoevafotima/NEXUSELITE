@@ -1,4 +1,4 @@
-# Exam — Resume & Services Platform
+# NEXUS ELITE — Resume & Services Platform
 
 Django-приложение, где пользователи публикуют резюме (анкеты исполнителей), заказывают услуги, оставляют отзывы, а также пользуются встроенным AI-ассистентом (через OpenRouter) для работы с текстом.
 
@@ -37,7 +37,7 @@ media/      — загруженные файлы (не в git)
 ```bash
 # 1. Клонировать репозиторий
 git clone https://github.com/asoevafotima/exam.git
-cd exam
+cd exam   # каталог репозитория
 
 # 2. Создать и активировать виртуальное окружение
 python -m venv .venv
