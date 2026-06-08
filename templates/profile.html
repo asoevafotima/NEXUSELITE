@@ -2,7 +2,7 @@
 <html lang="ru" data-theme="light">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Nexus Elite | Профиль</title>
+<title> Elite | Профиль</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -91,7 +91,7 @@ form p{display:grid;gap:7px;margin-bottom:14px}
   <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
   <ul class='nav-links'><li><a href="{% url 'home' %}" class="btn-g" >Главная</a></li><li><a href="{% url 'aboutas' %}" class="btn-g" >О нас</a></li><li><a href="{% url 'homeview' %}" class="btn-g" >AI</a></li><li><a href="{% url 'studio' %}" class="btn-g" >Studio</a></li></ul>
   <div style="display:flex;gap:8px;align-items:center">
-    <a href="{{% url 'studio' %}}" class="btn">Studio</a><a href="{{% url 'homeview' %}}" class="btn">AI</a>
+    <a href="{% url 'studio' %}" class="btn">Studio</a><a href="{% url 'homeview' %}" class="btn">AI</a>
     <button class="btn" id="tt" type="button" onclick="document.documentElement.setAttribute('data-theme',document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')">◐</button>
   </div>
 </nav>
@@ -190,7 +190,7 @@ form p{display:grid;gap:7px;margin-bottom:14px}
     </div>
   </div>
   <div class="f-bottom">
-    <span>© 2026 Nexus Elite. Управление аккаунтом.</span>
+    <span>© 2026  Elite. Управление аккаунтом.</span>
     <div class="f-btm-links">
       <a href="{% url 'resource_page' 'privacy' %}">Конфиденциальность</a>
       <a href="{% url 'resource_page' 'offer' %}">Оферта</a>

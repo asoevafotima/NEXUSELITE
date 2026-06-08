@@ -2,7 +2,7 @@
 <html lang="ru" data-theme="light">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Nexus Elite | О нас</title>
+<title> Elite | О нас</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -89,7 +89,7 @@ form p{display:grid;gap:7px;margin-bottom:14px}
   <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
   <ul class='nav-links'><li><a href="{% url 'home' %}" class="btn-g" >Главная</a></li><li><a href="{% url 'aboutas' %}" class="btn-g" style='background:var(--surface2)'>О нас</a></li><li><a href="{% url 'homeview' %}" class="btn-g" >AI</a></li><li><a href="{% url 'studio' %}" class="btn-g" >Studio</a></li></ul>
   <div style="display:flex;gap:8px;align-items:center">
-    <a href="{{% url 'resource_page' 'blog' %}}" class="btn">Блог</a>
+    <a href="{% url 'resource_page' 'blog' %}" class="btn">Блог</a>
     <button class="btn" id="tt" type="button" onclick="document.documentElement.setAttribute('data-theme',document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark')">◐</button>
   </div>
 </nav>
@@ -98,7 +98,7 @@ form p{display:grid;gap:7px;margin-bottom:14px}
     <div>
       <div class="nx-badge">О проекте</div>
       <h1>Мы строим платформу, где поиск специалиста не превращается в хаос.</h1>
-      <p>Nexus Elite — аккуратная экосистема для мастеров, специалистов и заказчиков. Здесь можно найти исполнителя, сформулировать задачу через AI и подготовить бриф до первого контакта.</p>
+      <p> Elite — аккуратная экосистема для мастеров, специалистов и заказчиков. Здесь можно найти исполнителя, сформулировать задачу через AI и подготовить бриф до первого контакта.</p>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px">
         <a href="{% url 'studio' %}" class="btn-p">Открыть Studio</a>
         <a href="{% url 'homeview' %}" class="btn">Попробовать AI</a>
@@ -120,7 +120,7 @@ form p{display:grid;gap:7px;margin-bottom:14px}
   </section>
   <section class="story-grid">
     <article class="story">
-      <h2>Почему Nexus Elite отличается</h2>
+      <h2>Почему Elite отличается</h2>
       <p>Обычные каталоги заканчиваются на списке карточек. Мы идём дальше: инструменты подготовки задачи, AI-чат, служебные страницы и мобильный интерфейс, который не стыдно открывать с телефона.</p>
       <p>Проект подходит для локальных услуг и цифровых специалистов: разработчиков, дизайнеров, маркетологов, консультантов и мастеров по ремонту.</p>
     </article>
@@ -177,7 +177,7 @@ form p{display:grid;gap:7px;margin-bottom:14px}
     </div>
   </div>
   <div class="f-bottom">
-    <span>© 2026 Nexus Elite. Сильнее как продукт, понятнее как сервис.</span>
+    <span>© 2026  Elite. Сильнее как продукт, понятнее как сервис.</span>
     <div class="f-btm-links">
       <a href="{% url 'resource_page' 'privacy' %}">Конфиденциальность</a>
       <a href="{% url 'resource_page' 'offer' %}">Оферта</a>

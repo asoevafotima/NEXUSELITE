@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Elite | Новый отзыв</title>
+    <title> Elite | РќРѕРІС‹Р№ РѕС‚Р·С‹РІ</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -257,30 +257,30 @@
         <header class="topbar">
             <a href="{% url 'home' %}" class="logo">NEXUS<span>ELITE</span></a>
             <div class="nav-actions">
-                <a href="{% url 'resume_detail' resume.pk %}" class="chip">К профилю</a>
-                <a href="{% url 'home' %}" class="chip">На главную</a>
+                <a href="{% url 'resume_detail' resume.pk %}" class="chip">Рљ РїСЂРѕС„РёР»СЋ</a>
+                <a href="{% url 'home' %}" class="chip">РќР° РіР»Р°РІРЅСѓСЋ</a>
             </div>
         </header>
 
         <main class="wrap">
             <section class="info">
-                <div class="badge">Отзыв клиента</div>
-                <h1>Оставьте понятный и честный отзыв</h1>
-                <p>Я сделал эту страницу аккуратнее и полезнее. Теперь отзыв можно добавить в нормальном виде, а пользователь сразу понимает, про кого именно он пишет.</p>
+                <div class="badge">РћС‚Р·С‹РІ РєР»РёРµРЅС‚Р°</div>
+                <h1>РћСЃС‚Р°РІСЊС‚Рµ РїРѕРЅСЏС‚РЅС‹Р№ Рё С‡РµСЃС‚РЅС‹Р№ РѕС‚Р·С‹РІ</h1>
+                <p>РЎС‚СЂР°РЅРёС†Р° РѕС‚Р·С‹РІР° С‚РµРїРµСЂСЊ РѕС‚РєСЂС‹РІР°РµС‚СЃСЏ Р±РµР· РѕС€РёР±РѕРє Рё РїРѕРєР°Р·С‹РІР°РµС‚, РґР»СЏ РєР°РєРѕРіРѕ СЃРїРµС†РёР°Р»РёСЃС‚Р° РІС‹ РѕСЃС‚Р°РІР»СЏРµС‚Рµ РєРѕРјРјРµРЅС‚Р°СЂРёР№.</p>
 
                 <div class="resume-box">
                     <strong>{{ resume.full_name }}</strong>
                     <span>
-                        {% if resume.professian %}{{ resume.professian }}{% else %}Специалист{% endif %}
-                        {% if resume.category %} • {{ resume.category }}{% endif %}
-                        {% if resume.price %} • от {{ resume.price }} сомони{% endif %}
+                        {% if resume.professian %}{{ resume.professian }}{% else %}РЎРїРµС†РёР°Р»РёСЃС‚{% endif %}
+                        {% if resume.category %} вЂў {{ resume.category }}{% endif %}
+                        {% if resume.price %} вЂў РѕС‚ {{ resume.price }} СЃРѕРјРѕРЅРё{% endif %}
                     </span>
                 </div>
             </section>
 
             <section class="panel">
-                <h2>Новый отзыв</h2>
-                <p>Опишите свой опыт работы со специалистом. Хороший отзыв помогает другим клиентам выбрать человека осознанно.</p>
+                <h2>РќРѕРІС‹Р№ РѕС‚Р·С‹РІ</h2>
+                <p>РћРїРёС€РёС‚Рµ СЃРІРѕР№ РѕРїС‹С‚ СЂР°Р±РѕС‚С‹ СЃРѕ СЃРїРµС†РёР°Р»РёСЃС‚РѕРј. РҐРѕСЂРѕС€РёР№ РѕС‚Р·С‹РІ РїРѕРјРѕРіР°РµС‚ РґСЂСѓРіРёРј РєР»РёРµРЅС‚Р°Рј РІС‹Р±СЂР°С‚СЊ РёСЃРїРѕР»РЅРёС‚РµР»СЏ РѕСЃРѕР·РЅР°РЅРЅРѕ.</p>
 
                 {% if messages or form.errors %}
                 <div class="alert-list">
@@ -301,16 +301,16 @@
                 <form method="post">
                     {% csrf_token %}
                     {{ form.as_p }}
-                    <div class="rating-note">Подсказка: лучше написать, что именно делал специалист, насколько быстро отвечал, уложился ли в срок и было ли удобно общаться.</div>
+                    <div class="rating-note">РџРѕРґСЃРєР°Р·РєР°: Р»СѓС‡С€Рµ РЅР°РїРёСЃР°С‚СЊ, С‡С‚Рѕ РёРјРµРЅРЅРѕ РґРµР»Р°Р» СЃРїРµС†РёР°Р»РёСЃС‚, РЅР°СЃРєРѕР»СЊРєРѕ Р±С‹СЃС‚СЂРѕ РѕС‚РІРµС‡Р°Р», СѓР»РѕР¶РёР»СЃСЏ Р»Рё РІ СЃСЂРѕРє Рё Р±С‹Р»Рѕ Р»Рё СѓРґРѕР±РЅРѕ РѕР±С‰Р°С‚СЊСЃСЏ.</div>
                     <div class="actions">
-                        <button type="submit" class="submit-btn">Опубликовать отзыв</button>
-                        <a href="{% url 'resume_detail' resume.pk %}" class="chip">Отмена</a>
+                        <button type="submit" class="submit-btn">РћРїСѓР±Р»РёРєРѕРІР°С‚СЊ РѕС‚Р·С‹РІ</button>
+                        <a href="{% url 'resume_detail' resume.pk %}" class="chip">РћС‚РјРµРЅР°</a>
                     </div>
                 </form>
             </section>
         </main>
 
-        <div class="footer-note">Nexus Elite • Отзывы помогают находить сильных специалистов</div>
+        <div class="footer-note"> Elite вЂў РћС‚Р·С‹РІС‹ РїРѕРјРѕРіР°СЋС‚ РЅР°С…РѕРґРёС‚СЊ СЃРёР»СЊРЅС‹С… СЃРїРµС†РёР°Р»РёСЃС‚РѕРІ</div>
     </div>
 </body>
 </html>
